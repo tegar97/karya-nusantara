@@ -22,9 +22,6 @@ export const AboutHeading = styled.h3`
   font-weight: 700;
   color: #45c1c1;
   transition: all 0.2s;
-  
-
-  
 `
 
 

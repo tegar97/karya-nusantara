@@ -10,7 +10,7 @@ import {
 function About() {
   return (
     <div
-      className="p-20 mt-3"
+      className="p-24 mt-3"
       style={{ backgroundColor: "var(--color-background" }}
     >
       <HeadingSecondary className="text-center ">
