@@ -1,5 +1,4 @@
 import React from "react";
-import { HeadingSecondary } from "./../About/About.styled";
 
 function Rfq() {
   return (
@@ -10,16 +9,16 @@ function Rfq() {
       {/* <HeadingSecondary className="text-center ">
         Request For Quotation
       </HeadingSecondary> */}
-      <div className="grid grid-cols-5 gap-4 p-20 ">
-        <div className="col-span-3">
-          <h4 className="mb-5 text-4xl font-bold text-white">
+      <div className="grid items-center content-center gap-4 p-4 sm:p-4 lg:p-20 lg:grid-cols-5 md:grid-cols-1 ">
+        <div className="col-span-1 lg:col-span-3 ">
+          <h4 className="mb-5 text-2xl font-bold text-white lg:text-4xl ">
             Solusi cepat Untuk Mendapatkan Penawaran Harga
           </h4>
           <span className="text-lg text-white ">
             Isikan Detail Barang Yang Anda inginkan disini
           </span>
         </div>
-        <div className="w-full col-span-2">
+        <div className="w-full col-span-2 ">
           <div className="p-5 bg-white ">
             <span>Dapatkan Penawaran Terbaik</span>
             <form>
