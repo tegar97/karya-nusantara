@@ -11,7 +11,7 @@ function ProductCategory() {
   return (
     <div className="grid grid-cols-4 gap-7 ">
       <LeftCategory className="">
-        <CategoryProductText className="text-1xl">
+        <CategoryProductText className="text-blue-100 text-1xl">
           KATEGORI PRODUK
         </CategoryProductText>
 

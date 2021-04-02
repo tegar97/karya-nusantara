@@ -4,7 +4,6 @@ export const HeadingSecondary = styled.h2`
   font-size: 2rem;
   text-transform: uppercase;
   font-weight: 600;
-  color: #45c1c1;
   letter-spacing: 0.2rem;
   transition: all 0.2s;
   cursor: pointer;
@@ -20,18 +19,23 @@ export const AboutHeading = styled.h3`
     font-size: 1.5rem;
   text-transform: uppercase;
   font-weight: 700;
-  color: #45c1c1;
   transition: all 0.2s;
 `
 
 
 export const ReadMore = styled.button`
     font-size: 1rem;
-    color: #45c1c1;
     display: inline-block;
     text-decoration: none;
-    border-bottom: 1px solid #426EB5;
+    border-bottom: 1px solid #5996ab;
     padding: 3px;
+    transition: all .5s;
+
+    &:focus{
+      border: none;
+      outline: none;
+      transform: translateY(-2px);
+    }
 `
 
 export const Composition = styled.div`

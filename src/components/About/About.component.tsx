@@ -10,15 +10,15 @@ import {
 function About() {
   return (
     <div
-      className="p-24 mt-3"
+      className="px-24 py-40 mt-3"
       style={{ backgroundColor: "var(--color-background" }}
     >
-      <HeadingSecondary className="text-center ">
+      <HeadingSecondary className="text-center text-blue-100">
         Tentang Karya Nusantara
       </HeadingSecondary>
       <div className="grid w-full grid-cols-2 mt-20">
         <div>
-          <AboutHeading className="text-2xl">
+          <AboutHeading className="text-2xl text-blue-100">
             Apa Itu Karya Nusantara ?
           </AboutHeading>
           <p className="mt-4 text-md">
@@ -29,7 +29,9 @@ function About() {
             UKMindonesia.id dan kementrian Koperasi dan UKM RI.
           </p>
 
-          <ReadMore className="mt-5">Lihat Selengkapnya &rarr; </ReadMore>
+          <ReadMore className="mt-5 text-blue-100">
+            Lihat Selengkapnya &rarr;{" "}
+          </ReadMore>
         </div>
 
         <div>
