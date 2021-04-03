@@ -3,12 +3,13 @@ import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import { Card, CardContent } from "@material-ui/core";
 import Link from "next/link";
 import { motion, useCycle } from "framer-motion";
-function ProductSideBarItems({ product }) {
+function ProductSideBarItems({ product, setGetData }) {
   const [ItemOnClick, setItemOnClick] = useState(null);
   const [animation, cycleAnimation] = useCycle("animationOne", "animationTwo");
 
   const dropCategory = (id) => {
     setItemOnClick(!ItemOnClick);
+    setGetData(id);
     cycleAnimation();
   };
   const DropDownAnimation = {
