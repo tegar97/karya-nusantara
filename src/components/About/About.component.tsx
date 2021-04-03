@@ -10,11 +10,11 @@ import {
 function About() {
   return (
     <div
-      className="px-24 py-40 mt-3"
+      className="px-24 pt-24 pb-44 "
       style={{ backgroundColor: "var(--color-background" }}
     >
       <HeadingSecondary className="text-center text-blue-100">
-        Tentang Karya Nusantara
+        Tentang kita
       </HeadingSecondary>
       <div className="grid w-full grid-cols-2 mt-20">
         <div>

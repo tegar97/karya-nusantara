@@ -10,7 +10,7 @@ import Image from "next/image";
 function ProductCategory() {
   return (
     <div className="grid grid-cols-4 gap-7 ">
-      <LeftCategory className="">
+      <LeftCategory className="bg-blue-100">
         <CategoryProductText className="text-blue-100 text-1xl">
           KATEGORI PRODUK
         </CategoryProductText>

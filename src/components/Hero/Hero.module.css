@@ -1,4 +1,4 @@
-.tes {
+.HeroContainer {
   height: 100vh;
   background: linear-gradient(
     90deg,
@@ -7,6 +7,7 @@
   );
 
   width: 100%;
+  position: relative;
 }
 
 .daun {

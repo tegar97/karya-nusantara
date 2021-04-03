@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 
 export const LeftCategory = styled.div`
-    background-color: #45c1c1;
     padding: 2rem;
 
 `

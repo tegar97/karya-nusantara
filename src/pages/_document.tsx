@@ -34,7 +34,6 @@ class MyDocument extends Document {
       <Html>
         <Head />
         <body>
-          <Navbar />
           <Main />
           <NextScript />
         </body>
