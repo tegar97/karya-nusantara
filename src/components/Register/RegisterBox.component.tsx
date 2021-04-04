@@ -21,9 +21,9 @@ function RegisterBox() {
     setRole(null);
   };
   return (
-    <Paper>
-      <h1>Register</h1>
-    </Paper>
+      <Paper>
+          <h1>Register</h1>
+      </Paper>
   );
 }
 

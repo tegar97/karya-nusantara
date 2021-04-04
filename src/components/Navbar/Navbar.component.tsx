@@ -52,7 +52,7 @@ function Navbar() {
             Tentang Karya Nusantara
           </li>
           <li className="ml-4 cursor-pointer hover:text-blue-100 ">
-            Katalog Produk
+            <Link href="/product">Katalog Produk</Link>
           </li>
           <li className="ml-4 cursor-pointer hover:text-blue-100">
             Request For Quotation
