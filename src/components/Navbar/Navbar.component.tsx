@@ -42,7 +42,7 @@ function Navbar() {
             alt="Logo Karya Nusantara"
             width={150}
             height={50}
-            className="z-30"
+            className="z-30 cursor-pointer"
           />
         </Link>
       </div>

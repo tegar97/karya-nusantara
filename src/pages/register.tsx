@@ -7,8 +7,9 @@ import RegisterBox from "../components/Register/RegisterBox.component";
 function register() {
   return (
     <Container
+      maxWidth="lg"
       className="flex items-center justify-center"
-      style={{ backgroundColor: "#f5f5f5", minHeight: "100vh" }}
+      style={{ backgroundColor: "#ffff", minHeight: "100vh" }}
     >
       <RegisterBox />
     </Container>
