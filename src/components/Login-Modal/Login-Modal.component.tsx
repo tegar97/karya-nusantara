@@ -107,11 +107,6 @@ const LoginModal = () => {
                 </Link>
               </div>
               <div className="flex items-center mt-7">
-                <input
-                  type="checkbox"
-                  className="w-5 h-5 text-blue-600 form-checkbox"
-                  onChange={() => setUkm(!isUkm)}
-                />
                 {/* <span className="ml-2 text-gray-700">
                   Centang ini jika sebelumnya anda mendaftar sebagai ukm
                 </span> */}

@@ -44,26 +44,26 @@ export const Composition = styled.div`
 `
 
 export const CompositionPhoto1 = styled.img`
-    width: 298px;
-    height: 199px;
+   
+    width: 45%;
     box-shadow: 0 1.5rem 4rem rgba(0,0,0,.4);
     border-radius: 2px;
     position: absolute;
-    z-index: 10;
+    z-index: 8;
     transition: all .2s;
-    outline-offset: 1rem;
-    left: 10%;
-    top: -1rem;
+    outline-offset: 2rem;
+    left: 4rem;
+    top: -2rem;
+    
     @media(max-width: 56.25em) {
       float: left;
       position: relative;
-      width: 168px;
-    height: 110px;
+      width: 33.33333333%;
       box-shadow: 0 1.5rem 4rem rgba(0,0,0,.4);
-      left: 5%;
-     top: -1rem;
-            
+      top: 0;
+      left: 0;
 
+      transform: scale(1.2);
     }
 
     
@@ -75,29 +75,32 @@ export const CompositionPhoto1 = styled.img`
 
 `
 export const CompositionPhoto2 = styled.img`
-       width: 298px;
-    height: 199px;
+    width: 45%;
     box-shadow: 0 1.5rem 4rem rgba(0,0,0,.4);
     border-radius: 2px;
     position: absolute;
     z-index: 10;
     transition: all .2s;
-    outline-offset: 1rem;
-    left: 45%;
-    top:  1.3rem;
+    outline-offset: 2rem;
+    right: 4rem;
+            top: 4remrem;
+    /* @media(max-width: 56.25em) {
+      right: 0;
+            top: 2rem;
 
+    } */
+  
     @media(max-width: 56.25em) {
       float: left;
       position: relative;
-      width: 168px;
-    height: 110px;
+      width: 33.33333333%;
       box-shadow: 0 1.5rem 4rem rgba(0,0,0,.4);
-      left: -25%;
-    top:  0.9rem;
-    z-index: 10;
+      top: -1rem;
+      right: 0;
 
+                transform: scale(1.3);
+                z-index: 100;
     }
-
     
     &:hover{
         outline: .9rem solid var(--color-primary);
@@ -107,30 +110,32 @@ export const CompositionPhoto2 = styled.img`
 
 `
 export const CompositionPhoto3 = styled.img`
-     width: 298px;
-    height: 199px;
+    width: 45%;
     box-shadow: 0 1.5rem 4rem rgba(0,0,0,.4);
     border-radius: 2px;
     position: absolute;
     z-index: 10;
     transition: all .2s;
-    outline-offset: 1rem;
-    left: 20%;
-    top:  6.2rem;
+    outline-offset: 2rem;
 
+    left: 20%;
+            top: 6rem;
+    /* @media(max-width: 56.25em) {
+      left: 20%;
+      top: 10rem;
+
+
+    } */
     @media(max-width: 56.25em) {
       float: left;
       position: relative;
-      width: 168px;
-    height: 110px;
+      width: 33.33333333%;
       box-shadow: 0 1.5rem 4rem rgba(0,0,0,.4);
-      left: 50%;
-      top: -8rem;
-      z-index: 9;
-
-
+      top: 1rem;
+      left: 0;
+      transform: scale(1.1);
     }
-
+    
     
     &:hover{
         outline: .9rem solid var(--color-primary);

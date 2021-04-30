@@ -51,7 +51,7 @@ function OurMitra() {
                       </span>
                     </div>
                   </div>
-                  <div className="mt-5">
+                  <div className="mt-10">
                     <div
                       className="text-white "
                       dangerouslySetInnerHTML={createMarkup(
@@ -59,7 +59,7 @@ function OurMitra() {
                       )}
                     ></div>
                     <Link href={`/mitra/${data.slug}`}>
-                      <button className="p-2 mt-5 text-white bg-blue-100">
+                      <button className="p-2 mt-5 text-left text-white bg-blue-100">
                         Baca selengkapnya cerita dari {data.name}
                       </button>
                     </Link>

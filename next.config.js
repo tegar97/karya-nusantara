@@ -4,6 +4,6 @@ module.exports = {
     },
     env: {
       API_LARAVEL: 'https://kn-api2.tegar.me',
-      API_GOLANG: 'https://kn-api1.tegar.me',
+      API_GOLANG: 'http://127.0.0.1:5000',
     },
   }

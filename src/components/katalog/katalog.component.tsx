@@ -25,8 +25,8 @@ function Katalog({ product, isCategory }) {
               !isCategory ? product.images.split(",")[0] : product.image
             }`}
             alt="Baju Hazmat"
-            width={400}
-            height={500}
+            width={500}
+            height={700}
           />
           <div className="absolute w-full p-2 text-center bg-blue-100 rounded-md bg-opacity-80 bottom-6 ">
             <span className="text-white">{product.name}</span>

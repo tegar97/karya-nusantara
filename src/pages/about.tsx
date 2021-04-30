@@ -6,7 +6,7 @@ function about() {
   const testSendCookie = () => {
     async function send() {
       await axios
-        .get(`${process.env.API_GOLANG}/api/v1/testCookie`, {
+        .get(`/v1/testCookie`, {
           withCredentials: true,
         })
         .then((res) => console.log(res));
