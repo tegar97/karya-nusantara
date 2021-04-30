@@ -80,30 +80,31 @@ function Penawaran({ products }) {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
-              {products.data.map((p) => (
-                <tr>
-                  <td className="px-6 py-4">1</td>
-                  <td className="px-6 py-4">
-                    <p className="">{p.ProductName}</p>
-                  </td>
-                  <td className="px-6 py-4">
-                    <p className="">{p.CapacityProduct}</p>
-                  </td>
-                  <td className="px-6 py-4 text-center">
-                    {converToRupiah(p.Price)}
-                  </td>
-                  <td className="px-6 py-4 text-center">
-                    <span className="px-2 font-semibold text-green-800 bg-green-200 rounded-full">
-                      Ready
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 text-center">
-                    <DetailProduct product={p} />
+              {products &&
+                products.data.map((p) => (
+                  <tr>
+                    <td className="px-6 py-4">1</td>
+                    <td className="px-6 py-4">
+                      <p className="">{p.ProductName}</p>
+                    </td>
+                    <td className="px-6 py-4">
+                      <p className="">{p.CapacityProduct}</p>
+                    </td>
+                    <td className="px-6 py-4 text-center">
+                      {converToRupiah(p.Price)}
+                    </td>
+                    <td className="px-6 py-4 text-center">
+                      <span className="px-2 font-semibold text-green-800 bg-green-200 rounded-full">
+                        Ready
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 text-center">
+                      <DetailProduct product={p} />
 
-                    <AddBid id={p.ID} />
-                  </td>
-                </tr>
-              ))}
+                      <AddBid id={p.ID} />
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         </div>
