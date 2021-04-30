@@ -43,7 +43,7 @@ function converToRupiah(angka) {
 }
 
 export async function getStaticProps() {
-  const res = await fetch(`http://127.0.0.1:5000/api/v1/product`);
+  const res = await fetch(`${process.env.API_GOLANG}/api/v1/product`);
   const products = await res.json();
 
   return {
