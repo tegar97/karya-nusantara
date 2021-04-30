@@ -6,7 +6,7 @@ function Hero() {
         <img src="/assets/DauntPutih.png" className={styles.daun} />
 
         <div className="text-center ">
-          <h1 className="mb-5 text-5xl font-extrabold text-white ">
+          <h1 className="mb-5 text-3xl font-extrabold text-white lg:text-5xl ">
             Ragam Solusi Berkualitas Hasil <br />
             Karya UKM Lokal Indonesia
           </h1>

@@ -4,15 +4,28 @@ import { Card, CardContent } from "@material-ui/core";
 import Link from "next/link";
 import { motion, useCycle } from "framer-motion";
 import { useRouter } from "next/router";
-function ProductSideBarItems({ product, setGetData }) {
+import useSWR from "swr";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+
+const fetcher = (
+  ...args: [input: RequestInfo, init?: RequestInit | undefined]
+): any => fetch(...args).then((res) => res.json());
+function ProductSideBarItems({ getData, product, setGetData }) {
   const router = useRouter();
   const [ItemOnClick, setItemOnClick] = useState(null);
   const [animation, cycleAnimation] = useCycle("animationOne", "animationTwo");
   const { category } = router.query;
-
+  const { data: ProductData, error } = useSWR(
+    `${process.env.API_LARAVEL}/api/product/${getData}`,
+    fetcher
+  );
   const dropCategory = (id) => {
     setItemOnClick(!ItemOnClick);
-    setGetData(id);
+    if (id == getData) {
+      setGetData(0);
+    } else {
+      setGetData(id);
+    }
     cycleAnimation();
   };
   const DropDownAnimation = {
@@ -57,8 +70,15 @@ function ProductSideBarItems({ product, setGetData }) {
           </span>
         </Link>
       </div>
-      {ItemOnClick
-        ? product.subCategory.map((data) => (
+      {getData == product.id ? (
+        !ProductData ? (
+          <SkeletonTheme color="#fffff" highlightColor="#ffff">
+            <p>
+              <Skeleton count={3} />
+            </p>
+          </SkeletonTheme>
+        ) : (
+          ProductData.data.product.data.map((data) => (
             <motion.ul
               variants={DropDownAnimation}
               animate="visible"
@@ -67,13 +87,14 @@ function ProductSideBarItems({ product, setGetData }) {
               style={{ padding: "0.2rem" }}
             >
               <li className="text-sm hover:text-blue-100">
-                <Link href={`/product/?category=${product.id}&sc=${data.id}`}>
-                  {data.name}
-                </Link>
+                <Link href={`/product/${data.slug}`}>{data.name}</Link>
               </li>
             </motion.ul>
           ))
-        : ""}
+        )
+      ) : (
+        ""
+      )}
     </div>
   );
 }

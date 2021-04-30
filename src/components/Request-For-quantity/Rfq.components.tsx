@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 function Rfq() {
@@ -86,6 +87,9 @@ function Rfq() {
                   placeholder="Jumlah Barang"
                 ></textarea>
               </div>
+              <Link href="/request">
+                <button className="p-2 text-white bg-blue-100 ">Submit</button>
+              </Link>
             </form>
           </div>
         </div>

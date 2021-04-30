@@ -21,22 +21,22 @@ export const ProductJSON = [
             {
                 "id": 2,
                 "name" : "Baju Ok",
-                "img" : "/assets/katalog/baju/1.jpg",
+                "img" : "/assets/katalog/Baju/1.jpg",
                 "items" : [
                     {
                         "id": 1,
                         "name" : "Baju 1",
-                        "img" : "/assets/katalog/baju/1.jpg",
+                        "img" : "/assets/katalog/Baju/1.jpg",
                     } ,
                     {
                         "id": 1,
                         "name" : "Baju 2",
-                        "img" : "/assets/katalog/baju/1.jpg",
+                        "img" : "/assets/katalog/Baju/1.jpg",
                     } ,
                     {
                         "id": 1,
                         "name" : "Baju 3",
-                        "img" : "/assets/katalog/baju/3.jpg",
+                        "img" : "/assets/katalog/Baju/3.jpg",
                     } ,
                 ],
             

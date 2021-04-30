@@ -4,21 +4,24 @@ import {
   AboutHeading,
   ReadMore,
   Composition,
-  CompositionPhoto,
+  CompositionPhoto1,
+  CompositionPhoto2,
+  CompositionPhoto3,
 } from "./About.styled";
 
-function About() {
+function About({ image }) {
   return (
     <div
-      className="px-24 pt-24 pb-44 "
+      id="about"
+      className="px-10 pt-16 pb-40 lg:pt-24 lg:px-24 lg:pb-60"
       style={{ backgroundColor: "var(--color-background" }}
     >
       <HeadingSecondary className="text-center text-blue-100">
         Tentang kita
       </HeadingSecondary>
-      <div className="grid w-full grid-cols-2 mt-20">
+      <div className="grid w-full grid-cols-1 mt-10 lg:mt-20 md:grid-cols-2 lg:grid-cols-2">
         <div>
-          <AboutHeading className="text-2xl text-blue-100">
+          <AboutHeading className="text-lg text-blue-100 lg:text-2xl">
             Apa Itu Karya Nusantara ?
           </AboutHeading>
           <p className="mt-4 text-md">
@@ -29,25 +32,22 @@ function About() {
             UKMindonesia.id dan kementrian Koperasi dan UKM RI.
           </p>
 
-          <ReadMore className="mt-5 text-blue-100">
+          {/* <ReadMore className="mt-5 text-blue-100">
             Lihat Selengkapnya &rarr;{" "}
-          </ReadMore>
+          </ReadMore> */}
         </div>
 
-        <div>
+        <div className="mt-20 md:mt-0">
           <Composition>
-            <CompositionPhoto
-              src="/assets/foto1.jpg"
-              style={{ left: "10%", top: "-1rem" }}
-            ></CompositionPhoto>
-            <CompositionPhoto
-              src="/assets/foto2.jpg"
-              style={{ left: "45%", top: "1.3rem" }}
-            ></CompositionPhoto>
-            <CompositionPhoto
-              src="/assets/foto3.jpg"
-              style={{ left: "20%", top: "6.2rem" }}
-            ></CompositionPhoto>
+            <CompositionPhoto1
+              src={`${process.env.API_LARAVEL}/storage/${image[0].about_img1}`}
+            ></CompositionPhoto1>
+            <CompositionPhoto2
+              src={`${process.env.API_LARAVEL}/storage/${image[0].about_img2}`}
+            ></CompositionPhoto2>
+            <CompositionPhoto3
+              src={`${process.env.API_LARAVEL}/storage/${image[0].about_img3}`}
+            ></CompositionPhoto3>
           </Composition>
         </div>
       </div>

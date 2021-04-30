@@ -4,6 +4,7 @@ import LoginModal from "../Login-Modal/Login-Modal.component";
 import RegisterKonsumen from "../register-konsumen/Register-konsumen";
 import { RegisterContainer, RegisterBoxContainer } from "./Register.styles";
 import Image from "next/image";
+import RegisterUKM from "../register-ukm/register-ukm";
 function RegisterBox() {
   const [roleClick, setRoleClick] = useState(false);
   const [role, setRole] = useState(null);
@@ -14,7 +15,7 @@ function RegisterBox() {
   };
   const Roleumkm = () => {
     setRoleClick(true);
-    setRole("konsumen");
+    setRole("ukm");
   };
 
   const RemoveRole = () => {
@@ -22,12 +23,12 @@ function RegisterBox() {
     setRole(null);
   };
   return (
-    <div className="grid grid-cols-3 lg:px-20 py-36 ">
-      <div className="col-span-2 lg:w-10/12 ">
-        <h1 className="text-2xl font-medium text-blue-100">
+    <div className="grid grid-cols-1 lg:grid-cols-3 lg:px-20 py-36 ">
+      <div className="w-full lg:col-span-2 lg:w-10/12 ">
+        <h1 className="text-2xl font-medium text-center text-blue-100 lg:text-left">
           Daftar Akun Baru Sebagai {role}
         </h1>
-        <div className="mt-5">
+        <div className="mt-10 text-center lg:text-left">
           {roleClick ? (
             <span>Silahkan Isi Form Di Bawah Ini </span>
           ) : (
@@ -52,8 +53,9 @@ function RegisterBox() {
           )}
         </div>
         {role == "konsumen" ? <RegisterKonsumen /> : ""}
+        {role == "ukm" ? <RegisterUKM /> : ""}
       </div>
-      <div className="">
+      <div className="order-first text-center lg:text-left lg:order-last">
         <Image
           src="/assets/logo-kn.png"
           alt="Logo Karya nusantara"

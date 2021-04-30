@@ -6,82 +6,191 @@ import { ProductJSON } from "./../Data/productData";
 import ProductSideBarItems from "../components/product-sidebar-items/product-sidebar-items";
 import Katalog from "../components/katalog/katalog.component";
 import ProductSearch from "../components/product-search/product-search.component";
-export const getStaticProps = async () => {
-  return {
-    props: {
-      product: ProductJSON,
-    }, // will be passed to the page component as props
-  };
-};
-function Product({ product }) {
+import axios from "axios";
+import useSWR from "swr";
+import { motion } from "framer-motion";
+import ReactPaginate from "react-paginate";
+import Pagination from "../components/pagination/pagination.component";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import { NextSeo } from "next-seo";
+import Head from "next/head";
+
+// export const getStaticProps = async () => {
+//   const router = useRouter();
+
+//   const { category, sc, all } = router.query;
+
+//   const res = await fetch(`http://127.0.0.1:8000/api/category`);
+//   const res2 = await fetch(`http://127.0.0.1:8000/api/product/${category}`);
+//   const data = await res.json();
+//   const data2 = await res2.json();
+//   return {
+//     props: {
+//       categoryData: data,
+//       productData: data2,
+//       product: ProductJSON,
+//     }, // will be passed to the page component as props
+//   };
+// };
+
+//ts-ignore
+const fetcher = (
+  ...args: [input: RequestInfo, init?: RequestInit | undefined]
+): any => fetch(...args).then((res) => res.json());
+
+function Product() {
   const router = useRouter();
   const [getData, setGetData] = useState(null);
-  const { category, sc, all } = router.query;
+  const [getProduct, setProduct] = useState([]);
+  const [search, setSearch] = useState("");
+  const [page, setPage] = useState(1);
 
-  const getProduct = () => {
-    router.push("/?category=1", "/product?category=1", { shallow: true });
+  const { category, sc, all } = router.query;
+  const onSearch = (e) => {
+    setSearch(e.target.value.toLowerCase());
   };
+  // const getProduct = () => {
+  //   router.push("/?category=1", "/product?category=1", { shallow: true });
+  // };
+  const { data: product, error } = useSWR(
+    `${
+      search == ""
+        ? `${process.env.API_LARAVEL}/api/product/${category}?page=${page}`
+        : `${process.env.API_LARAVEL}/api/product/`
+    }`,
+    fetcher
+  );
+  const { data: categoryData, error: errorCategory } = useSWR(
+    `${process.env.API_LARAVEL}/api/category/`,
+    fetcher
+  );
 
   return (
-    <div style={{ backgroundColor: "#f5f5f5f5", minHeight: "100vh" }}>
-      <div className="grid grid-cols-5 px-20 py-40 ">
-        <div>
-          <ProductSideBar>
-            {product.map((data) => (
-              <ProductSideBarItems
-                setGetData={setGetData}
-                key={data.id}
-                product={data}
-              />
-            ))}
-          </ProductSideBar>
-        </div>
-        <div className="col-span-4 ml-5">
-          <div className="mb-5">
-            <ProductSearch />
+    <>
+      <Head>
+        <meta
+          name="keywords"
+          content="ukm indonesia, umks indonesia, karya nusantara,jual,beli,ukm"
+        />
+      </Head>
+      <NextSeo
+        title="Produk Karya Nusantara"
+        description="Produk Karya Nusantara"
+        canonical="karyanusantara.co.id"
+        openGraph={{
+          url: "karyanusantara.co.id",
+          title: "Produk Karya Nusantara",
+          description: "Produk Karya Nusantara",
+          images: [
+            {
+              url: "/favicon.ico",
+              width: 800,
+              height: 600,
+              alt: "Logo Karya Nusantara",
+            },
+          ],
+          site_name: "Produk Karya Nusantara",
+        }}
+      />
+      <div style={{ backgroundColor: "#f5f5f5f5", minHeight: "100vh" }}>
+        <div className="grid grid-cols-1 px-1 py-5 lg:px-20 lg:py-40 lg:grid-cols-5 ">
+          <div className="hidden lg:block">
+            <ProductSideBar>
+              {!categoryData
+                ? "Loading ...."
+                : categoryData.data.category.data.map((data) => (
+                    <ProductSideBarItems
+                      setGetData={setGetData}
+                      getData={getData}
+                      key={data.id}
+                      product={data}
+                    />
+                  ))}
+            </ProductSideBar>
           </div>
+          <div className="ml-5 lg:col-span-4">
+            <div className="mb-5">
+              <ProductSearch onSearch={onSearch} />
+            </div>
 
-          <div className="grid w-full grid-cols-3 gap-5">
-            {!all && category
-              ? product
-                  .filter((p) => p.id == category)
-                  .map((p) =>
-                    p.subCategory
-                      .filter((data) => data.id == sc)
-                      .map((item) =>
-                        item.items.map((itemData) => (
-                          <Katalog key={itemData.id} product={itemData} />
+            <div className="grid w-full grid-cols-2 gap-5 md:grid-cols-3">
+              {/* {!all && category
+              ? product.data.map((data) => (
+                  <Katalog product={data} isCategory="true" />
+                ))
+              : ""} */}
+            </div>
+
+            {!sc && !all && !category && categoryData && search == "" ? (
+              <div className="grid w-full grid-cols-2 gap-5 md:grid-cols-3">
+                {categoryData.data.category.data.map((data) => (
+                  <Katalog key={data.id} product={data} isCategory="true" />
+                ))}
+              </div>
+            ) : (
+              ""
+            )}
+            <div className="grid w-full grid-cols-2 gap-5 md:grid-cols-3">
+              {!product ? (
+                <SkeletonTheme color="#fffff" highlightColor="#ffff">
+                  <p>
+                    <Skeleton count={3} />
+                  </p>
+                </SkeletonTheme>
+              ) : all || (category && !sc) || search.length > 1 ? (
+                <>
+                  <>
+                    {!product ? (
+                      "....."
+                    ) : product.data.product.data.length == 0 ? (
+                      <h1>Tidak Ada Produk dengan kategori tersebut </h1>
+                    ) : (
+                      product.data.product.data
+                        .filter((product) => {
+                          if (search == "") {
+                            return product;
+                          } else if (
+                            product.name
+                              .toLowerCase()
+                              .includes(search.toLowerCase())
+                          ) {
+                            return product;
+                          }
+                        })
+                        .map((data) => (
+                          <Katalog
+                            key={data.id}
+                            product={data}
+                            isCategory={false}
+                          />
                         ))
-                      )
-                  )
-              : ""}
+                    )}
+                  </>
+                </>
+              ) : (
+                ""
+              )}
+            </div>
+            <div className="mt-10">
+              {!sc && !all && !category && categoryData && (
+                <Pagination
+                  page={page}
+                  setPage={setPage}
+                  totalPages={categoryData.data.category.last_page}
+                />
+              )}
+              {category && !sc && product && (
+                <Pagination
+                  page={page}
+                  setPage={setPage}
+                  totalPages={product.data.product.last_page}
+                />
+              )}
+            </div>
           </div>
-
-          {!sc && !all && !category ? (
-            <div className="grid w-full grid-cols-3 gap-5">
-              {product.map((data) => (
-                <Katalog product={data} />
-              ))}
-            </div>
-          ) : (
-            ""
-          )}
-          {all || (category && !sc) ? (
-            <div className="grid w-full grid-cols-3 gap-5">
-              {product
-                .filter((p) => p.id == category)
-                .map((p) =>
-                  p.subCategory.map((category) => (
-                    <Katalog key={category.id} product={category} />
-                  ))
-                )}
-            </div>
-          ) : (
-            ""
-          )}
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

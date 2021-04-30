@@ -2,13 +2,13 @@ import Image from "next/image";
 import React from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-function Katalog({ product }) {
+function Katalog({ product, isCategory }) {
   return (
     <Link
       href={
-        product.isCategory
+        isCategory
           ? `/product/?category=${product.id}&all=true`
-          : `/product/${product.name}`
+          : `/product/${product.slug}`
       }
     >
       <motion.div
@@ -20,7 +20,14 @@ function Katalog({ product }) {
         transition={{ type: "spring", stiffness: 100 }}
       >
         <div className="relative flex flex-col justify-center">
-          <Image src={product.img} alt="Baju Hazmat" width={400} height={500} />
+          <Image
+            src={`${process.env.API_LARAVEL}/storage/${
+              !isCategory ? product.images.split(",")[0] : product.image
+            }`}
+            alt="Baju Hazmat"
+            width={400}
+            height={500}
+          />
           <div className="absolute w-full p-2 text-center bg-blue-100 rounded-md bg-opacity-80 bottom-6 ">
             <span className="text-white">{product.name}</span>
           </div>

@@ -1,8 +1,9 @@
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import Slider from "react-slick";
-
-function ProductDetailImage() {
+import { motion } from "framer-motion";
+function ProductDetailImage({ product }) {
+  const [mainImage, setMainImage] = useState("");
   var settings = {
     dots: true,
     infinite: false,
@@ -38,31 +39,35 @@ function ProductDetailImage() {
     ],
   };
   return (
-    <>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ type: "spring", stiffness: 100 }}
+    >
       <img
         className="w-full col-span-4 "
-        src="/assets/katalog/baju/1.jpg"
+        src={`${process.env.API_LARAVEL}/storage/${
+          mainImage ? mainImage : product.data[0].images.split(",")[0]
+        }`}
         alt="baju"
         style={{ width: "100%" }}
       />
       <Slider {...settings}>
-        <div>
-          <img className="" src="/assets/katalog/baju/1.jpg" alt="baju" />
-        </div>
-        <div>
-          <img className="" src="/assets/katalog/baju/2.jpg" alt="baju" />
-        </div>
-        <div>
-          <img className="" src="/assets/katalog/baju/2.jpg" alt="baju" />
-        </div>
-        <div>
-          <img className="" src="/assets/katalog/baju/2.jpg" alt="baju" />
-        </div>
-        <div>
-          <img className="" src="/assets/katalog/baju/2.jpg" alt="baju" />
-        </div>
+        {product.data[0].images.split(",").map((img, index) => (
+          <motion.div
+            whileTap={{ scale: 0.9 }}
+            key={index}
+            onClick={() => setMainImage(img)}
+          >
+            <img
+              className=""
+              src={`${process.env.API_LARAVEL}/storage/${img}`}
+              alt="baju"
+            />
+          </motion.div>
+        ))}
       </Slider>
-    </>
+    </motion.div>
   );
 }
 

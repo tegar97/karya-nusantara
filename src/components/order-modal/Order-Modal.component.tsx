@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import "react-responsive-modal/styles.css";
 import { Modal } from "react-responsive-modal";
+import convertToRupiah from "../../util/converRupiah";
 
-const OrderModal = () => {
+const OrderModal = ({ product }) => {
   const [open, setOpen] = useState(false);
   const [quatity, setQuantity] = useState(null);
   const [keterangan, setKeterangan] = useState(null);
@@ -17,7 +18,7 @@ const OrderModal = () => {
     if (!quatity && !keterangan) {
       return setError("Form Wajib di isi");
     }
-    const message = `Halo Admin , saya mau membeli barang A dengan jumlah ${quatity} dengan ${keterangan}  `;
+    const message = `Halo Admin , saya mau membeli ${product.data[0].name}  dengan jumlah ${quatity} dengan ${keterangan}  `;
     const url =
       "https://api.whatsapp.com/send?phone=" + number + "&text=%20" + message;
     const newWindow = window.open(url, "_blank", "noopener,noreferrer");
@@ -33,9 +34,19 @@ const OrderModal = () => {
       <div className="inline-block">
         <button
           onClick={() => onOpenModal()}
-          className="w-20 p-2 text-white bg-blue-100 outline-none"
+          className="hidden w-full p-3 text-white bg-blue-100 rounded-lg lg:block"
         >
-          Beli
+          Beli Sekarang
+        </button>
+        <button
+          onClick={() => onOpenModal()}
+          className="flex flex-col items-center w-full p-3 text-white bg-blue-100 rounded-lg lg:hidden"
+        >
+          <span> Beli Sekarang</span>
+          <span className="font-medium text-md">
+            {convertToRupiah(product.data[0].high_price)} -{" "}
+            {convertToRupiah(product.data[0].low_price)}
+          </span>
         </button>
         <Modal open={open} onClose={onCloseModal} center>
           <div className="flex items-center justify-between p-2 border-b border-gray-300 border-1">
@@ -82,7 +93,7 @@ const OrderModal = () => {
             <button
               className="p-3 mt-3 text-white "
               style={{ backgroundColor: "#128c7e		" }}
-              onClick={() => getLinkWhastapp(`085125125`)}
+              onClick={() => getLinkWhastapp(`081281712428`)}
             >
               Beli via whatsapp
             </button>

@@ -6,6 +6,7 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
+import convertToRupiah from "../util/converRupiah";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -46,10 +47,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ProductDetailSpec() {
+export default function ProductDetailSpec({ product }) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
-
+  function createMarkup() {
+    return { __html: product.data[0].description };
+  }
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -76,57 +79,30 @@ export default function ProductDetailSpec() {
           className="text-black bg-white shadow-none"
         >
           <Tab label="Deskripsi" {...a11yProps(0)} />
-          <Tab label="Spesifikasi" {...a11yProps(1)} />
-          <Tab label="Info lain" {...a11yProps(2)} />
+          <Tab label="Info lain" {...a11yProps(1)} />
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-        <p className="mt-3 text-md">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima
-          provident, natus error sapiente voluptatem autem. Eveniet adipisci
-          magni quod fugit cumque rerum, rem porro? Suscipit placeat reiciendis
-          amet itaque voluptate? Lorem ipsum dolor sit amet consectetur
-          adipisicing elit. Quis, rem fugiat nihil assumenda autem nam dicta
-          numquam sequi omnis quidem unde labore sint voluptatem vitae magnam
-          consequuntur officia ad quae!
-        </p>
+        <div
+          className="mt-3 text-md"
+          dangerouslySetInnerHTML={createMarkup()}
+        ></div>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <span className="font-medium">Bahan :</span>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident,
-          earum soluta, molestias ex repellat ipsam a perspiciatis voluptatibus
-          deserunt dolor ducimus inventore ullam, et minima tempora facere
-          debitis assumenda explicabo.
-        </p>
-        <div className="mt-2">
-          <span>Spefikasi</span>
-          <ul className="px-6 list-disc">
-            <li>
-              Bahan dibuat dengan kemampuan menahan partikel atau tahan
-              ciptratan
-            </li>
-            <li>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit,
-            </li>
-            <li>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem
-            </li>
-          </ul>
-        </div>
-      </TabPanel>
-      <TabPanel value={value} index={2}>
         <div className="flex flex-col mb-5">
           <span className="mb-2 font-medium">Waktu Pengerjaan : </span>
-          <span className="text-sm">1 x 24 jam</span>
+          <span className="text-sm">{product.data[0].processing_time}</span>
         </div>
         <div className="flex flex-col mb-5">
           <span className="mb-2 font-medium">Minimal Pesanan </span>
-          <span className="text-sm">20</span>
+          <span className="text-sm">{product.data[0].minimum_order}</span>
         </div>
         <div className="flex flex-col ">
           <span className="mb-2 font-medium">Kisaran Harga</span>
-          <span className="text-sm">Rp.21.000</span>
+          <span className="text-sm">
+            {convertToRupiah(product.data[0].high_price)} -{" "}
+            {convertToRupiah(product.data[0].low_price)}
+          </span>
         </div>
       </TabPanel>
     </div>
