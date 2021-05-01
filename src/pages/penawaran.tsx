@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -9,6 +9,7 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import AddBid from "../components/bid-modal/bid-modal";
 import DetailProduct from "../components/detail-product-bid/detail-product-bid";
+import Pagination from "../components/pagination/pagination.component";
 
 const useStyles = makeStyles({
   table: {
@@ -43,7 +44,7 @@ function converToRupiah(angka) {
 }
 
 export async function getStaticProps() {
-  const res = await fetch(`${process.env.API_GOLANG}/api/v1/product`);
+  const res = await fetch(`${process.env.API_LARAVEL}/api/productbid`);
   const products = await res.json();
 
   return {
@@ -52,6 +53,7 @@ export async function getStaticProps() {
 }
 
 function Penawaran({ products }) {
+  const [page, setPage] = useState();
   return (
     <div className="px-16 py-20">
       <div className="flex px-4 mt-10">
@@ -80,17 +82,17 @@ function Penawaran({ products }) {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
-              {products.data.map((p) => (
+              {products.data.data.map((p) => (
                 <tr>
                   <td className="px-6 py-4">1</td>
                   <td className="px-6 py-4">
-                    <p className="">{p.ProductName}</p>
+                    <p className="">{p.product_name}</p>
                   </td>
                   <td className="px-6 py-4">
-                    <p className="">{p.CapacityProduct}</p>
+                    <p className="">{p.capacity_product}</p>
                   </td>
                   <td className="px-6 py-4 text-center">
-                    {converToRupiah(p.Price)}
+                    {converToRupiah(p.price)}
                   </td>
                   <td className="px-6 py-4 text-center">
                     <span className="px-2 font-semibold text-green-800 bg-green-200 rounded-full">
@@ -108,6 +110,15 @@ function Penawaran({ products }) {
           </table>
         </div>
       </div>
+      {products.data.last_page > 1 && (
+        <div className="mt-5 ml-10">
+          <Pagination
+            page={page}
+            setPage={setPage}
+            totalPages={products.data.last_page}
+          />
+        </div>
+      )}
     </div>
   );
 }

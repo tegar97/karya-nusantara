@@ -25,8 +25,8 @@ func IsEmptyInteger(str int,field string  )(bool,string) {
 	return false, ""
 }
 
-func ValidateRegister(u *models.Konsumen) *models.UserErrors {
-	e := &models.UserErrors{}
+func ValidateRegister(u *models.Konsumen) *models.UserErrors2 {
+	e := &models.UserErrors2{}
 	e.Err, e.Name = IsEmpty(u.Name,"nama ")
 
 	e.Err, e.Email = IsEmpty(u.Email,"email")

@@ -17,7 +17,7 @@ func ConnectDatabase() {
 	if err != nil {
 		panic("error conenect to database")
 	}
-	database.AutoMigrate(&models.UkmProduct{},&models.UMKM{},&models.Bid{},&models.Konsumen{})
+	database.AutoMigrate(&models.UkmProduct{},&models.UMKM{},&models.Bid{},&models.Konsumen{},&models.Product{})
 	DB = database
 	log.Println("connected")
 

@@ -61,7 +61,7 @@ func Register(c *fiber.Ctx) error {
 	u.Password = string(hashedPassword)
 	u.IsVerify = 0
 	u.VerifyExpire = time.Now().Add( time.Minute * 30 )
-	u.VerifyToken = StringWithCharset(12,charset)
+	u.VerifyToken =  StringWithCharset(12,charset)
 
 
 
@@ -71,11 +71,7 @@ func Register(c *fiber.Ctx) error {
 			"general": "Something went wrong, please try again later. 😕",
 		})
 	}
-	//claims := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.StandardClaims{
-	//	Issuer:    strconv.Itoa(int(u.ID)),
-	//	ExpiresAt: time.Now().Add(time.Hour * 24).Unix(),
-	//})
-	//token, err := claims.SignedString([]byte(jwtKey))
+
 	if err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(&fiber.Map{
 			"status":  false,
@@ -83,14 +79,7 @@ func Register(c *fiber.Ctx) error {
 		})
 	}
 
-	//cookie := fiber.Cookie{
-	//	Name:     "jwt",
-	//	Value:    token,
-	//	Expires:  time.Now().Add(time.Hour * 24),
-	//	HTTPOnly: true,
-	//}
-	//
-	//c.Cookie(&cookie)
+
 
 	return c.Status(fiber.StatusOK).JSON(u)
 

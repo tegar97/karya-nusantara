@@ -93,7 +93,7 @@ func Paginate(c * fiber.Ctx) func(db *gorm.DB) *gorm.DB {
 func GetAllProduct (c * fiber.Ctx) error {
 	var p []models.Product
 
-	database.DB.Scopes(Paginate(c)).Find(&p)
+	database.DB.Find(&p)
 
 
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{

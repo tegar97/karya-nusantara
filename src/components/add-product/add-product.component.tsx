@@ -161,14 +161,14 @@ const AddProduct = ({ setYourProduct, yourProduct }) => {
                   Kebutuhan Barang
                 </label>
                 <input
-                  type="text"
+                  type="number"
                   autoFocus
                   id="CapacityProduct"
                   name="CapacityProduct"
                   required
                   onChange={(e) => setCapacityProduct(e.target.value)}
                   className="w-full px-2 py-2 mt-3 border-2 border-gray-300 rounded-md bg-gray-50 focus:outline-none"
-                  placeholder="Conth : Masker kain 3 lapis"
+                  placeholder="Kebutuhan Barang"
                 ></input>
               </div>
               <div className="my-5 text-sm">

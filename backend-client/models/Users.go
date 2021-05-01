@@ -14,7 +14,7 @@ type Konsumen struct {
 	Email         string `json:"email" gorm:"unique"`
 	Password string `json:"password"`
 	CompanyName   string  `json:"CompanyName" gorm:"size:64"`
-	CompanyBirth  time.Time `gorm:"type:date" json:"CompanyBirth"`
+	CompanyBirth  string `json:"CompanyBirth"`
 	IsVerify int `json:"isVerify" gorm:"size:1"`
 	VerifyToken string `json:"VerifyToken" gorm:"size:65"`
 	VerifyExpire  time.Time `gorm:"type:datetime" json:"VerifyExpire"  `
@@ -38,7 +38,6 @@ type Claims struct {
 }
 
 type UserErrors struct {
-	Name          string `json:"name"`
 	UkmName          string `json:"UkmName"`
 	OwnerName          string `json:"OwnerName"`
 	Err      bool   `json:"error"`
@@ -60,6 +59,21 @@ type UserErrors struct {
 	CertificateID string
 	Employees   int
 	BusinnesEmail  string `json:"BusinnesEmail"  gorm:"size:65"`
+
+}
+
+
+type UserErrors2 struct {
+	Name          string `gorm:"size:64"`
+	Email         string `json:"email" gorm:"unique"`
+	Password string `json:"password"`
+	CompanyName   string  `json:"CompanyName" gorm:"size:64"`
+	CompanyBirth  string `json:"CompanyBirth"`
+	CompanyAdress string `json:"CompanyAdress"`
+	PhoneNumber   string `json:"PhoneNumber" gorm:"size:20"`
+	CompanyEmail  string `json:"CompanyEmail"  gorm:"size:65"`
+	Err      bool   `json:"error"`
+
 
 }
 

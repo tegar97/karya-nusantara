@@ -13,11 +13,7 @@ function Dasboard() {
   const { user: userData, authenticated, loading } = useAuthState();
   const router = useRouter();
 
-  useEffect(() => {
-    if (!authenticated) {
-      router.push("/");
-    }
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <div>
@@ -33,7 +29,7 @@ function Dasboard() {
           style={{ bottom: "-60px" }}
         >
           <Image
-            src="/assets/profile-ex.jpg"
+            src="/assets/default2.jpg"
             className="rounded-full "
             width={150}
             height={150}
@@ -49,12 +45,7 @@ function Dasboard() {
           </div>
         </div>
       </div>
-      <p className="px-10 mt-20">
-        Deskripsi Ukm Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-        Earum, blanditiis numquam quibusdam velit veritatis obcaecati distinctio
-        aperiam dolorem non maxime. Iure, quidem. Consequatur eius optio dolorum
-        at voluptatum dolor libero.
-      </p>
+
       {!loading && userData.UkmName && (
         <div className="px-5 py-10">
           <div className="grid grid-cols-2 px-10 py-10 mt-20 bg-white border-2 border-blue-100 shadow-md lg:grid-cols-4">

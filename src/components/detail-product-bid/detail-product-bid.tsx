@@ -7,6 +7,7 @@ import axios from "axios";
 import { useAuthState } from "../../context/auth";
 import { useRouter } from "next/router";
 import LoginModal from "../Login-Modal/Login-Modal.component";
+import convertToRupiah from "../../util/converRupiah";
 
 const DetailProduct = ({ product }) => {
   const router = useRouter();
@@ -24,21 +25,57 @@ const DetailProduct = ({ product }) => {
           Detail
         </button>
         <Modal open={open} onClose={onCloseModal} center>
-          <div className="flex items-center justify-between p-0 border-b border-gray-300 border-1">
+          <div className="flex items-center justify-between p-0 border-b border-gray-300 border-1 ">
             <span>Detail Barang </span>
           </div>
-          <div>
-            <div className="grid grid-cols-2 p-5 mt-5 border-2 border-gray-200">
-              <div className="w-full h-full ">
-                <div className="mb-5 border-r border-gray-300">
-                  Nama Product
-                </div>
-                <div>Kebutuhan Barang</div>
-              </div>
-              <div>
-                <div className="mb-5">Nama Product</div>
-              </div>
-            </div>
+          <div className="mt-5">
+            <table
+              style={{ borderSpacing: "5em" }}
+              className="table w-full h-full min-w-full leading-normal border-2 border-collapse border-gray-300 table-bordered"
+            >
+              <tbody className="p-10">
+                <tr className="w-2/5 px-5 py-5 pb-10 bg-white border-b border-gray-200 text-md">
+                  <th
+                    className="px-2 py-2"
+                    style={{ width: "50%" }}
+                    scope="row"
+                  >
+                    Nama Barang
+                  </th>
+                  <td>{product.product_name}</td>
+                </tr>
+                <tr className="w-2/5 px-5 py-5 bg-white border-b border-gray-200 text-md">
+                  <th scope="row" className="px-2 py-2">
+                    Kebutuhan Barang
+                  </th>
+                  <td>{product.capacity_product}</td>
+                </tr>
+                <tr className="w-2/5 px-5 py-5 bg-white border-b border-gray-200 text-md">
+                  <th className="px-2 py-2" scope="row">
+                    Kisaran Harga
+                  </th>
+                  <td> {convertToRupiah(product.price)}</td>
+                </tr>
+                <tr className="w-2/5 px-5 py-5 bg-white border-b border-gray-200 text-md">
+                  <th className="px-2 py-2" scope="row">
+                    Penjelasan Barang / Deskripsi Barang
+                  </th>
+                  <td> {product.description}</td>
+                </tr>
+                <tr className="w-2/5 px-5 py-5 bg-white border-b border-gray-200 text-md">
+                  <th className="px-2 py-2" scope="row">
+                    Gambar Barang
+                  </th>
+                  <td>
+                    <img
+                      src={`${process.env.API_LARAVEL}/storage/${product.image}`}
+                      width="100"
+                      height="100"
+                    />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
           <p style={{ visibility: "hidden" }}>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
