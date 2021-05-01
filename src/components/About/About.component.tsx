@@ -40,12 +40,15 @@ function About({ image }) {
         <div className="mt-20 md:mt-0">
           <Composition>
             <CompositionPhoto1
+              alt="photo 1 "
               src={`${process.env.API_LARAVEL}/storage/${image[0].about_img1}`}
             ></CompositionPhoto1>
             <CompositionPhoto2
+              alt="photo 2 "
               src={`${process.env.API_LARAVEL}/storage/${image[0].about_img2}`}
             ></CompositionPhoto2>
             <CompositionPhoto3
+              alt="photo 3 "
               src={`${process.env.API_LARAVEL}/storage/${image[0].about_img3}`}
             ></CompositionPhoto3>
           </Composition>

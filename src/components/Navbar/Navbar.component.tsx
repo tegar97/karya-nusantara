@@ -26,7 +26,7 @@ function Navbar({ menuDrop, setMenuDrop }) {
         <div>
           <Link href="/">
             <img
-              src="/assets/logo-nav.png"
+              src="/assets/logo-nav-min.png"
               alt="Logo Karya Nusantara"
               width={150}
               height={50}

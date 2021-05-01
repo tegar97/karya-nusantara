@@ -37,6 +37,7 @@ function OurMitra() {
                       height: "230px",
                       borderRadius: "100%",
                     }}
+                    alt={`mitra ${data.name}`}
                     src={`${process.env.API_LARAVEL}/storage/${data.photoMitra}`}
                   />
                 </div>

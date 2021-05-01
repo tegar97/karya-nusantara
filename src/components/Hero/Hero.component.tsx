@@ -3,7 +3,7 @@ function Hero() {
   return (
     <div className={styles.HeroContainer}>
       <div className="flex items-center justify-center h-full">
-        <img src="/assets/DauntPutih.png" className={styles.daun} />
+        <img src="/assets/daun2.png" className={styles.daun} alt="hero" />
 
         <div className="text-center ">
           <h1 className="mb-5 text-3xl font-extrabold text-white lg:text-5xl ">
