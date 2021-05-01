@@ -60,7 +60,7 @@ function klien({ data }) {
           {data.data.map((data) => (
             <div className="p-2 text-center border border-blue-100 rounded-md hover:translate-y-8">
               <Image
-                src={`${process.env.API_LARAVEL}/storage/client/${data.icon}`}
+                src={`${process.env.API_LARAVEL}/storage/${data.icon}`}
                 width={200}
                 height={200}
                 alt="Klient 1"
