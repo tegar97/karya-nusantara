@@ -43,9 +43,9 @@ function OurMitra() {
                 </div>
                 <div className="w-full p-2 mt-10 text-left lg:ml-20 lg:col-span-3">
                   <div className="h-20 border-b border-white-100">
-                    <h5 className="text-4xl font-bold text-white">
+                    <span className="text-4xl font-bold text-white">
                       {data.name}
-                    </h5>
+                    </span>
                     <div className="mt-2">
                       <span className="mt-5 text-xl text-white">
                         Mitra Karya Nusantara

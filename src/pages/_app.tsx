@@ -7,6 +7,8 @@ import { AuthProvider } from "../context/auth";
 import FooterComponent from "../components/Footer/Footer.component";
 import { useState } from "react";
 import Link from "next/link";
+import { Html } from "next/document";
+import Head from "next/head";
 axios.defaults.baseURL = `${process.env.API_GOLANG}/api`;
 axios.defaults.withCredentials = true;
 axios.defaults.headers = {
@@ -21,6 +23,9 @@ function MyApp({ Component, pageProps }) {
   return (
     <div className="relative">
       <AuthProvider>
+        <Head>
+          <Html lang="id" />
+        </Head>
         <Navbar setMenuDrop={setMenuDrop} menuDrop={menuDrop} />
 
         <Component {...pageProps} />

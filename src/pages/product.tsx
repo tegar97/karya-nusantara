@@ -76,9 +76,9 @@ function Product() {
       <NextSeo
         title="Produk Karya Nusantara"
         description="Produk Karya Nusantara"
-        canonical="karyanusantara.co.id"
+        canonical="karyanusantara.co.id/product"
         openGraph={{
-          url: "karyanusantara.co.id",
+          url: "karyanusantara.co.id/product",
           title: "Produk Karya Nusantara",
           description: "Produk Karya Nusantara",
           images: [

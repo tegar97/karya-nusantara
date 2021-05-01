@@ -24,13 +24,13 @@ function Rfq() {
             <span>Dapatkan Penawaran Terbaik</span>
             <form>
               <div className="my-5 text-sm">
-                <label htmlFor="stuff" className="block text-black">
+                <label htmlFor="name" className="block text-black">
                   Nama Barang
                 </label>
                 <input
                   type="text"
                   autoFocus
-                  id="stuff"
+                  id="name"
                   className="w-full px-4 py-3 mt-3 bg-gray-100 rounded-sm focus:outline-none"
                   placeholder="Isi Barang Yang Anda Cari"
                 />

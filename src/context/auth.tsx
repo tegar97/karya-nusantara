@@ -71,7 +71,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
         dispatch("LOGIN_REGISTER", res.data);
       } catch (err) {
-        console.log(err);
       } finally {
         dispatch("STOP_LOADING");
       }
