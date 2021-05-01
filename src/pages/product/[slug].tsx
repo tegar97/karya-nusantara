@@ -66,12 +66,12 @@ function Slug({ product }) {
         }}
       />
       <div style={{ backgroundColor: "#ffff", minHeight: "100vh" }}>
-        <div className="h-full px-10 lg:px-20 py-28 lg:py-40">
+        <div className="h-full px-0 py-0 lg:px-20 lg:py-40">
           <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
             <div className="grid grid-cols-1">
               <ProductDetailImage product={product} />
             </div>
-            <div>
+            <div className="px-5 lg:px-0">
               <h1 className="mt-5 text-3xl font-semibold lg:mt-0">
                 {product.data[0].name}
               </h1>
@@ -83,9 +83,12 @@ function Slug({ product }) {
         </div>
 
         <div className="fixed bottom-0 grid items-center justify-center w-full grid-cols-2 p-5 bg-white border-2 border-gray-200 shadow-2xl rounded-t-2xl lg:hidden ">
-          <button className="p-3 mr-5 text-white bg-yellow-600 rounded-lg ">
-            Ajukan Penawaran
-          </button>
+          <Link href="request">
+            <button className="p-3 mr-5 text-white bg-yellow-600 rounded-lg ">
+              Ajukan Penawaran
+            </button>
+          </Link>
+
           <OrderModal product={product} />
         </div>
         <div className="fixed bottom-0 items-center justify-between hidden w-full h-20 px-20 py-10 bg-white border-2 border-gray-200 rounded-t-lg shadow-2xl lg:flex justify-items-center">

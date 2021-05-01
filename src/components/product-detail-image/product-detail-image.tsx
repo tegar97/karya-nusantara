@@ -15,8 +15,8 @@ function ProductDetailImage({ product }) {
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
+          slidesToShow: 1,
+          slidesToScroll: 1,
           infinite: true,
           dots: true,
         },
@@ -24,9 +24,9 @@ function ProductDetailImage({ product }) {
       {
         breakpoint: 600,
         settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 2,
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          initialSlide: 1,
         },
       },
       {
@@ -45,7 +45,7 @@ function ProductDetailImage({ product }) {
       transition={{ type: "spring", stiffness: 100 }}
     >
       <img
-        className="w-full mb-2"
+        className="hidden w-full mb-2 md:hidden lg:block"
         src={`${process.env.API_LARAVEL}/storage/${
           mainImage ? mainImage : product.data[0].images.split(",")[0]
         }`}
@@ -58,9 +58,10 @@ function ProductDetailImage({ product }) {
             whileTap={{ scale: 0.9 }}
             key={index}
             onClick={() => setMainImage(img)}
+            className="w-full"
           >
             <img
-              className=""
+              className="w-full"
               src={`${process.env.API_LARAVEL}/storage/${img}`}
               alt={`product ${product.data[0].name}`}
             />

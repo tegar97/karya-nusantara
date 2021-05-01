@@ -35,12 +35,12 @@ export default function Home({ data }) {
         />
       </Head>
       <NextSeo
-        title="karya nusantara "
+        title="karya nusantara"
         description={data[0].web_description}
         canonical="karyanusantara.co.id"
         openGraph={{
           url: "karyanusantara.co.id",
-          title: "karya nusantara ",
+          title: "karya nusantara",
           description: `${data[0].web_description}`,
           images: [
             {
