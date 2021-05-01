@@ -40,7 +40,7 @@ export default function Home({ data }) {
         canonical="karyanusantara.co.id"
         openGraph={{
           url: "karyanusantara.co.id",
-          title: `${data[0].web_title}`,
+          title: "karya nusantara ",
           description: `${data[0].web_description}`,
           images: [
             {
