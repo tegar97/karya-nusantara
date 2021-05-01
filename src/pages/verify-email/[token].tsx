@@ -13,18 +13,13 @@ const Token = () => {
         .then((res) => {
           router.push("/");
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        .catch((err) => {});
       await axios
         .put(`v1/users/verify/${token}`)
         .then((res) => {
-          console.log(res);
           router.push("/");
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        .catch((err) => {});
     };
     verifyEmail();
   }, [token]);

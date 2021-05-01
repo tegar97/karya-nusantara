@@ -50,7 +50,6 @@ function Bidding({ product }) {
     isLoading(false);
   }, []);
 
-  console.log(product);
   function converToRupiah(angka) {
     var rupiah = "";
     var angkarev = angka.toString().split("").reverse().join("");

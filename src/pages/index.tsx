@@ -8,6 +8,7 @@ import ProductCategory from "../components/product-category/product-category.com
 import Rfq from "../components/Request-For-quantity/Rfq.components";
 import ScrollAnimation from "react-animate-on-scroll";
 import { NextSeo } from "next-seo";
+import { Html } from "next/document";
 
 export async function getStaticProps(context) {
   const res = await fetch(`${process.env.API_LARAVEL}/api/settings`);
@@ -39,7 +40,7 @@ export default function Home({ data }) {
         canonical="karyanusantara.co.id/product"
         openGraph={{
           url: "karyanusantara.co.id/product",
-          title: `${data[0].title}`,
+          title: `${data[0].web_title}`,
           description: `${data[0].web_description}`,
           images: [
             {
@@ -49,7 +50,7 @@ export default function Home({ data }) {
               alt: "Logo Karya Nusantara",
             },
           ],
-          site_name: `${data[0].title}`,
+          site_name: `${data[0].web_title}`,
         }}
       />
 
