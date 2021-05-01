@@ -45,11 +45,11 @@ function ProductDetailImage({ product }) {
       transition={{ type: "spring", stiffness: 100 }}
     >
       <img
-        className="w-full col-span-4 "
+        className="w-full "
         src={`${process.env.API_LARAVEL}/storage/${
           mainImage ? mainImage : product.data[0].images.split(",")[0]
         }`}
-        alt="baju"
+        alt={`product ${product.data[0].name}`}
         style={{ width: "100%" }}
       />
       <Slider {...settings}>
@@ -62,7 +62,7 @@ function ProductDetailImage({ product }) {
             <img
               className=""
               src={`${process.env.API_LARAVEL}/storage/${img}`}
-              alt="baju"
+              alt={`product ${product.data[0].name}`}
             />
           </motion.div>
         ))}

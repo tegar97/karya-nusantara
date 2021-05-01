@@ -33,7 +33,7 @@ export async function getStaticProps({ params }) {
   const product = await res.json();
 
   // Pass post data to the page via props
-  return { props: { product } };
+  return { props: { product }, revalidate: 1 };
 }
 function Slug({ product }) {
   return (

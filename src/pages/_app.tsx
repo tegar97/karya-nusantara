@@ -25,6 +25,10 @@ function MyApp({ Component, pageProps }) {
       <AuthProvider>
         <Head>
           <Html lang="id" />
+          <meta
+            name="google-site-verification"
+            content="8pKRIkpctIK_LbLou5qxfbL_YcR2Ovc2D990W1FPFhU"
+          />
         </Head>
         <Navbar setMenuDrop={setMenuDrop} menuDrop={menuDrop} />
 
