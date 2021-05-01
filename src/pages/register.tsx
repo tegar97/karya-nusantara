@@ -34,8 +34,8 @@ function register() {
         }}
       />
       <Container
-        maxWidth="lg"
-        className="flex items-center justify-center"
+        maxWidth="xl"
+        className="w-full "
         style={{ backgroundColor: "#ffff", minHeight: "100vh" }}
       >
         <RegisterBox />

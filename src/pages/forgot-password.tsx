@@ -30,7 +30,6 @@ function forgotPassword() {
           setSuccess(res.data.message);
         });
     } catch (error) {
-      console.log(error);
       setError(error.response.data.message);
     }
 
@@ -65,7 +64,6 @@ function forgotPassword() {
       />
       <Container
         maxWidth="lg"
-        className="flex items-center justify-center"
         style={{ backgroundColor: "#ffff", minHeight: "100vh" }}
       >
         <div className="grid grid-cols-1 lg:grid-cols-3 lg:px-20 py-36 ">

@@ -6,10 +6,6 @@
   --color-primary: #45c1c1;
   --color-background: #f7f7f7;
 }
-.center {
-  display: flex;
-  justify-content: center;
-}
 
 .ModalLogin {
   top: 50%;
