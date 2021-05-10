@@ -35,7 +35,6 @@ export default function NavbarProfile() {
         window.location.reload();
       })
       .catch((err) => {
-        console.log(err);
       });
   };
   const handleToggle = () => {

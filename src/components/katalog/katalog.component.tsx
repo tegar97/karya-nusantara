@@ -2,6 +2,7 @@ import Image from "next/image";
 import React from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { ProductImage } from "./katalog.styled";
 function Katalog({ product, isCategory }) {
   return (
     <Link
@@ -20,15 +21,13 @@ function Katalog({ product, isCategory }) {
         transition={{ type: "spring", stiffness: 100 }}
       >
         <div className="relative flex flex-col justify-center">
-          <Image
+          <ProductImage
             src={`${process.env.API_LARAVEL}/storage/${
               !isCategory ? product.images.split(",")[0] : product.image
             }`}
             alt="Baju Hazmat"
-            width={500}
-            height={700}
           />
-          <div className="absolute w-full p-2 text-center bg-blue-100 rounded-md bg-opacity-80 bottom-6 ">
+          <div className="absolute w-full p-2 text-center bg-blue-100 bg-opacity-80 bottom-6 ">
             <span className="text-white">{product.name}</span>
           </div>
         </div>
