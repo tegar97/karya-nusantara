@@ -83,10 +83,9 @@ export default function ProductDetailSpec({ product }) {
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-        <div
-          className="mt-3 text-md"
-          dangerouslySetInnerHTML={createMarkup()}
-        ></div>
+        <div className="w-full mt-3 text-md" style={{ whiteSpace: "pre-line" }}>
+          {product.data[0].description}
+        </div>
       </TabPanel>
       <TabPanel value={value} index={1}>
         <div className="flex flex-col mb-5">
@@ -99,10 +98,7 @@ export default function ProductDetailSpec({ product }) {
         </div>
         <div className="flex flex-col ">
           <span className="mb-2 font-medium">Kisaran Harga</span>
-          <span className="text-sm">
-            {convertToRupiah(product.data[0].high_price)} -{" "}
-            {convertToRupiah(product.data[0].low_price)}
-          </span>
+          <span className="text-sm">{product.data[0].price}</span>
         </div>
       </TabPanel>
     </div>

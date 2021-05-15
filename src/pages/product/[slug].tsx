@@ -99,11 +99,7 @@ function Slug({ product }) {
           </div>
           <div className="flex flex-row">
             <div className="flex flex-col mr-10">
-              <span>Kisaran Harga</span>
-              <span className="font-medium text-blue-100 text-md">
-                {convertToRupiah(product.data[0].high_price)} -{" "}
-                {convertToRupiah(product.data[0].low_price)}
-              </span>
+              <span className="font-medium text-blue-100 text-md"></span>
             </div>
             <Link href="request">
               <button className="p-3 mr-5 text-white bg-yellow-600 rounded-lg ">

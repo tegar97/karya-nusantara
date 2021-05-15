@@ -9,6 +9,7 @@ import Rfq from "../components/Request-For-quantity/Rfq.components";
 import ScrollAnimation from "react-animate-on-scroll";
 import { NextSeo } from "next-seo";
 import { Html } from "next/document";
+import ProductCategoryMobile from "../components/product-category/product-category.mobile";
 
 export async function getStaticProps(context) {
   const res = await fetch(`${process.env.API_LARAVEL}/api/settings`);
@@ -40,7 +41,7 @@ export default function Home({ data }) {
         canonical="karyanusantara.co.id"
         openGraph={{
           url: "karyanusantara.co.id",
-          title: "karya nusantara",
+          title: "Karya Nusantara",
           description: `${data[0].web_description}`,
           images: [
             {
@@ -50,7 +51,7 @@ export default function Home({ data }) {
               alt: "Logo Karya Nusantara",
             },
           ],
-          site_name: "karya nusantara ",
+          site_name: "Karya Nusantara ",
         }}
       />
 
@@ -59,7 +60,12 @@ export default function Home({ data }) {
         <About image={data} />
       </ScrollAnimation>
       <ScrollAnimation animateIn="fadeIn">
-        <ProductCategory />
+        <div className="hidden lg:block">
+          <ProductCategory />
+        </div>
+        <div className="block lg:hidden">
+          <ProductCategoryMobile />
+        </div>
       </ScrollAnimation>
       <ScrollAnimation animateIn="fadeIn">
         <Rfq />

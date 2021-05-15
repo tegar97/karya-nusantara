@@ -68,7 +68,6 @@ export const CompositionPhoto1 = styled.img`
 
     
     &:hover{
-        outline: .9rem solid var(--color-primary);
         transform: scale(1.05);
         z-index: 19;
     }
@@ -103,7 +102,6 @@ export const CompositionPhoto2 = styled.img`
     }
     
     &:hover{
-        outline: .9rem solid var(--color-primary);
         transform: scale(1.05);
         z-index: 19;
     }
@@ -138,7 +136,6 @@ export const CompositionPhoto3 = styled.img`
     
     
     &:hover{
-        outline: .9rem solid var(--color-primary);
         transform: scale(1.05);
         z-index: 19;
     }

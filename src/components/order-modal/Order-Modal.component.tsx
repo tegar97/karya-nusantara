@@ -44,8 +44,7 @@ const OrderModal = ({ product }) => {
         >
           <span> Beli Sekarang</span>
           <span className="font-medium text-md">
-            {convertToRupiah(product.data[0].high_price)} -{" "}
-            {convertToRupiah(product.data[0].low_price)}
+            {convertToRupiah(product.data[0].price)}
           </span>
         </button>
         <Modal open={open} onClose={onCloseModal} center>

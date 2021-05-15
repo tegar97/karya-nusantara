@@ -3,6 +3,11 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import { Carousel } from "react-responsive-carousel";
 import useSWR from "swr";
 import Link from "next/link";
+import { HeadingSecondary } from "../About/About.styled";
+import Image from "next/image";
+import { useMediaQuery } from "react-responsive";
+import Slider from "react-slick";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 const fetcher = (
   ...args: [input: RequestInfo, init?: RequestInit | undefined]
@@ -15,63 +20,86 @@ function OurMitra() {
   function createMarkup(data) {
     return { __html: data };
   }
+  const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
+
+  var settings = {
+    dots: true,
+    className: "center",
+
+    infinite: false,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    initialSlide: 0,
+    responsive: [
+      {
+        breakpoint: 1024,
+        className: "center",
+        centerPadding: "60px",
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        className: "center",
+        centerPadding: "60px",
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        className: "center",
+        centerPadding: "60px",
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+        },
+      },
+    ],
+  };
+  console.log(data);
   return (
-    <>
-      <Carousel>
+    <div className="p-5 lg:p-20 ">
+      <div className="mb-5">
+        <HeadingSecondary className="text-lg text-center text-blue-100 lg:text-1xl ">
+          Cerita Dari Mitra Karya Nusantara
+        </HeadingSecondary>
+      </div>
+      <div className="grid grid-cols-2 gap-3 lg:gap-5 lg:grid-cols-4 lg:mt-20">
         {!data ? (
-          <div>Loading .....</div>
+          <SkeletonTheme color="#fffff" highlightColor="#ffff">
+            <p>
+              <Skeleton count={3} />
+            </p>
+          </SkeletonTheme>
         ) : (
           data.data.map((data) => (
-            <div
-              key={data.id}
-              className="w-full px-5 py-20 pt-10 pb-20 bg-blue-100 lg:px-20 lg:pt-10 lg:pb-24 "
-            >
-              <h3 className="text-3xl font-medium text-white mb-15 ">
-                Cerita Dari Mitra Karya Nusantara
-              </h3>
-              <div className="grid w-full grid-cols-1 mt-10 lg:grid-cols-4 justify-items-center">
-                <div>
-                  <img
-                    style={{
-                      width: "230px",
-                      height: "230px",
-                      borderRadius: "100%",
-                    }}
-                    alt={`mitra ${data.name}`}
-                    src={`${process.env.API_LARAVEL}/storage/${data.photoMitra}`}
-                  />
+            <Link href={`/mitra/${data.slug}`}>
+              <div className="relative flex content-end px-5 border-2 border-blue-100 shadow-md cursor-pointer  group hover:border-4 hover:shadow-lg hover:translate-y-20">
+                <img
+                  className="w-full max-h-92 "
+                  src={`${process.env.API_LARAVEL}/storage/${data.photoMitra}`}
+                  alt="Mitra 1"
+                />
+                <div className="absolute top-0 bottom-0 left-0 right-0 w-full h-full duration-500 bg-gray-100 opacity-0 transation group-hover:opacity-75">
+                  &nbsp;
                 </div>
-                <div className="w-full p-2 mt-10 text-left lg:ml-20 lg:col-span-3">
-                  <div className="h-20 border-b border-white-100">
-                    <span className="text-4xl font-bold text-white">
-                      {data.name}
-                    </span>
-                    <div className="mt-2">
-                      <span className="mt-5 text-xl text-white">
-                        Mitra Karya Nusantara
-                      </span>
-                    </div>
-                  </div>
-                  <div className="mt-10">
-                    <div
-                      className="text-white "
-                      dangerouslySetInnerHTML={createMarkup(
-                        data.text_highlight.substr(0, 300) + "....."
-                      )}
-                    ></div>
-                    <Link href={`/mitra/${data.slug}`}>
-                      <button className="p-2 mt-5 text-left text-white bg-blue-100">
-                        Baca selengkapnya cerita dari {data.name}
-                      </button>
-                    </Link>
-                  </div>
+                <div className="absolute left-0 w-full p-2 text-center transition duration-500 bg-blue-100 opacity-0 group-hover:opacity-80 bottom-2 ">
+                  <span>{data.ukmName}</span>
                 </div>
               </div>
-            </div>
+            </Link>
           ))
         )}
-      </Carousel>
-    </>
+      </div>
+    </div>
   );
 }
 

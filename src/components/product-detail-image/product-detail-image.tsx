@@ -45,12 +45,12 @@ function ProductDetailImage({ product }) {
       transition={{ type: "spring", stiffness: 100 }}
     >
       <img
-        className="hidden w-full mb-2 md:hidden lg:block"
+        className="hidden w-full mb-2 md:hidden lg:block lg:mb-10"
         src={`${process.env.API_LARAVEL}/storage/${
           mainImage ? mainImage : product.data[0].images.split(",")[0]
         }`}
         alt={`product ${product.data[0].name}`}
-        style={{ width: "100%" }}
+        style={{ maxWidth: "100%", maxHeight: "100%" }}
       />
       <Slider {...settings}>
         {product.data[0].images.split(",").map((img, index) => (
