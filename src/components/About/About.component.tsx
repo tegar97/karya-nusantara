@@ -12,7 +12,6 @@ import {
 function About({ image }) {
   return (
     <div
-      id="about"
       className="px-10 pt-16 pb-40 lg:pt-24 lg:px-24 lg:pb-60"
       style={{ backgroundColor: "var(--color-background" }}
     >

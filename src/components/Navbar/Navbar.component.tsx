@@ -46,20 +46,15 @@ function Navbar({ menuDrop, setMenuDrop }) {
           }}
         >
           <ul className="flex flex-col items-center w-full p-5 text-left ">
-            <li
-              onClick={() => setActive(!active)}
-              className="w-full p-3 ml-4 cursor-pointer hover:bg-blue-100 hover:text-white "
-            >
-              <SmoothScroll
-                spy={true}
-                smooth={true}
-                offset={-70}
-                duration={500}
-                to="about"
+            <Link href="/about">
+              Katalog Produk
+              <li
+                onClick={() => setActive(!active)}
+                className="w-full p-3 ml-4 cursor-pointer hover:bg-blue-100 hover:text-white "
               >
                 Tentang Karya Nusantara
-              </SmoothScroll>
-            </li>
+              </li>
+            </Link>
             <li
               onClick={() => setActive(!active)}
               className="w-full p-3 ml-4 cursor-pointer mt-7 hover:bg-blue-100 hover:text-white "
@@ -119,17 +114,12 @@ function Navbar({ menuDrop, setMenuDrop }) {
         </div>
         <div className="hidden lg:block">
           <ul className="flex flex-row">
-            <li className="ml-4 cursor-pointer hover:text-blue-100 ">
-              <SmoothScroll
-                spy={true}
-                smooth={true}
-                offset={-70}
-                duration={500}
-                to="about"
-              >
+            <Link href="/about">
+              Katalog Produk
+              <li className="ml-4 cursor-pointer hover:text-blue-100 ">
                 Tentang Karya Nusantara
-              </SmoothScroll>
-            </li>
+              </li>
+            </Link>
             <li className="ml-4 cursor-pointer hover:text-blue-100 ">
               <Link href="/product">Katalog Produk</Link>
             </li>
