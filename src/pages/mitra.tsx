@@ -25,7 +25,7 @@ function Mitra() {
       <Head>
         <meta
           name="keywords"
-          content="ukm indonesia, umks indonesia, karya nusantara,jual,beli,ukm"
+          content="ukmindonesia, umks indonesia, karya nusantara,jual,beli,ukm"
         />
       </Head>
       <NextSeo
