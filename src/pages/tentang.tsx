@@ -1,6 +1,6 @@
 import React from "react";
 
-function Tenatang() {
+function tentang() {
   return <div></div>;
 }
 
