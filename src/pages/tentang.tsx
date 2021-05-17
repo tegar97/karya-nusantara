@@ -1,7 +1,7 @@
 import React from "react";
 
-function tentang() {
+function Tentang() {
   return <div></div>;
 }
 
-export default tentang;
+export default Tentang;
