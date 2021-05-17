@@ -34,7 +34,6 @@ function Rfq() {
                   </label>
                   <input
                     type="text"
-                    autoFocus
                     id="name"
                     className="w-full px-4 py-3 mt-3 bg-gray-100 rounded-sm focus:outline-none"
                     placeholder="Isi Barang Yang Anda Cari"
@@ -48,7 +47,6 @@ function Rfq() {
                     </label>
                     <input
                       type="number"
-                      autoFocus
                       id="quantity"
                       className="w-full px-4 py-3 mt-3 bg-gray-100 rounded-sm focus:outline-none"
                       placeholder="Jumlah Barang"
@@ -59,14 +57,17 @@ function Rfq() {
                       Satuan
                     </label>
                     <select
-                      autoFocus
                       id="quantity"
                       className="w-full px-4 py-3 mt-3 bg-gray-100 rounded-sm focus:outline-none"
                       placeholder="Isi Barang Yang Anda Cari"
                     >
                       <option>Pilih Satuan Barang</option>
                       <option value="unit">UNIT</option>
-                      <option value="unit">Pasang</option>
+                      <option value="liter">Liter</option>
+                      <option value="Kg">Kg</option>
+                      <option value="box">Box</option>
+                      <option value="meter">Meter</option>
+                      <option value="set">Set</option>
                     </select>
                   </div>
                 </div>
@@ -75,7 +76,6 @@ function Rfq() {
                     Keterangan
                   </label>
                   <textarea
-                    autoFocus
                     id="keterangan"
                     className="w-full px-4 py-3 mt-3 bg-gray-100 rounded-sm focus:outline-none"
                     placeholder="Jumlah Barang"
