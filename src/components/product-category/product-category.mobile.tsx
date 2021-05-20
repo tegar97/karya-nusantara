@@ -107,7 +107,7 @@ function ProductCategoryMobile() {
       </div>
 
       <div className="mt-5 ">
-        <Slider {...settings}>
+        {/* <Slider {...settings}>
           <div className="w-full p-2">
             <img
               className="w-full rounded-md "
@@ -121,7 +121,18 @@ function ProductCategoryMobile() {
           <div className="w-full p-2">
             <img src="/assets/b3.jpg" alt="poster 1" />
           </div>
-        </Slider>
+        </Slider> */}
+
+        <Carousel
+          autoPlay
+          showThumbs={false}
+          infiniteLoop={true}
+          showArrows={false}
+        >
+          <img src="/assets/b1.jpg" alt="banner 1" className="w-full"></img>
+          <img src="/assets/b2.jpg" alt="banner 2" className="w-full"></img>
+          <img src="/assets/b3.jpg" alt="banner 3" className="w-full"></img>
+        </Carousel>
       </div>
     </div>
   );

@@ -47,7 +47,6 @@ function Navbar({ menuDrop, setMenuDrop }) {
         >
           <ul className="flex flex-col items-center w-full p-5 text-left ">
             <Link href="/about">
-              Katalog Produk
               <li
                 onClick={() => setActive(!active)}
                 className="w-full p-3 ml-4 cursor-pointer hover:bg-blue-100 hover:text-white "
@@ -115,7 +114,6 @@ function Navbar({ menuDrop, setMenuDrop }) {
         <div className="hidden lg:block">
           <ul className="flex flex-row">
             <Link href="/about">
-              Katalog Produk
               <li className="ml-4 cursor-pointer hover:text-blue-100 ">
                 Tentang Karya Nusantara
               </li>
