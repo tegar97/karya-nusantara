@@ -12,7 +12,7 @@ import {
 function About({ image }) {
   return (
     <div
-      className="px-10 pt-8 pb-40 lg:pt-10 lg:px-24 lg:pb-60"
+      className="px-10 pt-8 pb-20 lg:pt-10 lg:px-24 lg:pb-60"
       style={{ backgroundColor: "var(--color-background" }}
     >
       <HeadingSecondary className="text-center text-blue-100">

@@ -66,9 +66,9 @@ function OurMitra() {
   };
   console.log(data);
   return (
-    <div className="p-5 lg:p-20 ">
+    <div className="px-5 pt-2 lg:p-20 ">
       <div className="mb-5">
-        <HeadingSecondary className="text-lg text-center text-blue-100 lg:text-1xl ">
+        <HeadingSecondary className="text-center text-blue-100">
           Cerita Dari Mitra Karya Nusantara
         </HeadingSecondary>
       </div>
@@ -82,7 +82,7 @@ function OurMitra() {
         ) : (
           data.data.map((data) => (
             <Link href={`/mitra/${data.slug}`}>
-              <div className="relative flex content-end px-5 border-2 border-blue-100 shadow-md cursor-pointer  group hover:border-4 hover:shadow-lg hover:translate-y-20">
+              <div className="relative flex content-end px-5 border-2 border-blue-100 shadow-md cursor-pointer group hover:border-4 hover:shadow-lg hover:translate-y-20">
                 <img
                   className="w-full max-h-92 "
                   src={`${process.env.API_LARAVEL}/storage/${data.photoMitra}`}

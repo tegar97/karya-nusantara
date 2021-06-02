@@ -50,9 +50,9 @@ function ProductCategoryMobile() {
     ],
   };
   return (
-    <div className="py-5" style={{ backgroundColor: "#f5f5f5" }}>
-      <div className="w-full py-10 bg-white px-7">
-        <div className="grid justify-center grid-cols-3 gap-5 bg-white shadow-sm ">
+    <div className="py-5">
+      <div className="w-full px-2 py-10 ">
+        <div className="grid justify-center grid-cols-4 gap-5 ">
           <Link href="/product">
             <div className="flex flex-col items-center text-center cursor-pointer hover:translate-y-5">
               <img
@@ -63,6 +63,7 @@ function ProductCategoryMobile() {
               <span className="text-sm">Masker Kain</span>
             </div>
           </Link>
+
           <Link href="/product">
             <div className="flex flex-col items-center text-center cursor-pointer hover:translate-y-5 ">
               <img
@@ -73,24 +74,15 @@ function ProductCategoryMobile() {
               <span className="text-sm">Perkonveksian</span>
             </div>
           </Link>
-          <Link href="/product">
-            <div className="flex flex-col items-center text-center cursor-pointer hover:translate-y-5 ">
-              <img
-                src="/assets/souvenir.png"
-                alt="logo souvenir"
-                className="w-16 mb-2 h-13"
-              />
-              <span className="text-sm">Masker Kain</span>
-            </div>
-          </Link>
+
           <Link href="/product">
             <div className="flex flex-col items-center text-center cursor-pointer hover:translate-y-5 ">
               <img
                 src="/assets/hampers.png"
-                alt="logo apd"
-                className="w-16 h-13"
+                alt="logo hampers"
+                className="w-16 mb-2 h-13"
               />
-              <span className="text-sm">Masker Kain</span>
+              <span className="text-sm">Hampers</span>
             </div>
           </Link>
           <Link href="/product">
@@ -98,9 +90,9 @@ function ProductCategoryMobile() {
               <img
                 src="/assets/product-unggulan.png"
                 alt="logo apd"
-                className="w-16"
+                className="w-16 mb-2 h-13"
               />
-              <span className="text-sm">Masker Kain</span>
+              <span className="text-sm">Product Unggulan</span>
             </div>
           </Link>
         </div>
