@@ -14,11 +14,16 @@ const ClientCard = () => {
     dots: true,
     className: "center",
 
-    infinite: false,
-    speed: 500,
+    infinite: true,
     slidesToShow: 3,
-    slidesToScroll: 3,
+    slidesToScroll: 1,
     initialSlide: 0,
+    autoplay: true,
+    speed: 12000,
+    autoplaySpeed: 0,
+    cssEase: "linear",
+    pauseOnHover: true,
+
     responsive: [
       {
         breakpoint: 1024,
@@ -27,6 +32,7 @@ const ClientCard = () => {
         settings: {
           slidesToShow: 3,
           slidesToScroll: 3,
+
           infinite: true,
           dots: true,
         },
@@ -55,43 +61,58 @@ const ClientCard = () => {
   return (
     <div>
       <>
-        {data && data.data.length <= 3 ? (
-          <div className="grid grid-cols-1 gap-5 hover:translate-y-5 lg:grid-cols-3">
-            {data.data.map((data) => (
-              <div className="w-full p-2 text-center bg-white border-black shadow-lg h-72 ">
-                <Image
-                  src={`${process.env.API_LARAVEL}/storage/${data.icon}`}
-                  width={200}
-                  height={200}
-                  alt="Klient 1"
-                  className="self-center mb-5 text-center"
-                />
-                <div>
-                  <span>{data.description}</span>
-                </div>
-              </div>
-            ))}
-          </div>
+        {!data ? (
+          <div>Loading ....</div>
         ) : (
           <Slider {...settings}>
-            {!data ? (
-              <div>Loading ....</div>
-            ) : (
-              data.data.map((data) => (
-                <div className="w-full p-2 text-center bg-white border-black shadow-lg h-72 ">
-                  <Image
-                    src={`${process.env.API_LARAVEL}/storage/${data.icon}`}
-                    width={200}
-                    height={200}
-                    alt="Klient 1"
-                    className="self-center mb-5 text-center"
-                  />
-                  <div>
-                    <span>{data.description}</span>
-                  </div>
-                </div>
-              ))
-            )}
+            <div className="w-full p-2 text-center bg-white border-black">
+              <Image
+                src={`${process.env.API_LARAVEL}/storage/${data.icon}`}
+                width={200}
+                height={200}
+                alt="Klient 1"
+                className="self-center mb-5 text-center"
+              />
+              <div>
+                <span>{data.description}</span>
+              </div>
+            </div>
+            <div className="w-full p-2 text-center bg-white border-black">
+              <Image
+                src={`${process.env.API_LARAVEL}/storage/${data.icon}`}
+                width={200}
+                height={200}
+                alt="Klient 1"
+                className="self-center mb-5 text-center"
+              />
+              <div>
+                <span>{data.description}</span>
+              </div>
+            </div>
+            <div className="w-full p-2 text-center bg-white border-black">
+              <Image
+                src={`${process.env.API_LARAVEL}/storage/${data.icon}`}
+                width={200}
+                height={200}
+                alt="Klient 1"
+                className="self-center mb-5 text-center"
+              />
+              <div>
+                <span>{data.description}</span>
+              </div>
+            </div>
+            <div className="w-full p-2 text-center bg-white border-black">
+              <Image
+                src={`${process.env.API_LARAVEL}/storage/${data.icon}`}
+                width={200}
+                height={200}
+                alt="Klient 1"
+                className="self-center mb-5 text-center"
+              />
+              <div>
+                <span>{data.description}</span>
+              </div>
+            </div>
           </Slider>
         )}
       </>

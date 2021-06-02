@@ -14,7 +14,7 @@ import Pagination from "../components/pagination/pagination.component";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import { NextSeo } from "next-seo";
 import Head from "next/head";
-
+import FilterListIcon from "@material-ui/icons/FilterList";
 // export const getStaticProps = async () => {
 //   const router = useRouter();
 
@@ -111,6 +111,14 @@ function Product() {
           <div className="lg:ml-5 lg:col-span-4">
             <div className="px-2 mb-5">
               <ProductSearch onSearch={onSearch} />
+            </div>
+            <div className="flex items-center justify-center w-40 p-2 mb-2 bg-white cursor-pointer justify-items-center lg:hidden rounded-2xl ">
+              <FilterListIcon
+                fontSize="inherit"
+                className="text-blue-100"
+                style={{ fontSize: "1.3rem" }}
+              />
+              <span className="ml-1 text-blue-100 ">Katalog Product</span>
             </div>
 
             <div className="grid w-full grid-cols-2 gap-5 md:grid-cols-3">

@@ -21,10 +21,10 @@ function FooterComponent() {
           <span className="text-xl font-bold text-blue-100">Fitur </span>
           <ul className="mt-3">
             <Link href="/feature">
-              <li className="text-lg">Cara Belanja</li>
+              <li className="text-lg cursor-pointer">Cara Belanja</li>
             </Link>
             <Link href="/feature">
-              <li className="text-lg">Pembayaran</li>
+              <li className="text-lg cursor-pointer">Pembayaran</li>
             </Link>
           </ul>
         </div>
@@ -32,10 +32,10 @@ function FooterComponent() {
           <span className="text-xl font-bold text-blue-100">Kerja Sama </span>
           <ul className="mt-3">
             <Link href="/cooperation">
-              <li className="text-lg">Cara Belanja</li>
+              <li className="text-lg cursor-pointer">Mitra</li>
             </Link>
             <Link href="/cooperation">
-              <li className="text-lg">Pembayaran</li>
+              <li className="text-lg cursor-pointer">Menjadi Klien</li>
             </Link>
           </ul>
         </div>

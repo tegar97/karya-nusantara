@@ -25,7 +25,7 @@ function Katalog({ product, isCategory }) {
             src={`${process.env.API_LARAVEL}/storage/${
               !isCategory ? product.images.split(",")[0] : product.image
             }`}
-            alt="Baju Hazmat"
+            alt={product.name}
             className="w-80 h-80"
           />
           <div className="absolute w-full p-2 text-center bg-blue-100 bg-opacity-80 bottom-6 ">

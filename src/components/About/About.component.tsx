@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 import {
   HeadingSecondary,
@@ -30,10 +31,11 @@ function About({ image }) {
             pendampingan untuk menyetarakan standardisasi. Program ini didukung
             oleh UKMindonesia.id dan Kementerian Koperasi dan UKM RI.
           </p>
-
-          {/* <ReadMore className="mt-5 text-blue-100">
-            Lihat Selengkapnya &rarr;{" "}
-          </ReadMore> */}
+          <Link href="/about">
+            <ReadMore className="mt-5 text-blue-100">
+              Lihat Selengkapnya &rarr;
+            </ReadMore>
+          </Link>
         </div>
 
         <div className="mt-20 md:mt-0">

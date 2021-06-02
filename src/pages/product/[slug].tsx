@@ -101,7 +101,7 @@ function Slug({ product }) {
             <div className="flex flex-col mr-10">
               <span className="font-medium text-blue-100 text-md"></span>
             </div>
-            <Link href="request">
+            <Link href="/request">
               <button className="p-3 mr-5 text-white bg-yellow-600 rounded-lg ">
                 Ajukan Penawaran
               </button>
