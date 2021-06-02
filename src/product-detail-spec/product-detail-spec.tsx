@@ -98,7 +98,10 @@ export default function ProductDetailSpec({ product }) {
         </div>
         <div className="flex flex-col ">
           <span className="mb-2 font-medium">Kisaran Harga</span>
-          <span className="text-sm">{product.data[0].price}</span>
+          <span className="text-sm">
+            {convertToRupiah(product.data[0].low_price)} -
+            {convertToRupiah(product.data[0].high_price)}
+          </span>
         </div>
       </TabPanel>
     </div>

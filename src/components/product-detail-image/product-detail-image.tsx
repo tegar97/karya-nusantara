@@ -45,7 +45,7 @@ function ProductDetailImage({ product }) {
       transition={{ type: "spring", stiffness: 100 }}
     >
       <img
-        className="hidden w-full mb-2 md:hidden lg:block lg:mb-10"
+        className="hidden object-contain w-full max-w-full max-h-full mb-2 md:hidden lg:block lg:mb-10"
         src={`${process.env.API_LARAVEL}/storage/${
           mainImage ? mainImage : product.data[0].images.split(",")[0]
         }`}
@@ -58,10 +58,9 @@ function ProductDetailImage({ product }) {
             whileTap={{ scale: 0.9 }}
             key={index}
             onClick={() => setMainImage(img)}
-            className="w-full"
           >
             <img
-              className="w-full"
+              className="object-cover w-40 h-40 p-2"
               src={`${process.env.API_LARAVEL}/storage/${img}`}
               alt={`product ${product.data[0].name}`}
             />

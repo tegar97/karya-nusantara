@@ -20,7 +20,7 @@ export async function getStaticPaths() {
 
   // We'll pre-render only these paths at build time.
   // { fallback: false } means other routes should 404.
-  return { paths, fallback: false };
+  return { paths, revalidate: 10 };
 }
 
 // This also gets called at build time
@@ -33,7 +33,7 @@ export async function getStaticProps({ params }) {
   const product = await res.json();
 
   // Pass post data to the page via props
-  return { props: { product }, revalidate: 1 };
+  return { props: { product }, revalidate: 10 };
 }
 function Slug({ product }) {
   return (
@@ -97,9 +97,12 @@ function Slug({ product }) {
               {product.data[0].name}
             </h2>
           </div>
-          <div className="flex flex-row">
-            <div className="flex flex-col mr-10">
-              <span className="font-medium text-blue-100 text-md"></span>
+          <div className="flex flex-row items-center justify-items-center">
+            <div className="flex flex-col mr-10 ">
+              <span className="text-lg font-medium text-blue-100">
+                {convertToRupiah(product.data[0].low_price)} -
+                {convertToRupiah(product.data[0].high_price)}
+              </span>
             </div>
             <Link href="/request">
               <button className="p-3 mr-5 text-white bg-yellow-600 rounded-lg ">
