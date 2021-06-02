@@ -121,9 +121,33 @@ function ProductCategoryMobile() {
           infiniteLoop={true}
           showArrows={false}
         >
-          <img src="/assets/b1.jpg" alt="banner 1" className="w-full"></img>
-          <img src="/assets/b2.jpg" alt="banner 2" className="w-full"></img>
-          <img src="/assets/b3.jpg" alt="banner 3" className="w-full"></img>
+          <Link href="/product?category=3&all=true">
+            <div>
+              <img
+                src="/assets/b1.jpg"
+                alt="Banner Hampers"
+                className="w-full cursor-pointer"
+              ></img>
+            </div>
+          </Link>
+          <Link href="/product?category=2&all=true">
+            <div>
+              <img
+                src="/assets/b2.jpg"
+                alt="banner Alat Pelindung Diri "
+                className="w-full"
+              ></img>
+            </div>
+          </Link>
+          <Link href="/product?category=4">
+            <div>
+              <img
+                src="/assets/b3.jpg"
+                alt="Banners Penkonversian "
+                className="w-full"
+              ></img>
+            </div>
+          </Link>
         </Carousel>
       </div>
     </div>

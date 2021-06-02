@@ -93,7 +93,7 @@ function Product() {
         }}
       />
       <div style={{ backgroundColor: "#f5f5f5f5", minHeight: "100vh" }}>
-        <div className="grid grid-cols-1 px-1 py-5 lg:px-20 lg:py-40 lg:grid-cols-5 ">
+        <div className="grid w-full grid-cols-1 px-5 py-5 lg:px-20 lg:py-40 lg:grid-cols-5 ">
           <div className="hidden lg:block">
             <ProductSideBar>
               {!categoryData
@@ -108,8 +108,8 @@ function Product() {
                   ))}
             </ProductSideBar>
           </div>
-          <div className="ml-5 lg:col-span-4">
-            <div className="mb-5">
+          <div className="lg:ml-5 lg:col-span-4">
+            <div className="px-2 mb-5">
               <ProductSearch onSearch={onSearch} />
             </div>
 
@@ -122,7 +122,7 @@ function Product() {
             </div>
 
             {!sc && !all && !category && categoryData && search == "" ? (
-              <div className="grid w-full grid-cols-2 gap-5 md:grid-cols-3">
+              <div className="grid w-full grid-cols-2 gap-5 md:grid-cols-4">
                 {categoryData.data.category.data.map((data) => (
                   <Katalog key={data.id} product={data} isCategory="true" />
                 ))}
@@ -130,7 +130,7 @@ function Product() {
             ) : (
               ""
             )}
-            <div className="grid w-full grid-cols-2 gap-5 md:grid-cols-3">
+            <div className="grid w-full grid-cols-2 gap-5 md:grid-cols-4">
               {!product ? (
                 <SkeletonTheme color="#fffff" highlightColor="#ffff">
                   <p>
