@@ -1,3 +1,4 @@
+import Link from "next/link";
 import styles from "./Hero.module.css";
 function Hero() {
   return (
@@ -10,12 +11,14 @@ function Hero() {
             Ragam Solusi Berkualitas Hasil <br />
             Karya UKM Lokal Indonesia
           </h1>
-          <span
-            className="p-3 font-bold bg-white border-black"
-            style={{ color: "var(--color-primary)" }}
-          >
-            "UKM Punya Standar"
-          </span>
+          <Link href="/product">
+            <button
+              className="p-3 font-bold bg-white border-black rounded-md cursor-pointer"
+              style={{ color: "var(--color-primary)", opacity: "80%" }}
+            >
+              "UKM Punya Standar"
+            </button>
+          </Link>
         </div>
       </div>
     </div>

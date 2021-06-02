@@ -52,6 +52,7 @@ export const CompositionPhoto1 = styled.img`
     z-index: 8;
     transition: all .2s;
     outline-offset: 2rem;
+    border-radius: 10px;
     left: 4rem;
     top: -2rem;
     
@@ -81,6 +82,8 @@ export const CompositionPhoto2 = styled.img`
     z-index: 10;
     transition: all .2s;
     outline-offset: 2rem;
+    border-radius: 10px;
+
     right: 4rem;
             top: 4remrem;
     /* @media(max-width: 56.25em) {
@@ -113,6 +116,8 @@ export const CompositionPhoto3 = styled.img`
     border-radius: 2px;
     position: absolute;
     z-index: 10;
+    border-radius: 10px;
+
     transition: all .2s;
     outline-offset: 2rem;
 

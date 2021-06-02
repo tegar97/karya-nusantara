@@ -12,7 +12,7 @@ import {
 function About({ image }) {
   return (
     <div
-      className="px-10 pt-16 pb-40 lg:pt-24 lg:px-24 lg:pb-60"
+      className="px-10 pt-8 pb-40 lg:pt-10 lg:px-24 lg:pb-60"
       style={{ backgroundColor: "var(--color-background" }}
     >
       <HeadingSecondary className="text-center text-blue-100">
@@ -24,11 +24,11 @@ function About({ image }) {
             Apa Itu Karya Nusantara ?
           </AboutHeading>
           <p className="mt-4 text-md">
-            Karya Nusantara adalah program konsolidasi produk UKM dengan
-            menyelaraskan permintaan dari konsument (B2B,B2G,dan B2E) dengan
-            produk / jasa yang disediakan oleh UKM melalui pendampingan untuk
-            menyetarakn standirasi. Program ini merupakan didukung oleh
-            UKMindonesia.id dan kementrian Koperasi dan UKM RI.
+            Karya Nusantara adalah program konsolidasi produk UKM terpilih hasil
+            kurasi yang menyelaraskan permintaan dari konsumen (B2B, B2G, dan
+            B2E) dengan produk/jasa yang disediakan oleh UKM melalui
+            pendampingan untuk menyetarakan standardisasi. Program ini didukung
+            oleh UKMindonesia.id dan Kementerian Koperasi dan UKM RI.
           </p>
 
           {/* <ReadMore className="mt-5 text-blue-100">
