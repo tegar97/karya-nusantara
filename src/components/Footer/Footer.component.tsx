@@ -4,7 +4,7 @@ import { Footer } from "./Footer.styled";
 
 function FooterComponent() {
   return (
-    <footer className="w-full px-1 py-10 bg-white border-2 border-t border-b border-gray-200 lg:p-20">
+    <footer className="w-full px-1 py-10 border-2 border-t border-b border-gray-200 lg:p-20">
       <div className="grid items-center grid-cols-2 justify-items-center lg:grid-cols-4">
         <div className="col-span-2 lg:col-span-1">
           <Link href="/">

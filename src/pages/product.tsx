@@ -126,7 +126,7 @@ function Product() {
             </div>
 
             {!sc && !all && !category && categoryData && search == "" ? (
-              <div className="grid w-full grid-cols-2 gap-5 md:grid-cols-4">
+              <div className="grid w-full grid-cols-2 gap-5 md:grid-cols-3">
                 {categoryData.data.category.data.map((data) => (
                   <Katalog key={data.id} product={data} isCategory="true" />
                 ))}

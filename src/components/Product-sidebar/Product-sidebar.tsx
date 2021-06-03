@@ -6,7 +6,7 @@ function ProductSideBar({ children }) {
   return (
     <Card className="p-2 text-lg ">
       <CardContent>
-        <span className="hidden lg:text-lg">Katalog</span>
+        <span className="text-xl lg:text-lg">Katalog</span>
         {children}
       </CardContent>
     </Card>

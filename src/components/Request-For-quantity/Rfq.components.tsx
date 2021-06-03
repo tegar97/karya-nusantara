@@ -78,7 +78,7 @@ function Rfq() {
                   <textarea
                     id="keterangan"
                     className="w-full px-4 py-3 mt-3 bg-gray-100 rounded-sm focus:outline-none"
-                    placeholder="Jumlah Barang"
+                    placeholder="Isikan Warna,Ukuran atau keterangan lainya"
                   ></textarea>
                 </div>
                 <Link href="/request">

@@ -25,10 +25,14 @@ function OurMitra() {
   const settings = {
     dots: true,
     infinite: false,
-    speed: 500,
     slidesToShow: 4,
     slidesToScroll: 4,
     initialSlide: 0,
+    autoplay: true,
+    speed: 20000,
+    autoplaySpeed: 0,
+    cssEase: "linear",
+    pauseOnHover: true,
     responsive: [
       {
         breakpoint: 1024,
@@ -50,8 +54,8 @@ function OurMitra() {
       {
         breakpoint: 480,
         settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
+          slidesToShow: 1,
+          slidesToScroll: 1,
         },
       },
     ],
@@ -80,7 +84,7 @@ function OurMitra() {
                     <div className="relative flex content-end w-full mb-5 border-2 border-blue-100 shadow-md cursor-pointer lg:py-0 lg-py-5 group hover:border-4 hover:shadow-lg hover:translate-y-20">
                       <img
                         className="w-full h-80 "
-                        src={`https://api.karyanusantara.co.id/storage/20210602065832-settings-1.png-.jpg`}
+                        src={`${process.env.API_LARAVEL}/storage/${data.photoMitra}`}
                         alt="Mitra 1"
                       />
                       <div className="absolute top-0 bottom-0 left-0 right-0 w-full h-full duration-500 bg-gray-100 opacity-0 transation group-hover:opacity-75">
