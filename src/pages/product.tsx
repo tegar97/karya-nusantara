@@ -93,7 +93,7 @@ function Product() {
         }}
       />
       <div style={{ backgroundColor: "#f5f5f5f5", minHeight: "100vh" }}>
-        <div className="grid w-full grid-cols-1 px-5 py-5 lg:px-20 lg:py-40 lg:grid-cols-5 ">
+        <div className="grid w-full grid-cols-1 px-5 py-5 lg:px-20 lg:py-32 lg:grid-cols-5 ">
           <div className="hidden lg:block">
             <ProductSideBar>
               {!categoryData
