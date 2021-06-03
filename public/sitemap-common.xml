@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"
+>
+  <url>
+    <loc>https://www.karyanusantara.co.id/./src/pages/about</loc>
+    <lastmod>2021-06-03T04:58:08.466Z</lastmod>
+  </url>
+
+  <url>
+    <loc>https://www.karyanusantara.co.id/./src/pages/cooperation</loc>
+    <lastmod>2021-06-03T04:58:08.466Z</lastmod>
+  </url>
+
+  <url>
+    <loc>https://www.karyanusantara.co.id/./src/pages/dasboard</loc>
+    <lastmod>2021-06-03T04:58:08.466Z</lastmod>
+  </url>
+
+  <url>
+    <loc>https://www.karyanusantara.co.id/./src/pages/feature</loc>
+    <lastmod>2021-06-03T04:58:08.466Z</lastmod>
+  </url>
+
+  <url>
+    <loc>https://www.karyanusantara.co.id/./src/pages/forgot-password</loc>
+    <lastmod>2021-06-03T04:58:08.466Z</lastmod>
+  </url>
+
+  <url>
+    <loc>https://www.karyanusantara.co.id/./src/pages</loc>
+    <lastmod>2021-06-03T04:58:08.466Z</lastmod>
+  </url>
+
+  <url>
+    <loc>https://www.karyanusantara.co.id/./src/pages/klien</loc>
+    <lastmod>2021-06-03T04:58:08.466Z</lastmod>
+  </url>
+
+  <url>
+    <loc>https://www.karyanusantara.co.id/./src/pages/mitra</loc>
+    <lastmod>2021-06-03T04:58:08.466Z</lastmod>
+  </url>
+
+  <url>
+    <loc>https://www.karyanusantara.co.id/./src/pages/penawaran</loc>
+    <lastmod>2021-06-03T04:58:08.466Z</lastmod>
+  </url>
+
+  <url>
+    <loc>https://www.karyanusantara.co.id/./src/pages/product</loc>
+    <lastmod>2021-06-03T04:58:08.466Z</lastmod>
+  </url>
+
+  <url>
+    <loc>https://www.karyanusantara.co.id/./src/pages/register</loc>
+    <lastmod>2021-06-03T04:58:08.466Z</lastmod>
+  </url>
+
+  <url>
+    <loc>https://www.karyanusantara.co.id/./src/pages/request</loc>
+    <lastmod>2021-06-03T04:58:08.466Z</lastmod>
+  </url>
+
+  <url>
+    <loc>https://www.karyanusantara.co.id/./src/pages/success-ukm</loc>
+    <lastmod>2021-06-03T04:58:08.466Z</lastmod>
+  </url>
+
+  <url>
+    <loc>https://www.karyanusantara.co.id/./src/pages/success</loc>
+    <lastmod>2021-06-03T04:58:08.466Z</lastmod>
+  </url>
+
+  <url>
+    <loc>https://www.karyanusantara.co.id/./src/pages/tentang</loc>
+    <lastmod>2021-06-03T04:58:08.466Z</lastmod>
+  </url>
+
+  <url>
+    <loc>https://www.karyanusantara.co.id/./src/pages/api/hello</loc>
+    <lastmod>2021-06-03T04:58:08.466Z</lastmod>
+  </url>
+
+  <url>
+    <loc>https://www.karyanusantara.co.id/./src/pages/mitra/[slug]</loc>
+    <lastmod>2021-06-03T04:58:08.466Z</lastmod>
+  </url>
+
+  <url>
+    <loc>https://www.karyanusantara.co.id/./src/pages/product/[slug]</loc>
+    <lastmod>2021-06-03T04:58:08.466Z</lastmod>
+  </url>
+
+  <url>
+    <loc
+      >https://www.karyanusantara.co.id/./src/pages/reset-password/[token]</loc
+    >
+    <lastmod>2021-06-03T04:58:08.466Z</lastmod>
+  </url>
+
+  <url>
+    <loc>https://www.karyanusantara.co.id/./src/pages/verify-email/[token]</loc>
+    <lastmod>2021-06-03T04:58:08.466Z</lastmod>
+  </url>
+
+  <url>
+    <loc
+      >https://www.karyanusantara.co.id/./src/pages/product/category/[category]</loc
+    >
+    <lastmod>2021-06-03T04:58:08.466Z</lastmod>
+  </url>
+</urlset>
