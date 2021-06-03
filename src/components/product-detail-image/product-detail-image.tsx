@@ -15,8 +15,8 @@ function ProductDetailImage({ product }) {
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
+          slidesToShow: 4,
+          slidesToScroll: 4,
           infinite: true,
           dots: true,
         },
@@ -24,16 +24,16 @@ function ProductDetailImage({ product }) {
       {
         breakpoint: 600,
         settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
+          slidesToShow: 4,
+          slidesToScroll: 4,
           initialSlide: 1,
         },
       },
       {
         breakpoint: 480,
         settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
+          slidesToShow: 4,
+          slidesToScroll: 4,
         },
       },
     ],
@@ -45,7 +45,7 @@ function ProductDetailImage({ product }) {
       transition={{ type: "spring", stiffness: 100 }}
     >
       <img
-        className="hidden object-contain w-full max-w-full max-h-full mb-2 md:hidden lg:block lg:mb-10"
+        className="object-contain w-full max-w-full max-h-full mb-2 md:hidden lg:block lg:mb-10"
         src={`${process.env.API_LARAVEL}/storage/${
           mainImage ? mainImage : product.data[0].images.split(",")[0]
         }`}
