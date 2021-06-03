@@ -49,7 +49,7 @@ function Rfq() {
                       type="number"
                       id="quantity"
                       className="w-full px-4 py-3 mt-3 bg-gray-100 rounded-sm focus:outline-none"
-                      placeholder="Jumlah Barang"
+                      placeholder="1"
                     />
                   </div>
                   <div className="col-span-2 my-5 text-sm">

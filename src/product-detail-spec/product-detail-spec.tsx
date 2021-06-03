@@ -90,7 +90,11 @@ export default function ProductDetailSpec({ product }) {
       <TabPanel value={value} index={1}>
         <div className="flex flex-col mb-5">
           <span className="mb-2 font-medium">Waktu Pengerjaan : </span>
-          <span className="text-sm">{product.data[0].processing_time}</span>
+          <span className="text-sm">
+            {product.data[0].isReadyStock === 1
+              ? "Ready Stock"
+              : product.data[0].processing_time}
+          </span>
         </div>
         <div className="flex flex-col mb-5">
           <span className="mb-2 font-medium">Minimal Pesanan </span>
