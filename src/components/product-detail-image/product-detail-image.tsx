@@ -45,7 +45,7 @@ function ProductDetailImage({ product }) {
       transition={{ type: "spring", stiffness: 100 }}
     >
       <img
-        className="object-contain w-full max-w-full max-h-full mb-2 md:hidden lg:block lg:mb-10"
+        className="object-contain w-full max-w-full max-h-full mb-2 lg:block lg:mb-10"
         src={`${process.env.API_LARAVEL}/storage/${
           mainImage ? mainImage : product.data[0].images.split(",")[0]
         }`}

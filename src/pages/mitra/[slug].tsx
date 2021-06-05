@@ -16,7 +16,7 @@ export async function getStaticPaths() {
 
   // We'll pre-render only these paths at build time.
   // { fallback: false } means other routes should 404.
-  return { paths, fallback: false };
+  return { paths, fallback: true };
 }
 
 // This also gets called at build time
@@ -29,12 +29,15 @@ export async function getStaticProps({ params }) {
   const mitra = await res.json();
 
   // Pass post data to the page via props
-  return { props: { mitra }, revalidate: 10 };
+  return { props: { mitra }, revalidate: 1 };
 }
 function Slug({ mitra }) {
   function createMarkup(data) {
     return { __html: data };
   }
+  if(!mitra) return (
+    <div>Loading</div>
+  )
   return (
     <>
       <Head>

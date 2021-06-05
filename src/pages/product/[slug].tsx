@@ -20,7 +20,7 @@ export async function getStaticPaths() {
 
   // We'll pre-render only these paths at build time.
   // { fallback: false } means other routes should 404.
-  return { paths, fallback: false };
+  return { paths, fallback: true };
 }
 
 // This also gets called at build time
@@ -33,9 +33,12 @@ export async function getStaticProps({ params }) {
   const product = await res.json();
 
   // Pass post data to the page via props
-  return { props: { product }, revalidate: 10 };
+  return { props: { product }, revalidate: 1 };
 }
 function Slug({ product }) {
+  if(!product) return (
+    <div>Loading ..</div>
+  )
   return (
     <>
       <Head>
