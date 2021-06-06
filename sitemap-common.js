@@ -10,7 +10,6 @@ const formatted = sitemap => prettier.format(sitemap, { parser: "html" });
 (async () => {
     const pages = await globby([
       // include
-      "./src/pages/**/*.tsx",
       "./src/pages/*.tsx",
       // exclude
       "!./src/pages/_*.tsx"
@@ -20,7 +19,7 @@ const formatted = sitemap => prettier.format(sitemap, { parser: "html" });
       ${pages
         .map(page => {
           const path = page
-            .replace("../pages/", "")
+            .replace("./src/pages/", "")
             .replace(".tsx", "")
             .replace(/\/index/g, "");
           const routePath = path === "index" ? "" : path;

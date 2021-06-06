@@ -22,7 +22,7 @@ const formatted = sitemap => prettier.format(sitemap, { parser: "html" });
       .map(data => {
         return `
           <url>
-            <loc>${`${YOUR_AWESOME_DOMAIN}/product/${data.slug}`}</loc>
+            <loc>${`${YOUR_AWESOME_DOMAIN}/mitra/${data.slug}`}</loc>
             <lastmod>${getDate}</lastmod>
           </url>`;
       })
