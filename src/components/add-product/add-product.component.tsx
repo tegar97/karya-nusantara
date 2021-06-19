@@ -72,15 +72,19 @@ const AddProduct = ({ setYourProduct, yourProduct }) => {
       }
       const formData = new FormData();
       formData.append("Image", file);
-
-      const uploadFile = await fetch(
-        `${process.env.API_LARAVEL}/api/uploadFile`,
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
-      const content = await uploadFile.json();
+      let content;
+      if (file) {
+        const uploadFile = await fetch(
+          `${process.env.API_LARAVEL}/api/uploadFile`,
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
+        content = await uploadFile.json();
+      } else {
+        content = "";
+      }
       if (!user.UkmName) {
         const res = await axios.post("/v1/product", {
           CapacityProduct: parseInt(CapacityProduct),
@@ -93,6 +97,13 @@ const AddProduct = ({ setYourProduct, yourProduct }) => {
 
         setYourProduct([...yourProduct, res.data.data]);
         setOpen(false);
+        await axios
+          .post(
+            "https://api.telegram.org/bot1819032854:AAEM6A6hmzf0gkF7o6tzioFV0O-vyLj9PDU/sendMessage?chat_id=-527488617&text=Hola"
+          )
+          .then((res) => {
+            console.log("sendd");
+          });
       } else {
         const res = await axios.post("/v1/product", {
           CapacityProduct: parseInt(CapacityProduct),
@@ -105,9 +116,16 @@ const AddProduct = ({ setYourProduct, yourProduct }) => {
 
         setYourProduct([...yourProduct, res.data.data]);
         setOpen(false);
+        await axios
+          .post(
+            "https://api.telegram.org/bot1819032854:AAEM6A6hmzf0gkF7o6tzioFV0O-vyLj9PDU/sendMessage?chat_id=-527488617&text=Hola"
+          )
+          .then((res) => {
+            console.log("sendd");
+          });
       }
     } catch (err) {
-      setError(err.response.data);
+      setError(err);
     }
   };
 

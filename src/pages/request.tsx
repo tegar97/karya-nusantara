@@ -28,19 +28,23 @@ import Head from "next/head";
 function Bidding({ product }) {
   const [yourProduct, setYourProduct]: any = useState([]);
   const [loading, isLoading] = useState(true);
-  const { authenticated, loading: userLoad } = useAuthState();
+  const { authenticated, loading: userLoad, user } = useAuthState();
 
   useEffect(() => {
     isLoading(true);
 
     const loadYourProduct = async () => {
       try {
-        await axios
-          .get("/v1/me/request/product")
-          .then((res) => {
-            setYourProduct(res.data.Data);
-          })
-          .catch((error) => console.log(error));
+        if (!userLoad) {
+          await axios
+            .get(`${process.env.API_LARAVEL}/api/getMyRfq/${user.ID}`, {
+              withCredentials: false,
+            })
+            .then((res) => {
+              setYourProduct(res.data.data);
+            })
+            .catch((error) => console.log(error));
+        }
       } catch (error) {
         setYourProduct(false);
       }
@@ -48,7 +52,9 @@ function Bidding({ product }) {
     loadYourProduct();
 
     isLoading(false);
-  }, []);
+  }, [user, userLoad]);
+
+  console.log(yourProduct);
 
   function converToRupiah(angka) {
     var rupiah = "";
@@ -65,7 +71,7 @@ function Bidding({ product }) {
   }
 
   const deleteProduct = async (id) => {
-    setYourProduct(yourProduct.filter((product) => product.ID !== id));
+    setYourProduct(yourProduct.filter((product) => product.id !== id));
     await axios.delete(`/v1/product/${id}`);
   };
   return (
@@ -153,10 +159,10 @@ function Bidding({ product }) {
                           <tr key={data.ID}>
                             <td className="px-6 py-4">{i + 1}</td>
                             <td className="px-6 py-4">
-                              <p className="">{data.ProductName}</p>
+                              <p className="">{data.product_name}</p>
                             </td>
                             <td className="px-6 py-4">
-                              <p className="">{data.CapacityProduct}</p>
+                              <p className="">{data.capacity_product}</p>
                             </td>
                             <td className="px-6 py-4 text-center">
                               {data.Price}
@@ -168,7 +174,7 @@ function Bidding({ product }) {
                           </td> */}
                             <td className="px-6 py-4 text-center">
                               <button
-                                onClick={() => deleteProduct(data.ID)}
+                                onClick={() => deleteProduct(data.id)}
                                 className="px-3 py-2 ml-3 text-white bg-red-400"
                               >
                                 Hapus
