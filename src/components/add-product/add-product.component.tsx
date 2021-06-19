@@ -110,16 +110,6 @@ const AddProduct = ({ setYourProduct, yourProduct }) => {
         setYourProduct([...yourProduct, res.data.data]);
         setOpen(false);
       }
-      let templateTelegram = {
-        name: "te",
-        product: "product",
-      };
-      await fetch("http://localhost:8080/send-notification", {
-        method: "POST",
-        body: JSON.stringify(templateTelegram),
-      }).then((res) => {
-        console.log(res, "sendd");
-      });
     } catch (err) {
       setError(err);
     }

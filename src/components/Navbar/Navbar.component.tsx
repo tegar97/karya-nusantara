@@ -18,6 +18,7 @@ function Navbar({ menuDrop, setMenuDrop }) {
   const containerRef = useRef(null);
   const [active, setActive] = useState(false);
   const [bgActive, setBgActive] = useState(false);
+  const [registerSelection, setRegisterSelection] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -46,7 +47,7 @@ function Navbar({ menuDrop, setMenuDrop }) {
       >
         <div>
           <Link href="/">
-            {bgActive ? (
+            {bgActive && homeRouter ? (
               <img
                 src="/assets/logo-nav-min.png"
                 alt="Logo Karya Nusantara"
@@ -174,15 +175,30 @@ function Navbar({ menuDrop, setMenuDrop }) {
           <span>{user.Name}</span> */}
           </div>
         ) : (
-          <div className="hidden lg:block ">
+          <div className="relative hidden lg:block ">
             <LoginModal bgActive={bgActive} />
             <div
               className={`   px-5 py-1 ml-4 inline-block ${
                 bgActive ? "text-white bg-blue-100 " : "text-blue-100 bg-white "
               } `}
             >
-              <button>Daftar</button>
+              <button onClick={() => setRegisterSelection(!registerSelection)}>
+                Daftar
+              </button>
             </div>
+            {registerSelection && (
+              <div
+                className="absolute flex flex-col items-start justify-start w-full p-2 text-black bg-white shadow-lg"
+                style={{ bottom: "-90px", border: "2px solid #5996ab" }}
+              >
+                <button className="w-full p-1 text-sm text-left text-white bg-blue-100 outline-none ">
+                  Daftar Sebagai Pembeli
+                </button>
+                <button className="w-full p-1 mt-2 text-sm text-left text-white bg-blue-100 ">
+                  Daftar Sebagai Mitra
+                </button>
+              </div>
+            )}
           </div>
         )}
         <div className="block lg:hidden">
