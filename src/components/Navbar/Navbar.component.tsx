@@ -47,9 +47,9 @@ function Navbar({ menuDrop, setMenuDrop }) {
       >
         <div>
           <Link href="/">
-            {bgActive && homeRouter ? (
+            {!bgActive && homeRouter ? (
               <img
-                src="/assets/logo-nav-min.png"
+                src="/assets/logo-putih.png"
                 alt="Logo Karya Nusantara"
                 width={150}
                 height={50}
@@ -57,7 +57,7 @@ function Navbar({ menuDrop, setMenuDrop }) {
               />
             ) : (
               <img
-                src="/assets/logo-putih.png"
+                src="/assets/logo-nav-min.png"
                 alt="Logo Karya Nusantara"
                 width={150}
                 height={50}
@@ -127,7 +127,7 @@ function Navbar({ menuDrop, setMenuDrop }) {
                   onClick={() => setActive(!active)}
                   className="w-full p-3 ml-4 cursor-pointer mt-7 hover:bg-blue-100 hover:text-white "
                 >
-                  <LoginModal bgActive={bgActive} />
+                  <LoginModal bgActive={bgActive} homeRouter={homeRouter} />
                 </li>
                 <li
                   onClick={() => setActive(!active)}
@@ -176,10 +176,12 @@ function Navbar({ menuDrop, setMenuDrop }) {
           </div>
         ) : (
           <div className="relative hidden lg:block ">
-            <LoginModal bgActive={bgActive} />
+            <LoginModal bgActive={bgActive} homeRouter={homeRouter} />
             <div
               className={`   px-5 py-1 ml-4 inline-block ${
-                bgActive ? "text-white bg-blue-100 " : "text-blue-100 bg-white "
+                !bgActive && homeRouter
+                  ? "text-blue-100 bg-white "
+                  : "text-white bg-blue-100 "
               } `}
             >
               <button onClick={() => setRegisterSelection(!registerSelection)}>
@@ -189,7 +191,11 @@ function Navbar({ menuDrop, setMenuDrop }) {
             {registerSelection && (
               <div
                 className="absolute flex flex-col items-start justify-start w-full p-2 text-black bg-white shadow-lg"
-                style={{ bottom: "-90px", border: "2px solid #5996ab" }}
+                style={{
+                  bottom: "-90px",
+                  border: "2px solid #5996ab",
+                  borderRadius: "3px",
+                }}
               >
                 <button className="w-full p-1 text-sm text-left text-white bg-blue-100 outline-none ">
                   Daftar Sebagai Pembeli

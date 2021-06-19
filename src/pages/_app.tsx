@@ -18,6 +18,7 @@ axios.defaults.headers = {
 function MyApp({ Component, pageProps }) {
   const { pathname } = useRouter();
   const authRoutes = ["/register"];
+
   const authRoute = authRoutes.includes(pathname);
   const [menuDrop, setMenuDrop] = useState(false);
   return (
@@ -37,7 +38,11 @@ function MyApp({ Component, pageProps }) {
         <Navbar setMenuDrop={setMenuDrop} menuDrop={menuDrop} />
 
         <Component {...pageProps} />
-        <FooterComponent />
+        {pathname === "/register-ukm" || pathname === "/register-konsumen" ? (
+          ""
+        ) : (
+          <FooterComponent />
+        )}
       </AuthProvider>
     </div>
   );

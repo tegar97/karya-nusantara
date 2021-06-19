@@ -25,7 +25,7 @@ const customStyles = {
   },
 };
 
-const LoginModal = ({ bgActive }) => {
+const LoginModal = ({ bgActive, homeRouter }) => {
   let subtitle;
 
   const [modalIsOpen, setIsOpen] = React.useState(false);
@@ -87,9 +87,9 @@ const LoginModal = ({ bgActive }) => {
     <div className="inline-block ">
       <div
         className={`px-5 py-1 border-2 border-blue-100    ${
-          bgActive
-            ? "lg:border-2 lg:text-blue-100 lg:border-blue-100 lg:hover:border-blue-100 lg:hover:text-blue-100"
-            : "lg:border-2 lg:text-white lg:border-white lg:hover:border-blue-100 lg:hover:text-blue-100"
+          !bgActive && homeRouter
+            ? "lg:border-2 lg:text-white lg:border-white lg:hover:border-blue-100 lg:hover:text-blue-100"
+            : "lg:border-2 lg:text-blue-100 lg:border-blue-100 lg:hover:border-blue-100 lg:hover:text-blue-100"
         }  `}
       >
         <button onClick={openModal} className="outline-none">
