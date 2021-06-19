@@ -97,13 +97,6 @@ const AddProduct = ({ setYourProduct, yourProduct }) => {
 
         setYourProduct([...yourProduct, res.data.data]);
         setOpen(false);
-        await axios
-          .post(
-            "https://api.telegram.org/bot1819032854:AAEM6A6hmzf0gkF7o6tzioFV0O-vyLj9PDU/sendMessage?chat_id=-527488617&text=Hola"
-          )
-          .then((res) => {
-            console.log("sendd");
-          });
       } else {
         const res = await axios.post("/v1/product", {
           CapacityProduct: parseInt(CapacityProduct),
@@ -116,14 +109,17 @@ const AddProduct = ({ setYourProduct, yourProduct }) => {
 
         setYourProduct([...yourProduct, res.data.data]);
         setOpen(false);
-        await axios
-          .post(
-            "https://api.telegram.org/bot1819032854:AAEM6A6hmzf0gkF7o6tzioFV0O-vyLj9PDU/sendMessage?chat_id=-527488617&text=Hola"
-          )
-          .then((res) => {
-            console.log("sendd");
-          });
       }
+      let templateTelegram = {
+        name: "te",
+        product: "product",
+      };
+      await fetch("http://localhost:8080/send-notification", {
+        method: "POST",
+        body: JSON.stringify(templateTelegram),
+      }).then((res) => {
+        console.log(res, "sendd");
+      });
     } catch (err) {
       setError(err);
     }

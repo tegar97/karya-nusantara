@@ -1,14 +1,30 @@
 import React, { FormEvent, useState } from "react";
 import ReactDOM from "react-dom";
 import "react-responsive-modal/styles.css";
-import { Modal } from "react-responsive-modal";
+import Modal from "react-modal";
+
 import axios from "axios";
 import { useAuthDispatch } from "./../../context/auth";
 import { route } from "next/dist/next-server/server/router";
 import { useRouter } from "next/router";
 import Link from "next/link";
-const LoginModal = () => {
-  const [open, setOpen] = useState(false);
+
+const customStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+  },
+};
+
+const LoginModal = ({ bgActive }) => {
+  let subtitle;
+
+  const [modalIsOpen, setIsOpen] = React.useState(false);
+
   const [error, setError] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -22,6 +38,19 @@ const LoginModal = () => {
     textAlign: "center",
     padding: 0,
   };
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function afterOpenModal() {
+    // references are now sync'd and can be accessed.
+    subtitle.style.color = "#f00";
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
   const submitForm = async (event: FormEvent) => {
     event.preventDefault();
 
@@ -42,7 +71,7 @@ const LoginModal = () => {
         );
 
         dispatch("LOGIN_REGISTER", res.data);
-        setOpen(false);
+        setIsOpen(false);
         router.push("/");
       } catch (err) {
         setError(err.response.data.general);
@@ -52,90 +81,29 @@ const LoginModal = () => {
       }
     }
   };
-  const onOpenModal = () => setOpen(true);
-  const onCloseModal = () => setOpen(false);
+  Modal.setAppElement("#root");
+
   return (
-    <>
-      <div className="inline-block">
-        <button onClick={onOpenModal}>Masuk</button>
-        <Modal open={open} onClose={onCloseModal} center>
-          <div className="flex items-center justify-between p-0 border-b border-gray-300 border-1">
-            <span>Masuk</span>
-          </div>
-
-          <div>
-            <form onSubmit={submitForm}>
-              <p className="mt-5 text-red-400">{error}</p>
-
-              <div className="my-5 text-sm">
-                <label
-                  htmlFor="email"
-                  className="block text-black "
-                  style={{ fontSize: "1.05rem" }}
-                >
-                  Email
-                </label>
-                <input
-                  type="email"
-                  autoFocus
-                  id="email"
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-2 py-2 mt-3 border-2 border-gray-300 rounded-md bg-gray-50 focus:outline-none"
-                  placeholder="Alamat Email"
-                ></input>
-              </div>
-              <div className="mt-5 text-sm">
-                <label
-                  htmlFor="password"
-                  className="block text-black "
-                  style={{ fontSize: "1.05rem" }}
-                >
-                  Password
-                </label>
-                <input
-                  type="password"
-                  autoFocus
-                  onChange={(e) => setPassword(e.target.value)}
-                  id="password"
-                  className="w-full px-2 py-2 mt-3 mb-3 border-2 border-gray-300 rounded-md bg-gray-50 focus:outline-none"
-                  placeholder="Masukan Password Anda"
-                ></input>
-                <Link href="/forgot-password">
-                  <span className="mt-3 underline text-md ">
-                    Lupa Password ? Klik Disini
-                  </span>
-                </Link>
-              </div>
-              <div className="flex items-center mt-7">
-                {/* <span className="ml-2 text-gray-700">
-                  Centang ini jika sebelumnya anda mendaftar sebagai ukm
-                </span> */}
-              </div>
-
-              {Loading ? (
-                <button className="p-3 mt-3 text-white bg-blue-100 ">
-                  Loading ....
-                </button>
-              ) : (
-                <button className="p-3 mt-3 text-white bg-blue-100 ">
-                  Masuk
-                </button>
-              )}
-            </form>
-          </div>
-          <Link href="/register">
-            <span className="mt-5 underline text-md">
-              Belum punya akun? Ayo Daftar
-            </span>
-          </Link>
-          <p style={{ visibility: "hidden" }}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
-            pulvinar risus non risus hendrerit venenatis. Pellentesque sit amet
-            hendrerit risus, sed porttitor quam.
-          </p>
-        </Modal>
+    <div className="inline-block ">
+      <div
+        className={`px-5 py-1 border-2 border-blue-100    ${
+          bgActive
+            ? "lg:border-2 lg:text-blue-100 lg:border-blue-100 lg:hover:border-blue-100 lg:hover:text-blue-100"
+            : "lg:border-2 lg:text-white lg:border-white lg:hover:border-blue-100 lg:hover:text-blue-100"
+        }  `}
+      >
+        <button onClick={openModal}>Masuk</button>
       </div>
-    </>
+      <Modal
+        isOpen={modalIsOpen}
+        onAfterOpen={afterOpenModal}
+        onRequestClose={closeModal}
+        style={customStyles}
+        contentLabel="Login Modal"
+      >
+        <div></div>
+      </Modal>
+    </div>
   );
 };
 

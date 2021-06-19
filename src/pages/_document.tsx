@@ -49,7 +49,7 @@ class MyDocument extends Document {
             href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
           />
         </Head>
-        <body>
+        <body id="root">
           <Main />
           <NextScript />
         </body>

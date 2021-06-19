@@ -7,7 +7,10 @@ function Hero() {
         <img src="/assets/daun2.png" className={styles.daun} alt="hero" />
 
         <div className="text-center ">
-          <h1 className="mb-5 text-xl font-extrabold text-white md:text-3xl lg:text-5xl ">
+          <h1
+            style={{ textShadow: "1px 1px 1px white" }}
+            className="mb-5 text-xl font-extrabold text-white md:text-3xl lg:text-5xl "
+          >
             Ragam Solusi Berkualitas Hasil <br />
             Karya UKM Lokal Indonesia
           </h1>

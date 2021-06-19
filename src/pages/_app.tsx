@@ -29,6 +29,10 @@ function MyApp({ Component, pageProps }) {
             name="google-site-verification"
             content="8pKRIkpctIK_LbLou5qxfbL_YcR2Ovc2D990W1FPFhU"
           />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;1,800&display=swap"
+            rel="stylesheet"
+          />
         </Head>
         <Navbar setMenuDrop={setMenuDrop} menuDrop={menuDrop} />
 

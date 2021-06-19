@@ -5,6 +5,7 @@
 * {
   --color-primary: #45c1c1;
   --color-background: #f7f7f7;
+  font-family: "Poppins", sans-serif;
 }
 
 .ModalLogin {

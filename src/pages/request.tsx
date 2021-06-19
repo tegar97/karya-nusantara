@@ -165,7 +165,7 @@ function Bidding({ product }) {
                               <p className="">{data.capacity_product}</p>
                             </td>
                             <td className="px-6 py-4 text-center">
-                              {data.Price}
+                              {data.price}
                             </td>
                             {/* <td className="px-6 py-4 text-center">
                             <span className="px-2 font-semibold text-green-800 bg-green-200 rounded-full">
