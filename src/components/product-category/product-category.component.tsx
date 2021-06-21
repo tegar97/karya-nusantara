@@ -12,16 +12,10 @@ import { Carousel } from "react-responsive-carousel";
 function ProductCategory() {
   return (
     <div className="grid grid-cols-4 lg:px-20 gap-7 ">
-      <LeftCategory
-        className="col-span-4 bg-blue-100 shadow-xl lg:col-span-1"
-        style={{
-          boxShadow:
-            "10px 8px 8px 4px rgba(0, 0, 0, 0.12), 4px 6px 4px 3px rgba(0, 0, 0, 0.1)",
-        }}
-      >
+      <LeftCategory className="col-span-4 bg-white border-2 border-blue-100 lg:col-span-1">
         <CategoryProductListContainer>
           <Link href="/product">
-            <span className="mb-3 text-xl text-white cursor-pointer lg:text-2xl text-md">
+            <span className="mb-3 text-xl text-blue-100 cursor-pointer lg:text-2xl text-md">
               Katalog Product
             </span>
           </Link>

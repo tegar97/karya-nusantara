@@ -33,6 +33,8 @@ export const CategoryProductList = styled.li`
         box-shadow: 9px 10px 16px -9px rgba(0,0,0,0.61);
 -webkit-box-shadow: 9px 10px 16px -9px rgba(0,0,0,0.61);
 -moz-box-shadow: 9px 10px 16px -9px rgba(0,0,0,0.61);
+background-color:  #5996ab;
+color: #fff
     }
 
 `

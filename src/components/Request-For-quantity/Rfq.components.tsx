@@ -1,92 +1,106 @@
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
+import FormInput from "../input-container/input-container";
 
 function Rfq() {
+  const [formData, setFormData] = useState({});
+  const onChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
   return (
-    <div className="py-3">
-      <div className="p-3 mb-3 text-xl text-center text-white bg-blue-100 lg:text-2xl ">
-        Request for Quotation
-      </div>
-
+    <div className="py-3 lg:px-20">
       <div
-        className="bg-cover "
-        style={{ backgroundImage: "url('/assets/rfq.png')" }}
+        className="bg-no-repeat bg-cover border-2 border-blue-100 "
+        style={{ backgroundImage: "url('/assets/newRfq.png')" }}
       >
         {/* <HeadingSecondary className="text-center ">
         Request For Quotation
       </HeadingSecondary> */}
-        <div className="grid items-center content-center gap-4 p-4 sm:p-4 lg:p-5 lg:grid-cols-5 md:grid-cols-1 ">
-          <div className="col-span-1 text-left lg:col-span-3 ">
-            <h4 className="mb-5 text-2xl font-bold text-white lg:text-4xl ">
-              Solusi cepat Untuk Mendapatkan Penawaran Harga
-            </h4>
-            <span className="text-lg text-white ">
-              Isikan Detail Barang Yang Anda inginkan disini
-            </span>
-          </div>
-          <div className="w-full col-span-2 ">
-            <div className="bg-white p-7 ">
-              <span>Dapatkan Penawaran Terbaik</span>
-              <form>
-                <div className="my-5 text-sm">
-                  <label htmlFor="name" className="block text-black">
-                    Nama Barang
-                  </label>
-                  <input
-                    type="text"
+        <div>
+          <div className="flex items-end justify-end p-5 lg:p-10">
+            <div className="w-full mt-10 border-2 border-blue-100 md:w-full lg:w-5/12 ">
+              <div
+                className="p-5 "
+                style={{ background: "rgba(255,255,255,.93)" }}
+              >
+                <div className="flex justify-center">
+                  <span className="text-lg font-bold text-blue-100">
+                    Dapatkan Penawaran Terbaik
+                  </span>
+                </div>
+                <form>
+                  <FormInput
+                    name="name"
                     id="name"
-                    className="w-full px-4 py-3 mt-3 bg-gray-100 rounded-sm focus:outline-none"
-                    placeholder="Isi Barang Yang Anda Cari"
+                    type="text"
+                    label="Nama Barang"
+                    placeholder="Isi Nama barang yang anda cari"
+                    onChange={(e) => onChange(e)}
+                    className="text-black"
+                    defaultPlaceHolder
                   />
-                </div>
-
-                <div className="grid grid-cols-3 gap-4">
-                  <div className="my-5 text-sm">
-                    <label htmlFor="quantity" className="block text-black">
-                      Quantity
-                    </label>
-                    <input
+                  <div className="grid grid-cols-2 gap-5">
+                    <FormInput
+                      name="quantity"
+                      id="quantity"
                       type="number"
-                      id="quantity"
-                      className="w-full px-4 py-3 mt-3 bg-gray-100 rounded-sm focus:outline-none"
+                      label="Quantity"
                       placeholder="1"
+                      onChange={(e) => onChange(e)}
+                      className="text-black"
+                      defaultPlaceHolder
                     />
+                    <div style={{ marginBottom: "10px" }}>
+                      <label htmlFor="satuan">Satuan Barang</label>
+                      <select
+                        style={{
+                          width: "100%",
+                          border: "1px solid #c2c2c2 ",
+                          background: "#ffff",
+                          paddingTop: "5px",
+                          paddingBottom: "5px",
+                          paddingLeft: "10px",
+                          paddingRight: "10px",
+                          outline: "none",
+                        }}
+                      >
+                        <option>Pilih Satuan Barang</option>
+                        <option value="unit">UNIT</option>
+                        <option value="liter">Liter</option>
+                        <option value="Kg">Kg</option>
+                        <option value="box">Box</option>
+                        <option value="meter">Meter</option>
+                        <option value="set">Set</option>
+                      </select>
+                    </div>
                   </div>
-                  <div className="col-span-2 my-5 text-sm">
-                    <label htmlFor="quantity" className="block text-black">
-                      Satuan
-                    </label>
-                    <select
-                      id="quantity"
-                      className="w-full px-4 py-3 mt-3 bg-gray-100 rounded-sm focus:outline-none"
-                      placeholder="Isi Barang Yang Anda Cari"
-                    >
-                      <option>Pilih Satuan Barang</option>
-                      <option value="unit">UNIT</option>
-                      <option value="liter">Liter</option>
-                      <option value="Kg">Kg</option>
-                      <option value="box">Box</option>
-                      <option value="meter">Meter</option>
-                      <option value="set">Set</option>
-                    </select>
+                  <FormInput
+                    name="description"
+                    id="description"
+                    label="Keterangan"
+                    type="text"
+                    placeholder="Isikan warna,ukuran dan keterangan lainya"
+                    onChange={(e) => onChange(e)}
+                    className=""
+                    defaultPlaceHolder
+                  />
+                  <FormInput
+                    name="images"
+                    id="images"
+                    type="file"
+                    label="Foto Produk"
+                    placeholder="Contoh Produk Yang anda inginkan"
+                    onChange={(e) => onChange(e)}
+                    defaultPlaceHolder
+                    className=""
+                  />
+                  <div className="flex justify-center mt-5">
+                    <button className="px-16 py-2 text-white bg-blue-100">
+                      Buat Penawaran
+                    </button>
                   </div>
-                </div>
-                <div className="my-5 text-sm">
-                  <label htmlFor="keterangan" className="block text-black">
-                    Keterangan
-                  </label>
-                  <textarea
-                    id="keterangan"
-                    className="w-full px-4 py-3 mt-3 bg-gray-100 rounded-sm focus:outline-none"
-                    placeholder="Isikan Warna,Ukuran atau keterangan lainya"
-                  ></textarea>
-                </div>
-                <Link href="/request">
-                  <button className="p-2 text-white bg-blue-100 ">
-                    Submit
-                  </button>
-                </Link>
-              </form>
+                </form>
+              </div>
             </div>
           </div>
         </div>

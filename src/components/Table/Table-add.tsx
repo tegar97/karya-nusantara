@@ -113,10 +113,13 @@ const RequestProduct = () => {
                         outline: "none",
                       }}
                     >
-                      <option>KG</option>
-                      <option>KG</option>
-                      <option>KG</option>
-                      <option>KG</option>
+                      <option>Pilih Satuan Barang</option>
+                      <option value="unit">UNIT</option>
+                      <option value="liter">Liter</option>
+                      <option value="Kg">Kg</option>
+                      <option value="box">Box</option>
+                      <option value="meter">Meter</option>
+                      <option value="set">Set</option>
                     </select>
                   </div>
                 </div>
