@@ -6,8 +6,9 @@ function ProductSearch({ onSearch }) {
       {/* <SearchIcon className="absolute bottom-4 left-2" /> */}
       <input
         placeholder="Cari Produk"
-        className="w-full p-2 shadow-md outline-none"
+        className="w-full p-2 outline-none"
         onChange={(e) => onSearch(e)}
+        style={{ border: "1px solid #5996ab" }}
       />
       <button className="w-1/6 p-2 text-white bg-blue-100 shadow-md ">
         Cari

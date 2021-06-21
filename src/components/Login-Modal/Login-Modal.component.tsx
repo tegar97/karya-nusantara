@@ -151,14 +151,14 @@ const LoginModal = ({ bgActive, homeRouter }) => {
                     autoFocus
                     onChange={(e) => setPassword(e.target.value)}
                     id="password"
-                    className="w-full px-2 py-2 mt-3 border-2 rounded-md focus:outline-none"
+                    className="w-full px-2 py-2 mt-3 mb-2 border-2 rounded-md focus:outline-none"
                     style={{ border: "1px solid #c2c2c2" }}
                     placeholder="Masukan Password Anda"
                   ></input>
                   <Link href="/forgot-password">
                     <span
                       onClick={() => setIsOpen(false)}
-                      className="mt-3 text-red-600 underline cursor-pointer text-md"
+                      className="text-red-600 underline cursor-pointer text-md"
                     >
                       Lupa Password ? [Klik Disini]
                     </span>
