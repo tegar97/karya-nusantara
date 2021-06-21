@@ -18,20 +18,19 @@ export const Input = styled.input`
     }
 
     &::placeholder {
-  color:  #5996ab;
+  color:  ${props => props.defaultPlaceHolder ? '#000' : '#5996ab'};
   font-weight: 'bold';
   opacity: 1; /* Firefox */
 }
 
 &:-ms-input-placeholder { /* Internet Explorer 10-11 */
- color:  #5996ab;
- font-weight: 'bold';
+  color:  ${props => props.defaultPlaceHolder ? '#000' : '#5996ab'}; font-weight: 'bold';
 
 }
 
 &::-ms-input-placeholder { /* Microsoft Edge */
- color:  #5996ab;
- font-weight: 'bold';
+  color:  ${props => props.defaultPlaceHolder ? '#000' : '#5996ab'};
+   font-weight: 'bold';
 
 }
 `

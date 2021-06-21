@@ -11,7 +11,7 @@ import { Carousel } from "react-responsive-carousel";
 
 function ProductCategory() {
   return (
-    <div className="grid grid-cols-4 gap-7 ">
+    <div className="grid grid-cols-4 lg:px-20 gap-7 ">
       <LeftCategory
         className="col-span-4 bg-blue-100 shadow-xl lg:col-span-1"
         style={{

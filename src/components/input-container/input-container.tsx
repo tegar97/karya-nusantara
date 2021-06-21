@@ -10,11 +10,13 @@ const FormInput = ({
   error,
   children,
   label,
+  defaultPlaceHolder,
   ...props
 }: any) => {
   return (
     <div>
       <label htmlFor={name}>{label}</label>
+
       <Input
         id={name}
         name={name}
@@ -24,6 +26,7 @@ const FormInput = ({
         value={value}
         className={className}
         style={error && { border: "solid 1px red" }}
+        defaultPlaceHolder={defaultPlaceHolder}
       />
       {error && <p>{error}</p>}
     </div>

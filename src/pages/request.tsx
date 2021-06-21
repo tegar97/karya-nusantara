@@ -1,13 +1,11 @@
 import { Container } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
 import AddProduct from "../components/add-product/add-product.component";
-import RfqTable from "../components/rfq-table/rfq-table";
-import EditIcon from "@material-ui/icons/Edit";
-import { useAuthState } from "../context/auth";
-import { error } from "node:console";
+
 import { NextSeo } from "next-seo";
 import Head from "next/head";
 import Table from "../components/Table/Table.component";
+import RequestProduct from "../components/Table/Table-add";
 
 // export async function getStaticProps() {
 //   const res = await fetch(`http://127.0.0.1:5000/api/v1/me/request/product`);
@@ -63,10 +61,11 @@ function Bidding({ product }) {
             style={{ boxShadow: "1.5px 1.5px rgb(89, 150, 171,.8)" }}
           >
             <div className="px-5">
-              <AddProduct
+              {/* <AddProduct
                 setYourProduct={setYourProduct}
                 yourProduct={yourProduct}
-              />
+              /> */}
+              <RequestProduct />
             </div>
             <div className="block mt-5">
               {/* <table className="p-2 mt-5">
