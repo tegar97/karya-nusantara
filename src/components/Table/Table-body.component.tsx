@@ -1,4 +1,5 @@
 import React from "react";
+import TableDeleteModal from "./Table-delete.modal";
 import { TableRow } from "./Table.styled";
 
 function TableBody({ data, deleteProduct, i }) {
@@ -6,9 +7,7 @@ function TableBody({ data, deleteProduct, i }) {
     <TableRow key={data.ID} className="group">
       <td className="relative px-10 py-4">
         {" "}
-        <span className="absolute text-blue-100 opacity-0 left-2 group-hover:opacity-100">
-          X
-        </span>
+        <TableDeleteModal />
         {i + 1}
       </td>
       <td className="px-6 py-4">
