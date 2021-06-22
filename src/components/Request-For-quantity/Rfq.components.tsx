@@ -8,7 +8,7 @@ function Rfq() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   return (
-    <div className="py-3 lg:px-20">
+    <div className="py-3 mt-5 lg:px-20">
       <div
         className="bg-no-repeat bg-cover border-2 border-blue-100 "
         style={{ backgroundImage: "url('/assets/newRfq.png')" }}

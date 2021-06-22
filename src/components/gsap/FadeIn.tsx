@@ -7,7 +7,7 @@ const FadeInAnimation = ({
   wrapperElement = "div",
   direction = null,
   delay = 0,
-  itemContainerRef,
+  itemContainerRef = null,
   ...props
 }) => {
   const Component: any = wrapperElement;
@@ -35,7 +35,7 @@ const FadeInAnimation = ({
   }
 
   useEffect(() => {
-    gsap.from(compRef.current, 1.5, {
+    gsap.from(compRef.current, 1, {
       ...fadeDirection,
       opacity: 0,
       lazy: true,

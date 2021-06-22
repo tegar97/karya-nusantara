@@ -27,3 +27,12 @@ export const Thumbnail = styled.img`
     height: 142px;
   }
 `;
+
+export const ImageContainer = styled.img`
+  filter: grayscale(100%);
+  transition: filter 0.5s;
+
+  &:hover {
+    filter: grayscale(0%);
+  }
+`;

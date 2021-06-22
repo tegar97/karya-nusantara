@@ -81,21 +81,33 @@ const ClientCard = () => {
             ))}
           </Slider>
         ) : (
-          <div className="grid grid-cols-1 gap-5 lg:grid-cols-3 ">
-            {data.data.map((data) => (
-              <div className="w-full p-2 text-center bg-white shadow-lg">
-                <Image
-                  src={`${process.env.API_LARAVEL}/storage/${data.icon}`}
-                  width={200}
-                  height={200}
-                  alt="Klient 1"
-                  className="self-center mb-5 text-center"
-                />
-                <div>
-                  <span>{data.description}</span>
+          <div className="grid items-center w-full grid-cols-1 gap-5 lg:grid-cols-7 justify-items-center">
+            {/* {data.data.map((data) => (
+                <div className="w-full p-2 text-center">
+                  <img
+                    src={`/assets/logo-farma.png`}
+                    width={200}
+                    height={200}
+                    alt="Klient 1"
+                    className="self-center mb-5 text-center"
+                  />
                 </div>
-              </div>
-            ))}
+              ))} */}
+            <img
+              src={`/assets/logo-farma.png`}
+              alt="Klient 1"
+              className="self-center mb-5 text-center h-28 lg:w-28 "
+            />
+            <img
+              src={`https://upload.wikimedia.org/wikipedia/id/thumb/c/c3/Kimia_Farma_logo.svg/1200px-Kimia_Farma_logo.svg.png`}
+              alt="Klient 1"
+              className="self-center mb-5 text-center h-28 lg:w-28 "
+            />
+            <img
+              src={`/assets/logo-kemenkes.png`}
+              alt="Klient 1"
+              className="self-center mb-5 text-center h-28 lg:w-28 "
+            />
           </div>
         )}
       </>

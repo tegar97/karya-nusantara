@@ -2,12 +2,11 @@ import React from "react";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 import useSWR from "swr";
-import Link from "next/link";
 import { HeadingSecondary } from "../About/About.styled";
-import Image from "next/image";
 import { useMediaQuery } from "react-responsive";
 import Slider from "react-slick";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import MitraCardComponent from "./Mitra-card.componen";
 
 const fetcher = (
   ...args: [input: RequestInfo, init?: RequestInit | undefined]
@@ -76,26 +75,10 @@ function OurMitra() {
             </p>
           </SkeletonTheme>
         ) : (
-          <div>
+          <div className="group">
             <Slider {...settings}>
               {data.data.map((data) => (
-                <div className="p-2">
-                  <Link href={`/mitra/${data.slug}`}>
-                    <div className="relative flex content-end w-full mb-5 border-2 border-blue-100 shadow-md cursor-pointer lg:py-0 lg-py-5 group hover:border-4 hover:shadow-lg hover:translate-y-20">
-                      <img
-                        className="w-full h-80 "
-                        src={`${process.env.API_LARAVEL}/storage/${data.photoMitra}`}
-                        alt="Mitra 1"
-                      />
-                      <div className="absolute top-0 bottom-0 left-0 right-0 w-full h-full duration-500 bg-gray-100 opacity-0 transation group-hover:opacity-75">
-                        &nbsp;
-                      </div>
-                      <div className="absolute left-0 w-full p-2 text-center transition duration-500 bg-blue-100 opacity-0 group-hover:opacity-80 bottom-2 ">
-                        <span>{data.ukmName}</span>
-                      </div>
-                    </div>
-                  </Link>
-                </div>
+                <MitraCardComponent data={data} />
               ))}
             </Slider>
           </div>

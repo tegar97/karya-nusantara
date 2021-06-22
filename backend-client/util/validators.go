@@ -33,7 +33,6 @@ func ValidateRegister(u *models.Konsumen) *models.UserErrors2 {
 	e.Err, e.CompanyName = IsEmpty(u.CompanyName,"perusahaan")
 	e.Err, e.PhoneNumber = IsEmpty(u.PhoneNumber,"nomor hp")
 	e.Err, e.Name = IsEmpty(u.Name,"nama")
-	e.Err, e.CompanyAdress = IsEmpty(u.CompanyAdress,"alamat")
 
 
 	if !valid.IsEmail(u.Email) {

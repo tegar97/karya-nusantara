@@ -12,15 +12,17 @@ type Konsumen struct {
 	Name          string `gorm:"size:64"`
 	UUID   int
 	Email         string `json:"email" gorm:"unique"`
+	City         string `json:"city"`
+	Districts         string `json:"districts"`
+	Village  string `json:"village"`
+	PostCode  string `json:"postCode"`
 	Password string `json:"password"`
 	CompanyName   string  `json:"CompanyName" gorm:"size:64"`
-	CompanyBirth  string `json:"CompanyBirth"`
 	IsVerify int `json:"isVerify" gorm:"size:1"`
+	Role int `json:"isVerify" gorm:"size:1" gorm:"default:1" `
 	VerifyToken string `json:"VerifyToken" gorm:"size:65"`
 	VerifyExpire  time.Time `gorm:"type:datetime" json:"VerifyExpire"  `
-	CompanyAdress string `json:"CompanyAdress"`
 	PhoneNumber   string `json:"PhoneNumber" gorm:"size:20"`
-	CompanyEmail  string `json:"CompanyEmail"  gorm:"size:65"`
 	PasswordResetToken string `json:"PasswordResetToken" `
 	PasswordResetExpire string `json:"PasswordResetExpire" gorm:"size:65"`
 

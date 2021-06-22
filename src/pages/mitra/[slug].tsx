@@ -35,17 +35,9 @@ function Slug({ mitra }) {
   function createMarkup(data) {
     return { __html: data };
   }
-  if(!mitra) return (
-    <div>Loading</div>
-  )
+  if (!mitra) return <div>Loading</div>;
   return (
     <>
-      <Head>
-        <meta
-          name="keywords"
-          content="ukm indonesia, umks indonesia, karya nusantara,jual,beli,ukm"
-        />
-      </Head>
       <NextSeo
         title={mitra.data[0].title}
         description={mitra.data[0].text_highlight}
@@ -65,28 +57,23 @@ function Slug({ mitra }) {
           site_name: `${mitra.data[0].title}`,
         }}
       />
-      <div className="h-full px-10 py-20 lg:px-40 lg:py-40 ds">
-        <div className="">
-          <div>
-            <h1 className="text-lg lg:text-3xl">{mitra.data[0].title}</h1>
-            <div className="mt-5">
-              <span className="text-gray-800 ">
-                {moment(mitra.data[0].created_at).format(
-                  "dddd, MMMM Do YYYY, h:mm:ss a"
-                )}
-              </span>
-            </div>
-          </div>
-          <div className="mt-10">
-            <ImageArticle
-              src={`${process.env.API_LARAVEL}/storage/${mitra.data[0].thumbnail}`}
-              alt={`photo dari cerita ${mitra.data[0].name} `}
-            />
-            <div
-              className="mt-10"
-              dangerouslySetInnerHTML={createMarkup(mitra.data[0].description)}
-            ></div>
-          </div>
+
+      <div className="lg:py-20 ">
+        <div className="relative">
+          <img
+            src={`${process.env.API_LARAVEL}/storage/${mitra.data[0].thumbnail}`}
+            alt={`cerita dari ${mitra.data[0].name}`}
+            className="w-full lg:h-96"
+          />
+        </div>
+        <div className="flex flex-col items-center px-5 lg:px-20 justify-items-center">
+          <h1 className="text-xl font-bold lg:text-4xl text-grey-100">
+            Dari Sampah Jadi Cuan
+          </h1>
+          <div
+            className="mt-10 text-md"
+            dangerouslySetInnerHTML={createMarkup(mitra.data[0].description)}
+          />
         </div>
       </div>
     </>

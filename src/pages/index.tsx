@@ -56,17 +56,13 @@ export default function Home({ data }) {
       />
 
       <Hero />
-      <ScrollAnimation animateIn="fadeIn">
-        <About image={data} />
-      </ScrollAnimation>
-      <ScrollAnimation animateIn="fadeIn">
-        <div className="hidden lg:block">
-          <ProductCategory />
-        </div>
-        <div className="block lg:hidden">
-          <ProductCategoryMobile />
-        </div>
-      </ScrollAnimation>
+      <About image={data} />
+      <div className="hidden lg:block">
+        <ProductCategory />
+      </div>
+      <div className="block lg:hidden">
+        <ProductCategoryMobile />
+      </div>
       <ScrollAnimation animateIn="fadeIn">
         <Rfq />
       </ScrollAnimation>
