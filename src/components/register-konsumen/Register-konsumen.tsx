@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useAuthDispatch } from "../../context/auth";
 import { useForm } from "../../Hook/hooks";
 import { useRouter } from "next/router";
+
 function RegisterKonsumen() {
   const router = useRouter();
   const [formDetail, setformDetail] = useState(false);

@@ -3,7 +3,7 @@ import React, { createContext, useReducer, useContext, useEffect } from "react";
 
 interface User {
   ID: string;
-  Name: string;
+  name: string;
   email: string;
   UkmName: string;
   OwnerName: string;

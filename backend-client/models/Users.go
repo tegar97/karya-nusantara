@@ -9,21 +9,22 @@ import (
 
 type Konsumen struct {
 	gorm.Model
-	Name          string `gorm:"size:64"`
-	UUID   int
-	Email         string `json:"email" gorm:"unique"`
-	City         string `json:"city"`
-	Districts         string `json:"districts"`
-	Village  string `json:"village"`
-	PostCode  string `json:"postCode"`
-	Password string `json:"password"`
-	CompanyName   string  `json:"CompanyName" gorm:"size:64"`
-	IsVerify int `json:"isVerify" gorm:"size:1"`
-	Role int `json:"isVerify" gorm:"size:1" gorm:"default:1" `
-	VerifyToken string `json:"VerifyToken" gorm:"size:65"`
-	VerifyExpire  time.Time `gorm:"type:datetime" json:"VerifyExpire"  `
-	PhoneNumber   string `json:"PhoneNumber" gorm:"size:20"`
-	PasswordResetToken string `json:"PasswordResetToken" `
+	Name               string ` json:"name" gorm:"size:64"`
+	UUID               int
+	Email              string    `json:"email" gorm:"unique"`
+	City               string    `json:"city" gorm:"size:64"`
+	Districts          string   `json:"districts"gorm:"size:64"`
+	Address            string    `json:"address"`
+	Village            string    `json:"village" gorm:"size:64"`
+	PostCode           string    `json:"postCode" gorm:"size:15"`
+	Password           string    `json:"password"`
+	CompanyName        string    `json:"CompanyName" gorm:"size:64"`
+	IsVerify           int       `json:"isVerify" gorm:"size:1"`
+	Role               int64        `gorm:"default:1"`
+	VerifyToken        string    `json:"VerifyToken" gorm:"size:65"`
+	VerifyExpire       time.Time `gorm:"type:datetime" json:"VerifyExpire"  `
+	PhoneNumber        string    `json:"PhoneNumber" gorm:"size:20"`
+	PasswordResetToken string    `json:"PasswordResetToken" `
 	PasswordResetExpire string `json:"PasswordResetExpire" gorm:"size:65"`
 
 }
@@ -66,14 +67,16 @@ type UserErrors struct {
 
 
 type UserErrors2 struct {
-	Name          string `gorm:"size:64"`
-	Email         string `json:"email" gorm:"unique"`
-	Password string `json:"password"`
-	CompanyName   string  `json:"CompanyName" gorm:"size:64"`
-	CompanyBirth  string `json:"CompanyBirth"`
-	CompanyAdress string `json:"CompanyAdress"`
-	PhoneNumber   string `json:"PhoneNumber" gorm:"size:20"`
-	CompanyEmail  string `json:"CompanyEmail"  gorm:"size:65"`
+	Name               string ` json:"name" `
+	Email              string    `json:"email" `
+	City               string    `json:"city" `
+	Districts          string   `json:"districts"`
+	Address            string    `json:"address"`
+	Village            string    `json:"village" `
+	PostCode           string    `json:"postCode"`
+	Password           string    `json:"password"`
+	CompanyName        string    `json:"CompanyName"`
+	PhoneNumber        string    `json:"PhoneNumber"`
 	Err      bool   `json:"error"`
 
 

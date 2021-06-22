@@ -34,8 +34,7 @@ export default function NavbarProfile() {
         dispatch("LOGOUT");
         window.location.reload();
       })
-      .catch((err) => {
-      });
+      .catch((err) => {});
   };
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
@@ -75,7 +74,7 @@ export default function NavbarProfile() {
           aria-haspopup="true"
           onClick={handleToggle}
         >
-          {user.Name || user.UkmName}
+          {user.name || user.UkmName}
           <ArrowDropDownIcon />
         </button>
         <Popper

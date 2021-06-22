@@ -63,9 +63,9 @@ function OurMitra() {
   return (
     <div className="px-5 pt-2 mb-10 lg:p-20 ">
       <div className="mb-5">
-        <HeadingSecondary className="text-center text-blue-100">
-          Cerita Dari Mitra Karya Nusantara
-        </HeadingSecondary>
+        <h2 className="w-full text-3xl font-bold text-center lg:text-4xl text-grey-100 hover:text-blue-100">
+          Mitra Kami
+        </h2>
       </div>
       <div>
         {!data ? (

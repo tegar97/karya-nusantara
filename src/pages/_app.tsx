@@ -38,7 +38,10 @@ function MyApp({ Component, pageProps }) {
         <Navbar setMenuDrop={setMenuDrop} menuDrop={menuDrop} />
 
         <Component {...pageProps} />
-        {pathname === "/register-ukm" || pathname === "/register-konsumen" ? (
+        {pathname === "/register-ukm" ||
+        pathname === "/register-konsumen" ||
+        pathname === "/success" ||
+        pathname === "/success-ukm" ? (
           ""
         ) : (
           <FooterComponent />

@@ -27,16 +27,9 @@ func IsEmptyInteger(str int,field string  )(bool,string) {
 
 func ValidateRegister(u *models.Konsumen) *models.UserErrors2 {
 	e := &models.UserErrors2{}
-	e.Err, e.Name = IsEmpty(u.Name,"nama ")
-
-	e.Err, e.Email = IsEmpty(u.Email,"email")
-	e.Err, e.CompanyName = IsEmpty(u.CompanyName,"perusahaan")
-	e.Err, e.PhoneNumber = IsEmpty(u.PhoneNumber,"nomor hp")
-	e.Err, e.Name = IsEmpty(u.Name,"nama")
-
 
 	if !valid.IsEmail(u.Email) {
-		e.Err, e.Email = true, "Must be a valid email"
+		e.Err, e.Email = true, "Format Email Salah"
 	}
 
 	//if(len(e.CompanyEmail) >= 0 || len(e.Password) >= 0 || len(e.CompanyAdress) >= 0  || len(e.CompanyName) >= 0 ){
@@ -47,6 +40,17 @@ func ValidateRegister(u *models.Konsumen) *models.UserErrors2 {
 	if !(len(u.Password) >= 8 && valid.HasLowerCase(string(u.Password)) && valid.HasUpperCase(string(u.Password)) && re.MatchString(string(u.Password))) {
 		e.Err, e.Password = true, "Panjang kata sandi harus minimal 8 dan harus merupakan kombinasi dari huruf besar, huruf kecil dan angka "
 	}
+	e.Err, e.Name = IsEmpty(u.Name,"nama ")
+	e.Err, e.Email = IsEmpty(u.Email,"email")
+	e.Err, e.CompanyName = IsEmpty(u.CompanyName,"perusahaan")
+	e.Err, e.PhoneNumber = IsEmpty(u.PhoneNumber,"nomor hp")
+	e.Err, e.Name = IsEmpty(u.Name,"nama")
+	e.Err, e.City = IsEmpty(u.City,"Kota")
+	e.Err, e.Districts = IsEmpty(u.Districts,"Kecamatan")
+	e.Err, e.Village = IsEmpty(u.Village,"Kelurahan")
+	e.Err, e.Address = IsEmpty(u.Address,"Alamat")
+	e.Err, e.PostCode = IsEmpty(u.PostCode,"Post Code")
+	e.Err, e.Password = IsEmpty(u.Password,"Password")
 
 	return e
 }

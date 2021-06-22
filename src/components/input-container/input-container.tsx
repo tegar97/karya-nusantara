@@ -14,21 +14,23 @@ const FormInput = ({
   ...props
 }: any) => {
   return (
-    <div>
-      <label htmlFor={name}>{label}</label>
+    <div style={{ marginBottom: "10px" }}>
+      <div>
+        <label htmlFor={name}>{label}</label>
 
-      <Input
-        id={name}
-        name={name}
-        type={type}
-        placeholder={placeholder}
-        onChange={onChange}
-        value={value}
-        className={className}
-        style={error && { border: "solid 1px red" }}
-        defaultPlaceHolder={defaultPlaceHolder}
-      />
-      {error && <p>{error}</p>}
+        <Input
+          id={name}
+          name={name}
+          type={type}
+          placeholder={placeholder}
+          onChange={onChange}
+          value={value}
+          className={className}
+          style={{ border: error && "solid 1px red" }}
+          defaultPlaceHolder={defaultPlaceHolder}
+        />
+      </div>
+      {<span className="text-sm text-red-500 ">{error && error}</span>}
     </div>
   );
 };

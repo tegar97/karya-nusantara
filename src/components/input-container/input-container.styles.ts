@@ -10,7 +10,6 @@ export const Input = styled.input`
     padding-right: 10px;
     outline: none;
     transition: border .9s;
-    margin-bottom: 10px;
 
     &:focus {
         border: 2px solid #5996ab

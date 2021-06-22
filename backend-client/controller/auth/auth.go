@@ -43,10 +43,10 @@ func Register(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).JSON(errors)
 	}
 	if count := database.DB.Where(&models.Konsumen{Email: u.Email}).First(new(models.Konsumen)).RowsAffected; count > 0 {
-		errors.Err, errors.Email = true, "Email is already registered"
+		errors.Err, errors.Email = true, "Email telah terdaftar "
 	}
 	if count2 := database.DB.Where(&models.UMKM{Email: u.Email}).First(new(models.UMKM)).RowsAffected; count2 > 0 {
-		errors.Err, errors.Email = true, "Email is already registered"
+		errors.Err, errors.Email = true, "Email telah terdaftar "
 	}
 	if errors.Err {
 		return c.Status(fiber.StatusBadRequest).JSON(errors)
@@ -279,15 +279,16 @@ func LoginUser(c *fiber.Ctx) error {
 	u := new(models.Konsumen)
 	P := new(models.UMKM)
 
+
 	database.DB.Where(&models.UMKM{Email : input.Email}).First(&u);
 	database.DB.Where(&models.UMKM{Email : input.Email}).First(&P);
-	if u.Email == input.Email {
+	if u.Role == 1 {
 		//if err := 	database.DB.Where(&models.UMKM{Email : input.Email}).First(&u); err.RowsAffected <= 0 {
 		//	return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": true, "general": "Email tidak di temukan"})
 		//
 		//}
 		if err := bcrypt.CompareHashAndPassword([]byte(u.Password), []byte(input.Password)); err != nil {
-			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": true, "general": "Password Salah. 2"})
+			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": true, "general": "Password Salah"})
 		}
 
 		claims := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.StandardClaims{
@@ -313,7 +314,7 @@ func LoginUser(c *fiber.Ctx) error {
 
 		return c.Status(fiber.StatusOK).JSON(u)
 
-	}else if (P.Email == input.Email){
+	}else{
 
 		//if res := 	database.DB.Where(&models.UMKM{Email : input.Email}).First(&P); res.RowsAffected <= 0 {
 		//	return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": true, "general": "Email tidak di temukan"})
