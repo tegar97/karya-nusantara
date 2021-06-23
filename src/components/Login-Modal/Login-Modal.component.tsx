@@ -25,7 +25,11 @@ const customStyles = {
   },
 };
 
-const LoginModal = ({ bgActive, homeRouter }) => {
+const LoginModal = ({
+  bgActive = null,
+  homeRouter = null,
+  loginRequire = null,
+}) => {
   let subtitle;
 
   const [modalIsOpen, setIsOpen] = React.useState(false);
@@ -86,15 +90,28 @@ const LoginModal = ({ bgActive, homeRouter }) => {
   return (
     <div className="inline-block ">
       <div
-        className={`px-5 py-1 border-2 border-blue-100    ${
+        className={`px-5 py-1    ${
           !bgActive && homeRouter
-            ? "lg:border-2 lg:text-white lg:border-white lg:hover:border-blue-100 lg:hover:text-blue-100"
-            : "lg:border-2 lg:text-blue-100 lg:border-blue-100 lg:hover:border-blue-100 lg:hover:text-blue-100"
+            ? ` lg:text-white  ${
+                !loginRequire && "lg:border-white lg:border-2"
+              }  lg:hover:border-blue-100 lg:hover:text-blue-100`
+            : ` lg:text-blue-100   ${
+                !loginRequire && "lg:border-blue-100 lg:border-2"
+              }  lg:hover:border-blue-100 lg:hover:text-blue-100`
         }  `}
       >
-        <button onClick={openModal} className="outline-none">
-          Masuk
-        </button>
+        {loginRequire ? (
+          <button
+            onClick={openModal}
+            className="px-16 py-2 text-white bg-blue-100"
+          >
+            {loginRequire}
+          </button>
+        ) : (
+          <button onClick={openModal} className="outline-none">
+            Masuk
+          </button>
+        )}
       </div>
       <Modal
         isOpen={modalIsOpen}

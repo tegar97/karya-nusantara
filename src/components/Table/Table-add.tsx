@@ -62,12 +62,6 @@ const RequestProduct = ({ setYourProduct, yourProduct }) => {
     //   formData.UkmID = user.ID;
     // }
 
-    const config = {
-      headers: {
-        "content-type": "multipart/form-data",
-      },
-    };
-
     try {
       setRequestLoading(true);
       const formData = new FormData();

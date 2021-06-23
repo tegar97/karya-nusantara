@@ -1,11 +1,77 @@
+import axios from "axios";
 import Link from "next/link";
+import router from "next/router";
 import React, { useState } from "react";
+import { useAuthState } from "../../context/auth";
 import FormInput from "../input-container/input-container";
+import LoginModal from "../Login-Modal/Login-Modal.component";
 
 function Rfq() {
   const [formData, setFormData] = useState({});
+  const [ProductName, setProductName]: any = useState("");
+  const [Quantity, setQuantity]: any = useState("");
+  const [Description, setDescription] = useState("");
+  const [Unit, setUnit] = useState("");
+  const [CapacityProduct, setCapacityProduct]: any = useState("");
+  const [file, setSelectedFile]: any = useState("");
+  const { authenticated, loading, user } = useAuthState();
+  const [loadingRequest, setLoadingRequest] = useState(false);
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+  const ImageChangeHandler = (event) => {
+    setSelectedFile(event.target.files[0]);
+  };
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    // if (user.Name != "") {
+    //   formData.UsersID = user.ID;
+    // } else {
+    //   formData.UkmID = user.ID;
+    // }
+
+    try {
+      setLoadingRequest(true);
+      const formData = new FormData();
+      formData.append("Image", file);
+      let content;
+      if (file) {
+        const uploadFile = await fetch(
+          `${process.env.API_LARAVEL}/api/uploadFile`,
+          {
+            method: "POST",
+            body: formData,
+          }
+        ).then(async (res) => {
+          const content = await res.json();
+
+          await axios
+            .post(
+              `${process.env.API_LARAVEL}/api/rfq`,
+              {
+                product_name: ProductName,
+                capacity_product: CapacityProduct,
+                description: Description,
+                quantity: Quantity,
+                unit: Unit,
+                user_id: user.ID,
+                image: content.data,
+              },
+
+              { withCredentials: false }
+            )
+            .then((res) => {
+              setLoadingRequest(false);
+
+              router.push("/request");
+            });
+        });
+      } else {
+        content = "";
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <div className="py-3 mt-5 lg:px-20">
@@ -28,14 +94,18 @@ function Rfq() {
                     Dapatkan Penawaran Terbaik
                   </span>
                 </div>
-                <form>
+                <form
+                  onSubmit={onSubmit}
+                  method="post"
+                  encType="multipart/form-data"
+                >
                   <FormInput
                     name="name"
                     id="name"
                     type="text"
                     label="Nama Barang"
                     placeholder="Isi Nama barang yang anda cari"
-                    onChange={(e) => onChange(e)}
+                    onChange={(e) => setProductName(e.target.value)}
                     className="text-black"
                     defaultPlaceHolder
                   />
@@ -46,13 +116,14 @@ function Rfq() {
                       type="number"
                       label="Quantity"
                       placeholder="1"
-                      onChange={(e) => onChange(e)}
+                      onChange={(e) => setQuantity(e.target.value)}
                       className="text-black"
                       defaultPlaceHolder
                     />
                     <div style={{ marginBottom: "10px" }}>
                       <label htmlFor="satuan">Satuan Barang</label>
                       <select
+                        onChange={(e) => setUnit(e.target.value)}
                         style={{
                           width: "100%",
                           border: "1px solid #c2c2c2 ",
@@ -80,24 +151,37 @@ function Rfq() {
                     label="Keterangan"
                     type="text"
                     placeholder="Isikan warna,ukuran dan keterangan lainya"
-                    onChange={(e) => onChange(e)}
+                    onChange={(e) => setDescription(e.target.value)}
                     className=""
                     defaultPlaceHolder
                   />
                   <FormInput
-                    name="images"
+                    name="Image"
                     id="images"
                     type="file"
                     label="Foto Produk"
                     placeholder="Contoh Produk Yang anda inginkan"
-                    onChange={(e) => onChange(e)}
+                    onChange={(e) => ImageChangeHandler(e)}
                     defaultPlaceHolder
                     className=""
                   />
                   <div className="flex justify-center mt-5">
-                    <button className="px-16 py-2 text-white bg-blue-100">
-                      Buat Penawaran
-                    </button>
+                    {!loading && authenticated ? (
+                      loadingRequest ? (
+                        <button
+                          disabled
+                          className="px-16 py-2 text-white bg-blue-100 opacity-50"
+                        >
+                          Loading ...
+                        </button>
+                      ) : (
+                        <button className="px-16 py-2 text-white bg-blue-100">
+                          Buat Penawaran
+                        </button>
+                      )
+                    ) : (
+                      <LoginModal loginRequire="Buat Penawaran" />
+                    )}
                   </div>
                 </form>
               </div>
