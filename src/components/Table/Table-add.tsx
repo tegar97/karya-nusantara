@@ -24,7 +24,7 @@ const customStyles = {
   },
 };
 
-const RequestProduct = () => {
+const RequestProduct = ({ setYourProduct, yourProduct }) => {
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [error, setError] = useState({});
   const [ProductName, setProductName]: any = useState("");
@@ -33,9 +33,10 @@ const RequestProduct = () => {
   const [Unit, setUnit] = useState("");
   const [CapacityProduct, setCapacityProduct]: any = useState("");
   const [file, setSelectedFile]: any = useState("");
-
+  const [requestLoading, setRequestLoading] = useState(false);
   const { authenticated, loading, user } = useAuthState();
   const router = useRouter();
+
   const styles = {
     textAlign: "center",
     padding: 0,
@@ -68,12 +69,11 @@ const RequestProduct = () => {
     };
 
     try {
+      setRequestLoading(true);
       const formData = new FormData();
       formData.append("Image", file);
-      console.log(formData);
       let content;
       if (file) {
-        console.log(file);
         const uploadFile = await fetch(
           `${process.env.API_LARAVEL}/api/uploadFile`,
           {
@@ -83,26 +83,31 @@ const RequestProduct = () => {
         ).then(async (res) => {
           const content = await res.json();
 
-          await axios.post(
-            `${process.env.API_LARAVEL}/api/rfq`,
-            {
-              product_name: ProductName,
-              capacity_product: CapacityProduct,
-              description: Description,
-              quantity: Quantity,
-              unit: Unit,
-              user_id: user.ID,
-              image: content.data,
-            },
+          await axios
+            .post(
+              `${process.env.API_LARAVEL}/api/rfq`,
+              {
+                product_name: ProductName,
+                capacity_product: CapacityProduct,
+                description: Description,
+                quantity: Quantity,
+                unit: Unit,
+                user_id: user.ID,
+                image: content.data,
+              },
 
-            { withCredentials: false }
-          );
+              { withCredentials: false }
+            )
+            .then((res) => {
+              setYourProduct([...yourProduct, res.data.data]);
+
+              setRequestLoading(false);
+              setIsOpen(false);
+            });
         });
       } else {
-        console.log("124");
         content = "";
       }
-      console.log(content);
     } catch (error) {
       console.log(error);
     }
@@ -211,21 +216,31 @@ const RequestProduct = () => {
                   defaultPlaceHolder
                   className=""
                 />
-
                 <div className="flex justify-center mt-5">
-                  <button
-                    type="submit"
-                    className="px-16 py-2 text-white bg-blue-100"
-                  >
-                    Buat Penawaran
-                  </button>
-
-                  {/* <button
+                  {!loading && authenticated ? (
+                    requestLoading ? (
+                      <button
                         disabled
                         className="px-16 py-2 text-white bg-blue-100 opacity-50 "
                       >
-                        Login Terlebih Dahulu untuk melanjutkan
-                      </button> */}
+                        Loading ....
+                      </button>
+                    ) : (
+                      <button
+                        type="submit"
+                        className="px-16 py-2 text-white bg-blue-100"
+                      >
+                        Buat Penawaran
+                      </button>
+                    )
+                  ) : (
+                    <button
+                      disabled
+                      className="px-16 py-2 text-white bg-blue-100 opacity-50 "
+                    >
+                      Login Terlebih Dahulu untuk melanjutkan
+                    </button>
+                  )}
                 </div>
               </form>
             </div>

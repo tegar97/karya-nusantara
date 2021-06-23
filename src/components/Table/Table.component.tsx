@@ -2,8 +2,15 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useAuthState } from "../../context/auth";
 import TableBody from "./Table-body.component";
+import Pagination from "../../components/pagination/pagination.component";
 
-function Table({ yourProduct, setYourProduct }) {
+function Table({
+  yourProduct,
+  setYourProduct,
+  page,
+  setLasPage,
+  setTotalData,
+}) {
   const [loading, isLoading] = useState(true);
   const { authenticated, loading: userLoad, user } = useAuthState();
 
@@ -14,11 +21,16 @@ function Table({ yourProduct, setYourProduct }) {
       try {
         if (!userLoad) {
           await axios
-            .get(`${process.env.API_LARAVEL}/api/getMyRfq/${user.ID}`, {
-              withCredentials: false,
-            })
+            .get(
+              `${process.env.API_LARAVEL}/api/rfq/${user.ID}/?page=${page}`,
+              {
+                withCredentials: false,
+              }
+            )
             .then((res) => {
-              setYourProduct(res.data.data);
+              setTotalData(res.data.data.total);
+              setLasPage(res.data.data.last_page);
+              setYourProduct(res.data.data.data);
             })
             .catch((error) => console.log(error));
         }
@@ -29,7 +41,7 @@ function Table({ yourProduct, setYourProduct }) {
     loadYourProduct();
 
     isLoading(false);
-  }, [user, userLoad]);
+  }, [user, userLoad, page]);
 
   console.log(yourProduct);
 
@@ -48,44 +60,45 @@ function Table({ yourProduct, setYourProduct }) {
   }
 
   const deleteProduct = async (id) => {
+    console.log(id);
     setYourProduct(yourProduct.filter((product) => product.id !== id));
-    await axios.delete(`/v1/product/${id}`);
+    await axios.delete(`${process.env.API_LARAVEL}/api/rfq/${id}`, {
+      withCredentials: false,
+    });
   };
   return (
     <table className="w-full overflow-hidden bg-white divide-y divide-gray-300 rounded-lg whitespace-nowrap ">
       <thead className="bg-gray-50">
         <tr className="text-left text-gray-600 ">
-          <th className="px-10 py-4 text-sm font-semibold uppercase">No</th>
-          <th className="px-10 py-4 text-sm font-semibold uppercase">
+          <th className="px-10 py-4 text-sm font-semibold text-blue-100 uppercase">
+            No
+          </th>
+          <th className="px-10 text-sm font-semibold text-blue-100 uppercase group-hover:py-4">
             Name Barang
           </th>
-          <th className="px-10 py-4 text-sm font-semibold uppercase">
-            Kebutuhan Barang
+          <th className="px-10 py-4 text-sm font-semibold text-blue-100 uppercase">
+            Tanggal Pengajuan
           </th>
-          <th className="px-10 py-4 text-sm font-semibold uppercase">
-            Kisarahan Harga
+          <th className="px-10 py-4 text-sm font-semibold text-blue-100 uppercase">
+            Jumlah
           </th>
           {/* <th className="px-10 py-4 text-sm font-semibold text-center uppercase">
       status
     </th> */}
-          <th className="px-10 py-4 text-sm font-semibold text-center uppercase">
+          <th className="px-10 py-4 text-sm font-semibold text-center text-blue-100 uppercase">
             Status Pesanan
           </th>
         </tr>
       </thead>
       <tbody className="divide-y divide-gray-200">
-        {/* {loading ? (
-          "Loading ...."
-        ) : !yourProduct ? (
-          <h1>Tidak Ada Product</h1>
-        ) : (
-          yourProduct.map((data, i) => (
-            <TableBody deleteProduct={deleteProduct} data={data} i={i} />
-          ))
-        )} */}
-
-        <TableBody deleteProduct={deleteProduct} data={""} i={1} />
-        <TableBody deleteProduct={deleteProduct} data={""} i={1} />
+        {!authenticated && <span>Tidak Ada Data</span>}
+        {loading
+          ? "Loading ...."
+          : !userLoad &&
+            authenticated &&
+            yourProduct.map((data, i) => (
+              <TableBody deleteProduct={deleteProduct} data={data} i={i} />
+            ))}
       </tbody>
     </table>
   );

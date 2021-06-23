@@ -59,7 +59,6 @@ function OurMitra() {
       },
     ],
   };
-  console.log(data);
   return (
     <div className="px-5 pt-2 mb-10 lg:p-20 ">
       <div className="mb-5">

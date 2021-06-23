@@ -72,7 +72,6 @@ const AddProduct = ({ setYourProduct, yourProduct }) => {
       }
       const formData = new FormData();
       formData.append("Image", file);
-      console.log(formData);
       let content;
       if (file) {
         const uploadFile = await fetch(

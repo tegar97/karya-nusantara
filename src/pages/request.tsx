@@ -6,6 +6,9 @@ import { NextSeo } from "next-seo";
 import Head from "next/head";
 import Table from "../components/Table/Table.component";
 import RequestProduct from "../components/Table/Table-add";
+import axios from "axios";
+import { useAuthState } from "./../context/auth";
+import Pagination from "./../components/pagination/pagination.component";
 
 // export async function getStaticProps() {
 //   const res = await fetch(`http://127.0.0.1:5000/api/v1/me/request/product`);
@@ -25,6 +28,10 @@ import RequestProduct from "../components/Table/Table-add";
 // }
 function Bidding({ product }) {
   const [yourProduct, setYourProduct]: any = useState([]);
+  const { authenticated, loading, user } = useAuthState();
+  const [page, setPage] = useState(1);
+  const [totalData, setTotalData] = useState(1);
+  const [lastPage, setLasPage] = useState();
 
   return (
     <>
@@ -65,7 +72,10 @@ function Bidding({ product }) {
                 setYourProduct={setYourProduct}
                 yourProduct={yourProduct}
               /> */}
-              <RequestProduct />
+              <RequestProduct
+                yourProduct={yourProduct}
+                setYourProduct={setYourProduct}
+              />
             </div>
             <div className="block mt-5">
               {/* <table className="p-2 mt-5">
@@ -81,7 +91,26 @@ function Bidding({ product }) {
                   <Table
                     yourProduct={yourProduct}
                     setYourProduct={setYourProduct}
+                    page={page}
+                    setLasPage={setLasPage}
+                    setTotalData={setTotalData}
                   />
+                  {yourProduct && !loading && (
+                    <div className="flex flex-row items-center justify-between w-full px-5 mt-5">
+                      <div>
+                        <span>
+                          Showing 1 to {yourProduct.length} of {totalData} data
+                        </span>
+                      </div>
+                      <div>
+                        <Pagination
+                          page={page}
+                          setPage={setPage}
+                          totalPages={lastPage}
+                        />
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

@@ -292,7 +292,7 @@ func LoginUser(c *fiber.Ctx) error {
 		}
 
 		claims := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.StandardClaims{
-			Issuer:    strconv.Itoa(int(u.UUID)),
+			Issuer:    strconv.Itoa(int(u.ID)),
 			ExpiresAt: time.Now().Add(time.Hour * 24).Unix(),
 		})
 		token, err := claims.SignedString([]byte(jwtKey))
@@ -472,7 +472,7 @@ func GetUser(c *fiber.Ctx) error {
 	var ukm models.UMKM
 
 
-	 dataUser := database.DB.Where("uuid = ?", claims.Issuer).Find(&user).RowsAffected
+	 dataUser := database.DB.Where("id = ?", claims.Issuer).Find(&user).RowsAffected
 
 	if dataUser == 1 {
 		database.DB.Where("id = ?", claims.Issuer).First(&user)

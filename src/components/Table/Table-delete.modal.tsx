@@ -25,7 +25,7 @@ const customStyles = {
   },
 };
 
-const TableDeleteModal = () => {
+const TableDeleteModal = ({ id, deleteProduct }) => {
   const [modalIsOpen, setIsOpen] = React.useState(false);
 
   const router = useRouter();
@@ -74,10 +74,13 @@ const TableDeleteModal = () => {
               />
             </div>
             <span className="text-black font-regular text-md">
-              Apakah Anda yakin untuk menghapus penawaran
+              Apakah Anda yakin untuk menghapus penawaran {id}
             </span>
             <div className="grid grid-cols-1 gap-2 mt-5 mg:grid-cols-2 lg:grid-cols-2">
-              <button className="w-full py-1 text-white bg-blue-100 ">
+              <button
+                onClick={() => deleteProduct(id)}
+                className="w-full py-1 text-white bg-blue-100 "
+              >
                 Ya
               </button>
               <button className="w-full py-1 text-blue-100 bg-white border-2 border-blue-100">
