@@ -81,7 +81,7 @@ const ClientCard = () => {
             ))}
           </Slider>
         ) : (
-          <div className="grid items-center w-full grid-cols-1 gap-5 lg:grid-cols-7 justify-items-center">
+          <div className="grid items-center w-full grid-cols-4 gap-5 lg:grid-cols-7 justify-items-center">
             {/* {data.data.map((data) => (
                 <div className="w-full p-2 text-center">
                   <img
@@ -96,17 +96,17 @@ const ClientCard = () => {
             <img
               src={`/assets/logo-farma.png`}
               alt="Klient 1"
-              className="self-center mb-5 text-center h-28 lg:w-28 "
+              className="self-center w-20 h-20 mb-5 text-center lg:h-28 lg:w-28 "
             />
             <img
               src={`https://upload.wikimedia.org/wikipedia/id/thumb/c/c3/Kimia_Farma_logo.svg/1200px-Kimia_Farma_logo.svg.png`}
               alt="Klient 1"
-              className="self-center mb-5 text-center h-28 lg:w-28 "
+              className="self-center w-20 h-20 mb-5 text-center h-28 lg:w-28 "
             />
             <img
               src={`/assets/logo-kemenkes.png`}
               alt="Klient 1"
-              className="self-center mb-5 text-center h-28 lg:w-28 "
+              className="self-center w-20 h-20 mb-5 text-center h-28 lg:w-28 "
             />
           </div>
         )}

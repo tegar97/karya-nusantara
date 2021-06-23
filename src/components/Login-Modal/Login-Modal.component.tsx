@@ -117,7 +117,7 @@ const LoginModal = ({ bgActive, homeRouter }) => {
                   src="/assets/logo-nav-min.png"
                 />
               </div>
-              <form onSubmit={submitForm}>
+              <form onSubmit={submitForm} method="post">
                 <p className="mt-5 text-red-400">{error}</p>
 
                 <div className="my-5 text-sm">

@@ -18,7 +18,7 @@ function About({ image }) {
       className="px-10 pt-8 pb-20 lg:pt-10 lg:px-24 lg:pb-40"
       style={{ backgroundColor: "var(--color-background" }}
     >
-      <HeadingSecondary className="text-center text-blue-100">
+      <HeadingSecondary className="text-center text-black-100">
         Tentang kita
       </HeadingSecondary>
 

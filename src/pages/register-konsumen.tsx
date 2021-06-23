@@ -50,7 +50,7 @@ function RegisterKonsumen() {
             src="/assets/logo-nav-min.png"
           />
         </div>
-        <form onSubmit={onSubmit}>
+        <form onSubmit={onSubmit} method="post">
           <FormInput
             name="email"
             id="email"
