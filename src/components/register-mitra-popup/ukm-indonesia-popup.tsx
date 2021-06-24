@@ -10,7 +10,7 @@ function UkmIndonesiaPopUp({
 }) {
   const [isNotMemberUkm, setIsNotMemberUkm] = useState(true);
   const isMemberUkm = () => {
-    setIsMemberUkmIndonesia(true);
+    setIsMemberUkmIndonesia(1);
     setIsMemberUkmModal(false);
   };
   const ifNotMemberUkm = () => {
@@ -19,7 +19,7 @@ function UkmIndonesiaPopUp({
   };
 
   const interestedJoinUkmIndonesia = () => {
-    setIsInterestedJoinUkm(true);
+    setIsInterestedJoinUkm(1);
     setIsMemberUkmModal(false);
   };
   return (

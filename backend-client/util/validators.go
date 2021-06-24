@@ -60,9 +60,8 @@ func ValidateRegisterUKM(u *models.UMKM) *models.UserErrors {
 	e.Err, e.UkmName = IsEmpty(u.UkmName,"nama ukm")
 	e.Err, e.OwnerName = IsEmpty(u.OwnerName,"Nama Pemilik usaha")
 	e.Err, e.BusinessSize = IsEmpty(u.BusinessSize,"Bentuk usaha")
-	e.Err, e.BusinessAdress = IsEmpty(u.BusinessSize,"Alamat usaha")
+	e.Err, e.BusinessAdress = IsEmpty(u.BusinessAdress,"Alamat usaha")
 	e.Err, e.BusinessBirth = IsEmpty(u.BusinessBirth,"Tanggal mulai usaha")
-	e.Err, e.BusinnesEmail = IsEmpty(u.BusinnesEmail,"Email perusahaan ")
 	//e.Err, e.Employees = IsEmptyInteger(u.Employees,"Email perusahaan ")
 	e.Err, e.TurnoverYears = IsEmpty(u.TurnoverYears,"Penghasilan perusahaan ")
 

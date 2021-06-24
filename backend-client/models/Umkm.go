@@ -21,9 +21,15 @@ type UMKM struct {
 	IsAccept int `json:"IsAccept" gorm:"size:1"`
 	BusinessAdress string `json:"BusinessAdress"`
 	TurnoverYears string `json:"TurnoverYears"`
-	BusinessInstagram string  `json:"BusinessInstagram" gorm:"size:65"`
+	BussinessSocialMedia string  `json:"BussinessSocialMedia" gorm:"size:65"`
+	BussinessSocialMediaLink string  `json:"BussinessSocialMediaLink" `
 	IsMemberUKMID int `json:"IsMemberUKMID" `
-	InterestedJoin int `json:"InterestedJoin"  `
+	InterestedJoin int `json:"InterestedJoin" `
+	City               string    `json:"city" gorm:"size:64"`
+	Districts          string   `json:"districts"gorm:"size:64"`
+	Address            string    `json:"address"`
+	Village            string    `json:"village" gorm:"size:64"`
+	PostCode           string    `json:"postCode" gorm:"size:15"`
 	CertficateName string
 	CertificateID string
 	Employees   int `json:"employees"  `

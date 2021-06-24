@@ -161,7 +161,7 @@ function RegisterKonsumen() {
               type="submit"
               className="p-1 px-10 mt-4 text-lg text-white bg-blue-100"
             >
-              Dapatkan Sebagai Konsumen
+              Daftar Sebagai Konsumen
             </button>
           </div>
         </form>

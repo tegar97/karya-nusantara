@@ -12,20 +12,68 @@ import ProductPopUp from "../components/register-mitra-popup/product-popup";
 import OmsetPopup from "../components/register-mitra-popup/omset-popup";
 import MediaSocialPopup from "../components/register-mitra-popup/media-social-popup";
 import UkmIndonesiaPopUp from "../components/register-mitra-popup/ukm-indonesia-popup";
+import CertificatePopup from "../components/register-mitra-popup/certificate-popup";
+import axios from "axios";
+import router from "next/router";
 
 function RegisterUkm() {
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData]: any = useState({});
+  const [loading, setLoading] = useState(false);
   const [productModal, setProductModal] = useState(false);
   const [omsetModal, setOmsetModal] = useState(false);
-  const [omset, setOmset] = useState();
+  const [omset, setOmset]: any = useState();
   const [mediaSocial, setMediaSocial] = useState(false);
   const [socialMediaName, setSocialMediaName] = useState();
   const [linkSocialMedia, setLinkSocialMedia] = useState();
   const [isMemberUkmIndonesiaModal, setIsMemberUkmModal] = useState(false);
-  const [isMemberUkmIndonesia, setIsMemberUkmIndonesia] = useState();
-  const [interestedJoinUkm, setIsInterestedJoinUkm] = useState();
+  const [certificateModal, setCertificateModal] = useState(false);
+  const [certificateName, setCertificateName] = useState("");
+  const [certificateId, setCertificateId] = useState("");
+  const [isMemberUkmIndonesia, setIsMemberUkmIndonesia]: any = useState(0);
+  const [selectedFile, setSelectedFile] = useState();
+
+  const [interestedJoinUkm, setIsInterestedJoinUkm]: any = useState(0);
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      setLoading(false);
+      console.log();
+      const res = await axios
+        .post("/v1/users/UKM", {
+          UkmName: formData.ukmName,
+          OwnerName: formData.OwnerName,
+          Email: formData.email,
+          password: formData.password,
+          BusinessSize: formData.BusinessSize,
+          BusinessBirth: formData.BusinessBirth.toString(),
+          BusinessAdress: formData.BusinessAdress,
+          TurnoverYears: omset.toString(),
+          CertficateName: certificateName.toString(),
+          CertificateID: certificateId.toString(),
+          city: formData.city,
+          districts: formData.districts,
+          village: formData.village,
+          postCode: formData.postCode,
+          employees: parseInt(formData.employees),
+          PhoneNumber: formData.PhoneNumber,
+          ProductName: formData.productName,
+          Category: formData.category,
+          CapacityProduct: formData.capacity_product,
+          Description: formData.description,
+          IsMemberUKMID: parseInt(isMemberUkmIndonesia),
+          InterestedJoin: parseInt(interestedJoinUkm),
+          BussinessSocialMedia: socialMediaName,
+          BussinessSocialMediaLink: linkSocialMedia,
+        })
+        .then((res) => {
+          setLoading(false);
+          router.push("/success-ukm");
+        });
+    } catch (error) {}
   };
   return (
     <div
@@ -49,12 +97,13 @@ function RegisterUkm() {
             src="/assets/logo-nav-min.png"
           />
         </div>
-        <form>
+        <form onSubmit={onSubmit} method="post">
           <FormInput
             name="email"
             id="email"
             type="email"
             placeholder="Email anda"
+            value={formData.email}
             onChange={(e) => onChange(e)}
             className=""
           />
@@ -63,6 +112,7 @@ function RegisterUkm() {
             id="password"
             placeholder="Password anda"
             type="password"
+            value={formData.password}
             onChange={(e) => onChange(e)}
             className=""
           />
@@ -71,49 +121,55 @@ function RegisterUkm() {
             id="ukmName"
             placeholder="Nama Ukm"
             type="text"
+            value={formData.ukmName}
             onChange={(e) => onChange(e)}
             className=""
           />
           <FormInput
-            name="ownerName"
+            name="OwnerName"
             id="ownerName"
             placeholder="Nama Pemilik"
             type="text"
+            value={formData.OwnerName}
             onChange={(e) => onChange(e)}
             className=""
           />
           <SelectOptions
-            name="businessSize"
-            id="businessBirth"
-            className="text-blue-100"
+            name="BusinessSize"
+            id="BusinessSize"
+            onChange={(e) => onChange(e)}
+            value={formData.BusinessSize}
           >
             <option className="text-grey-100 hover:text-blue-100">
               Bentuk Badan Usaha
             </option>
-            <option value="1">Firma</option>
-            <option value="2">Persekutuan</option>
-            <option value="3">Koperasi Terbatas</option>
-            <option value="4">Yayasan</option>
+            <option value="a">Firma</option>
+            <option value="b">Persekutuan</option>
+            <option value="c">Koperasi Terbatas</option>
+            <option value="d">Yayasan</option>
           </SelectOptions>
           <FormInput
-            name="businessBirth"
-            id="businessBirth"
+            name="BusinessBirth"
+            id="BusinessBirth"
             placeholder="Tahun Mulai Usaha "
             type="text"
             onChange={(e) => onChange(e)}
+            value={formData.BusinessBirth}
             className=""
           />
           <FormInput
-            name="phoneNumber"
-            id="phoneNumber"
+            name="PhoneNumber"
+            id="PhoneNumber"
             placeholder="No Tlp Pemilik Ukm"
             type="text"
+            value={formData.PhoneNumber}
             onChange={(e) => onChange(e)}
             className=""
           />
           <FormInput
-            name="bussinessAddress"
-            id="bussinessAddress"
+            name="BusinessAdress"
+            id="BusinessAdress"
+            value={formData.BusinessAdress}
             placeholder="Alamat Lengkap Ukm"
             type="text"
             onChange={(e) => onChange(e)}
@@ -125,6 +181,7 @@ function RegisterUkm() {
               id="city"
               placeholder="Kota"
               type="text"
+              value={formData.city}
               onChange={(e) => onChange(e)}
               className=""
             />
@@ -133,20 +190,23 @@ function RegisterUkm() {
               id="districts"
               placeholder="Kecamatan anda"
               type="text"
+              value={formData.districts}
               onChange={(e) => onChange(e)}
               className=""
             />
             <FormInput
               name="village"
               id="village"
+              value={formData.village}
               placeholder="Keluruhan"
               type="text"
               onChange={(e) => onChange(e)}
               className=""
             />
             <FormInput
-              name="postalCode"
-              id="postalCode"
+              name="postCode"
+              id="postCode"
+              value={formData.postCode}
               placeholder="Postal Code"
               type="text"
               onChange={(e) => onChange(e)}
@@ -186,7 +246,58 @@ function RegisterUkm() {
                 Tambahkan Produk
               </span>
             </div>
-            {productModal && <ProductPopUp onChange={onChange} />}
+            {productModal && (
+              <ProductPopUp
+                setProductModal={setProductModal}
+                onChange={onChange}
+                selectedFile={selectedFile}
+                setSelectedFile={setSelectedFile}
+                formData={formData}
+              />
+            )}
+          </div>
+          <div className="relative">
+            <div className="relative flex items-center">
+              <button
+                onClick={() => setCertificateModal(true)}
+                type="button"
+                className="w-full text-left text-blue-100 border-2 outline-none "
+                style={{
+                  border: "1px solid #c2c2c2",
+                  paddingTop: "5px",
+                  paddingBottom: "5px",
+                  paddingLeft: "10px",
+                  paddingRight: "10px",
+                }}
+              >
+                {certificateName ? certificateName : "Perizinan / Sertifikat"}
+              </button>
+              <ArrowDropDownIcon
+                fontSize="inherit"
+                className="absolute text-3xl right-2"
+              />
+            </div>
+            <div className="flex items-center mt-2 mb-5 cursor-pointer">
+              <AddCircleOutlineIcon
+                className="text-2xl text-grey-100"
+                fontSize="inherit"
+              />
+              <span
+                onClick={() => setProductModal(true)}
+                className="ml-1 text-grey-100 text-md"
+              >
+                Tambahkan Perizinan/Sertifikat
+              </span>
+            </div>
+            {certificateModal && (
+              <CertificatePopup
+                certificateName={certificateName}
+                setCertificateName={setCertificateName}
+                setCertificateId={setCertificateId}
+                certificateId={certificateId}
+                setCertificateModal={setCertificateModal}
+              />
+            )}
           </div>
           <FormInput
             name="employees"
@@ -194,6 +305,7 @@ function RegisterUkm() {
             placeholder="Total Karyawan"
             type="number"
             onChange={(e) => onChange(e)}
+            value={formData.employees}
             className=""
           />
 
@@ -299,11 +411,12 @@ function RegisterUkm() {
           </div>
 
           <div className="flex flex-col items-center mt-2">
-            <span>
-              Dapatkan produk ukm berkualitas dengan penawaran terbaik
-            </span>
-            <button className="p-1 px-10 mt-4 text-lg text-white bg-blue-100">
-              Dapatkan Sebagai Konsumen
+            <span>Ayo bergabung bersama ratusan mitra lainya</span>
+            <button
+              type="submit"
+              className="p-1 px-10 mt-4 text-lg text-white bg-blue-100"
+            >
+              Daftar Sebagai Mitra
             </button>
           </div>
         </form>

@@ -11,6 +11,9 @@ import { Html } from "next/document";
 import Head from "next/head";
 axios.defaults.baseURL = `${process.env.API_GOLANG}/api`;
 axios.defaults.withCredentials = true;
+axios.defaults.headers = {
+  "Content-Type": "application/json",
+};
 
 function MyApp({ Component, pageProps }) {
   const { pathname } = useRouter();
