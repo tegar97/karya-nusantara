@@ -91,7 +91,7 @@ function Table({
         </tr>
       </thead>
       <tbody className="divide-y divide-gray-200">
-        {!authenticated && <span>Tidak Ada Data</span>}
+        {!authenticated && ""}
         {loading
           ? "Loading ...."
           : !userLoad &&

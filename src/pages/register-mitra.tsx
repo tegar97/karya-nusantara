@@ -10,10 +10,11 @@ function RegisterUkm() {
   return (
     <div
       style={{
-        background: "url('/assets/dummy_image.jpg')",
-        minHeight: "100vh",
+        background: "url('/assets/bg-register2.jpg')",
+        minHeight: "180vh",
+        backgroundRepeat: "none",
       }}
-      className="flex justify-center bg-no-repeat bg-cover "
+      className="flex justify-center w-full bg-no-repeat bg-cover "
     >
       <Container
         maxWidth="xl"

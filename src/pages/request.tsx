@@ -95,7 +95,7 @@ function Bidding({ product }) {
                     setLasPage={setLasPage}
                     setTotalData={setTotalData}
                   />
-                  {yourProduct && !loading && (
+                  {yourProduct.length > 5 && !loading && (
                     <div className="flex flex-row items-center justify-between w-full px-5 mt-5">
                       <div>
                         <span>

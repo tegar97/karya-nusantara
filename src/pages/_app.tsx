@@ -38,7 +38,8 @@ function MyApp({ Component, pageProps }) {
         {pathname === "/register-ukm" ||
         pathname === "/register-konsumen" ||
         pathname === "/success" ||
-        pathname === "/success-ukm" ? (
+        pathname === "/success-ukm" ||
+        pathname === "/register-mitra" ? (
           ""
         ) : (
           <FooterComponent />

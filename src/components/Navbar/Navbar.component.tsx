@@ -197,12 +197,16 @@ function Navbar({ menuDrop, setMenuDrop }) {
                   borderRadius: "3px",
                 }}
               >
-                <button className="w-full p-1 text-sm text-left text-white bg-blue-100 outline-none ">
-                  Daftar Sebagai Pembeli
-                </button>
-                <button className="w-full p-1 mt-2 text-sm text-left text-white bg-blue-100 ">
-                  Daftar Sebagai Mitra
-                </button>
+                <Link href="/register-konsumen">
+                  <button className="w-full p-1 text-sm text-left text-white bg-blue-100 outline-none ">
+                    Daftar Sebagai Pembeli
+                  </button>
+                </Link>
+                <Link href="/register-mitra">
+                  <button className="w-full p-1 mt-2 text-sm text-left text-white bg-blue-100 ">
+                    Daftar Sebagai Mitra
+                  </button>
+                </Link>
               </div>
             )}
           </div>
