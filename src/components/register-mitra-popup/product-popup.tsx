@@ -4,9 +4,12 @@ import { TextArea } from "../input-container/input-container.styles";
 
 function ProductPopUp({ onChange }) {
   return (
-    <div className="absolute top-0 bg-white border-2 border-blue-100 ">
+    <div
+      style={{ zIndex: 2 }}
+      className="absolute top-0 bg-white border-2 border-blue-100 "
+    >
       <div className="grid w-full grid-cols-3 gap-5 px-2 py-2 ">
-        <div className="flex flex-col items-center justify-center border-2 border-blue-100">
+        <div className="relative flex flex-col items-center justify-center border-2 border-blue-100">
           <input type="file" className="absolute w-full h-full opacity-0" />
           <span>Upload Foto</span>
           <span>Max 2mb</span>

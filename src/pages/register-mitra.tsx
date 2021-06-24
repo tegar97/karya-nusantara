@@ -9,10 +9,21 @@ import {
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import ProductPopUp from "../components/register-mitra-popup/product-popup";
+import OmsetPopup from "../components/register-mitra-popup/omset-popup";
+import MediaSocialPopup from "../components/register-mitra-popup/media-social-popup";
+import UkmIndonesiaPopUp from "../components/register-mitra-popup/ukm-indonesia-popup";
 
 function RegisterUkm() {
   const [formData, setFormData] = useState({});
   const [productModal, setProductModal] = useState(false);
+  const [omsetModal, setOmsetModal] = useState(false);
+  const [omset, setOmset] = useState();
+  const [mediaSocial, setMediaSocial] = useState(false);
+  const [socialMediaName, setSocialMediaName] = useState();
+  const [linkSocialMedia, setLinkSocialMedia] = useState();
+  const [isMemberUkmIndonesiaModal, setIsMemberUkmModal] = useState(false);
+  const [isMemberUkmIndonesia, setIsMemberUkmIndonesia] = useState();
+  const [interestedJoinUkm, setIsInterestedJoinUkm] = useState();
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -163,7 +174,7 @@ function RegisterUkm() {
                 className="absolute text-3xl right-2"
               />
             </div>
-            <div className="flex items-center mt-2 cursor-pointer">
+            <div className="flex items-center mt-2 mb-5 cursor-pointer">
               <AddCircleOutlineIcon
                 className="text-2xl text-grey-100"
                 fontSize="inherit"
@@ -181,10 +192,112 @@ function RegisterUkm() {
             name="employees"
             id="employees"
             placeholder="Total Karyawan"
-            type="text"
+            type="number"
             onChange={(e) => onChange(e)}
             className=""
           />
+
+          <div className="relative " style={{ marginBottom: "10px" }}>
+            <div className="relative flex items-center">
+              <button
+                onClick={() => setOmsetModal(true)}
+                type="button"
+                className="w-full text-left text-blue-100 border-2 outline-none "
+                style={{
+                  border: "1px solid #c2c2c2",
+                  paddingTop: "5px",
+                  paddingBottom: "5px",
+                  paddingLeft: "10px",
+                  paddingRight: "10px",
+                }}
+              >
+                {omset == 1
+                  ? " Hasil Penjualan / Omset maksimal Rp.300.000.000 setahun"
+                  : omset == 2
+                  ? "Hasil Penjualan / Omset maksimal Rp.300.000.000 - Rp.2.500.000.000"
+                  : omset == 3
+                  ? 'Hasil Penjualan / Omset maksimal Rp.2.500.000.000 - Rp.50.000.000.000{" "}'
+                  : "Omset Tahunan"}
+              </button>
+              <ArrowDropDownIcon
+                fontSize="inherit"
+                className="absolute text-3xl right-2"
+              />
+            </div>
+
+            {omsetModal && (
+              <OmsetPopup setOmset={setOmset} setOmsetModal={setOmsetModal} />
+            )}
+          </div>
+          <div className="relative" style={{ marginBottom: "10px" }}>
+            <div className="relative flex items-center">
+              <button
+                onClick={() => setMediaSocial(true)}
+                type="button"
+                className="w-full text-left text-blue-100 border-2 outline-none "
+                style={{
+                  border: "1px solid #c2c2c2",
+                  paddingTop: "5px",
+                  paddingBottom: "5px",
+                  paddingLeft: "10px",
+                  paddingRight: "10px",
+                }}
+              >
+                {socialMediaName ? socialMediaName : "Media Social"}
+              </button>
+              <ArrowDropDownIcon
+                fontSize="inherit"
+                className="absolute text-3xl right-2"
+              />
+            </div>
+
+            {mediaSocial && (
+              <MediaSocialPopup
+                setMediaSocial={setMediaSocial}
+                socialMediaName={socialMediaName}
+                setSocialMediaName={setSocialMediaName}
+                setLinkSocialMedia={setLinkSocialMedia}
+                linkSocialMedia={linkSocialMedia}
+              />
+            )}
+          </div>
+
+          <div className="relative">
+            <div className="relative flex items-center">
+              <button
+                onClick={() => setIsMemberUkmModal(true)}
+                type="button"
+                className="w-full text-left text-blue-100 border-2 outline-none "
+                style={{
+                  border: "1px solid #c2c2c2",
+                  paddingTop: "5px",
+                  paddingBottom: "5px",
+                  paddingLeft: "10px",
+                  paddingRight: "10px",
+                }}
+              >
+                {isMemberUkmIndonesia
+                  ? "Anda Member Ukm Indonesia"
+                  : interestedJoinUkm
+                  ? "Anda tertarik bergabung dengan ukm indonesia"
+                  : "Member Ukm Indonesia"}
+              </button>
+              <ArrowDropDownIcon
+                fontSize="inherit"
+                className="absolute text-3xl right-2"
+              />
+            </div>
+
+            {isMemberUkmIndonesiaModal && (
+              <UkmIndonesiaPopUp
+                setIsMemberUkmModal={setIsMemberUkmModal}
+                setIsMemberUkmIndonesia={setIsMemberUkmIndonesia}
+                isMemberUkmIndonesia={isMemberUkmIndonesia}
+                setIsInterestedJoinUkm={setIsInterestedJoinUkm}
+              />
+            )}
+          </div>
+
           <div className="flex flex-col items-center mt-2">
             <span>
               Dapatkan produk ukm berkualitas dengan penawaran terbaik
