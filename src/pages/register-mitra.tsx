@@ -42,7 +42,7 @@ function RegisterUkm() {
     e.preventDefault();
     try {
       console.log(selectedFile);
-      setLoading(false);
+      setLoading(true);
       console.log();
       const ImageData = new FormData();
       console.log(formData.capacity_product);
@@ -54,42 +54,7 @@ function RegisterUkm() {
           body: ImageData,
         }).then(async (res) => {
           const content = await res.json();
-          await axios
-            .post("/v1/users/UKM", {
-              UkmName: formData.ukmName,
-              OwnerName: formData.OwnerName,
-              Email: formData.email,
-              password: formData.password,
-              BusinessSize: formData.BusinessSize,
-              BusinessBirth: formData.BusinessBirth,
-              BusinessAdress: formData.BusinessAdress,
-              TurnoverYears: omset,
-              CertficateName: certificateName,
-              CertificateID: certificateId,
-              city: formData.city,
-              districts: formData.districts,
-              village: formData.village,
-              postCode: formData.postCode,
-              employees: parseInt(formData.employees),
-              PhoneNumber: formData.PhoneNumber,
-              ProductName: formData.productName,
-              Category: formData.category,
-              CapacityProduct: parseInt(formData.capacity_product),
-              Description: formData.description,
-              IsMemberUKMID: parseInt(isMemberUkmIndonesia),
-              InterestedJoin: parseInt(interestedJoinUkm),
-              BussinessSocialMedia: socialMediaName,
-              BussinessSocialMediaLink: linkSocialMedia,
-              Image: content.data,
-            })
-            .then((res) => {
-              setLoading(false);
-              router.push("/success-ukm");
-            });
-        });
-      } else {
-        await axios
-          .post("/v1/users/UKM", {
+          const res2 = await axios.post("/v1/users/UKM", {
             UkmName: formData.ukmName,
             OwnerName: formData.OwnerName,
             Email: formData.email,
@@ -114,11 +79,65 @@ function RegisterUkm() {
             InterestedJoin: parseInt(interestedJoinUkm),
             BussinessSocialMedia: socialMediaName,
             BussinessSocialMediaLink: linkSocialMedia,
-          })
-          .then((res) => {
-            setLoading(false);
-            router.push("/success-ukm");
+            Image: content.data,
           });
+          setLoading(false);
+
+          router.push("/success-ukm");
+
+          await axios.post(
+            `${process.env.API_LARAVEL}/api/sendEmail`,
+            {
+              email: res2.data.email,
+              name: res2.data.UkmName,
+              token: res2.data.VerifyToken,
+              isUkm: true,
+            },
+            { withCredentials: false }
+          );
+        });
+      } else {
+        const res = await axios.post("/v1/users/UKM", {
+          UkmName: formData.ukmName,
+          OwnerName: formData.OwnerName,
+          Email: formData.email,
+          password: formData.password,
+          BusinessSize: formData.BusinessSize,
+          BusinessBirth: formData.BusinessBirth,
+          BusinessAdress: formData.BusinessAdress,
+          TurnoverYears: omset,
+          CertficateName: certificateName,
+          CertificateID: certificateId,
+          city: formData.city,
+          districts: formData.districts,
+          village: formData.village,
+          postCode: formData.postCode,
+          employees: parseInt(formData.employees),
+          PhoneNumber: formData.PhoneNumber,
+          ProductName: formData.productName,
+          Category: formData.category,
+          CapacityProduct: parseInt(formData.capacity_product),
+          Description: formData.description,
+          IsMemberUKMID: parseInt(isMemberUkmIndonesia),
+          InterestedJoin: parseInt(interestedJoinUkm),
+          BussinessSocialMedia: socialMediaName,
+          BussinessSocialMediaLink: linkSocialMedia,
+        });
+
+        setLoading(false);
+
+        router.push("/success-ukm");
+
+        await axios.post(
+          `${process.env.API_LARAVEL}/api/sendEmail`,
+          {
+            email: res.data.email,
+            name: res.data.UkmName,
+            token: res.data.VerifyToken,
+            isUkm: true,
+          },
+          { withCredentials: false }
+        );
       }
     } catch (err) {
       console.log(err);

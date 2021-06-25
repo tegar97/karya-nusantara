@@ -9,12 +9,14 @@ function ResetPassword() {
   const router = useRouter();
   const { token } = router.query;
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
+  const [success, setSuccess] = useState(false);
   const [newPassword, setnewPassword] = useState("");
   const [loading, setLoading] = useState(true);
   const [loading2, setLoading2] = useState(false);
   const [repeatPassword, setrepeatnewPassword] = useState("");
   const [isAllow, setIsAllow] = useState("");
+  const [formError, setFormError] = useState("");
+  const [tokenValid, setTokenValid] = useState(false);
   const onSubmit = async (e) => {
     e.preventDefault();
     setLoading2(true);
@@ -32,10 +34,10 @@ function ResetPassword() {
             { withCredentials: false }
           )
           .then((res) => {
-            setSuccess(res.data.message);
+            setSuccess(true);
           });
       } else {
-        setError("Password Dan Confirm Password Tidak Sama");
+        setFormError("Password Dan Confirm Password Tidak Sama");
       }
     } catch (error) {
       setError(error.response.data.message);
@@ -56,10 +58,13 @@ function ResetPassword() {
             }
           )
           .then((res) => {
+            setTokenValid(true);
             setLoading(false);
+            console.log(res);
           })
           .catch((err) => {
             setIsAllow(err.response.data.message);
+            setTokenValid(false);
 
             setLoading(false);
           });
@@ -67,7 +72,7 @@ function ResetPassword() {
     };
     CheckToken();
   }, [token]);
-
+  console.log(isAllow);
   return (
     <Container
       maxWidth="lg"
@@ -86,67 +91,71 @@ function ResetPassword() {
               </div>
             )} */}
 
-            {loading && isAllow == "The payload is invalid." ? (
-              <h5>Loading ...</h5>
-            ) : success || isAllow != "The payload is invalid." ? (
-              <div>
-                <h2 className="text-red-500">{success ? "" : isAllow}</h2>
-                <h2 className="text-green-500">{success}</h2>
-              </div>
+            {tokenValid ? (
+              !success ? (
+                <>
+                  <div className="mt-5 text-sm">
+                    <label
+                      htmlFor="email"
+                      className="block text-black "
+                      style={{ fontSize: "1.05rem" }}
+                    >
+                      Password Baru
+                    </label>
+                    <input
+                      type="password"
+                      autoFocus
+                      id="password"
+                      name="password"
+                      onChange={(e) => setnewPassword(e.target.value)}
+                      className="w-full px-2 py-2 mt-3 mb-3 border-2 border-gray-300 rounded-md focus:outline-none"
+                      placeholder="Password Baru  Anda"
+                    ></input>
+                  </div>
+                  <div className="mt-5 text-sm">
+                    <label
+                      htmlFor="email"
+                      className="block text-black "
+                      style={{ fontSize: "1.05rem" }}
+                    >
+                      Konfirmasi Password
+                    </label>
+                    <input
+                      type="password"
+                      autoFocus
+                      id="password"
+                      name="password"
+                      onChange={(e) => setrepeatnewPassword(e.target.value)}
+                      className="w-full px-2 py-2 mt-3 mb-3 border-2 border-gray-300 rounded-md focus:outline-none"
+                      placeholder=" Masukan Sekali lagi Konfirmasi Baru"
+                    ></input>
+                    <span className="text-red-500">
+                      {formError && formError}
+                    </span>
+                  </div>
+                  {loading ? (
+                    <button
+                      disabled
+                      className="p-3 mt-3 text-blue-100 bg-gray-200 "
+                    >
+                      Loading ......
+                    </button>
+                  ) : (
+                    <button
+                      type="submit"
+                      className="p-3 mt-3 text-white bg-blue-100 "
+                    >
+                      Submit
+                    </button>
+                  )}
+                </>
+              ) : (
+                <span>
+                  Reset Password Berhasil , Silahkan Login dengan password baru
+                </span>
+              )
             ) : (
-              <>
-                <div className="mt-5 text-sm">
-                  <label
-                    htmlFor="email"
-                    className="block text-black "
-                    style={{ fontSize: "1.05rem" }}
-                  >
-                    Password Baru
-                  </label>
-                  <input
-                    type="password"
-                    autoFocus
-                    id="password"
-                    name="password"
-                    onChange={(e) => setnewPassword(e.target.value)}
-                    className="w-full px-2 py-2 mt-3 mb-3 border-2 border-gray-300 rounded-md focus:outline-none"
-                    placeholder="Password Baru  Anda"
-                  ></input>
-                </div>
-                <div className="mt-5 text-sm">
-                  <label
-                    htmlFor="email"
-                    className="block text-black "
-                    style={{ fontSize: "1.05rem" }}
-                  >
-                    Konfirmasi Password
-                  </label>
-                  <input
-                    type="password"
-                    autoFocus
-                    id="password"
-                    name="password"
-                    onChange={(e) => setrepeatnewPassword(e.target.value)}
-                    className="w-full px-2 py-2 mt-3 mb-3 border-2 border-gray-300 rounded-md focus:outline-none"
-                    placeholder=" Masukan Sekali lagi Konfirmasi Baru"
-                  ></input>
-                </div>
-                {loading ? (
-                  <button
-                    disabled
-                    className="p-3 mt-3 text-blue-100 bg-gray-200 "
-                  >
-                    Loading ......
-                  </button>
-                ) : (
-                  <button
-                    type="submit"
-                    className="p-3 mt-3 text-white bg-blue-100 "
-                  >
-                    Submit
-                  </button>
-                )}
-              </>
+              ""
             )}
           </form>
         </div>

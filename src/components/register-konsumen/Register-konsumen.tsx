@@ -36,6 +36,7 @@ function RegisterKonsumen() {
           email: res.data.email,
           name: res.data.name,
           token: res.data.token,
+          isUkm: false,
         },
         { withCredentials: false }
       );
