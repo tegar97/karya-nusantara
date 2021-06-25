@@ -50,6 +50,11 @@ type UserErrors struct {
 	CompanyBirth  *time.Time `json:"CompanyBirth"`
 	CompanyAdress string `json:"CompanyAdress"`
 	PhoneNumber   string `json:"PhoneNumber"`
+	City               string    `json:"city" gorm:"size:64"`
+	Districts          string   `json:"districts"gorm:"size:64"`
+	Address            string    `json:"address"`
+	Village            string    `json:"village" gorm:"size:64"`
+	PostCode           string    `json:"postCode" gorm:"size:15"`
 	CompanyEmail  string `json:"CompanyEmail"`
 	BusinessSize   string  `json:"BusinessSize" gorm:"size:64"`
 	BusinessBirth string ` json:"BusinessBirth" gorm:"size:40"`

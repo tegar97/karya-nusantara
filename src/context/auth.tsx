@@ -17,6 +17,7 @@ interface User {
   employees: string;
   CertificateID: string;
   TurnoverYears: string;
+  Role: string;
 }
 interface State {
   authenticated: boolean;

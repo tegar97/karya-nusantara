@@ -16,8 +16,8 @@ func IsEmpty(str string,field string )(bool,string) {
 	return false, ""
 }
 
-func IsEmptyInteger(str int,field string  )(bool,string) {
-	if str > -1  {
+func IsEmptyInteger(name int,field string  )(bool,string) {
+	if name > -1  {
 		return true, field+"  wajib di isi"
 	}
 
@@ -57,16 +57,7 @@ func ValidateRegister(u *models.Konsumen) *models.UserErrors2 {
 
 func ValidateRegisterUKM(u *models.UMKM) *models.UserErrors {
 	e := &models.UserErrors{}
-	e.Err, e.UkmName = IsEmpty(u.UkmName,"nama ukm")
-	e.Err, e.OwnerName = IsEmpty(u.OwnerName,"Nama Pemilik usaha")
-	e.Err, e.BusinessSize = IsEmpty(u.BusinessSize,"Bentuk usaha")
-	e.Err, e.BusinessAdress = IsEmpty(u.BusinessAdress,"Alamat usaha")
-	e.Err, e.BusinessBirth = IsEmpty(u.BusinessBirth,"Tanggal mulai usaha")
-	//e.Err, e.Employees = IsEmptyInteger(u.Employees,"Email perusahaan ")
-	e.Err, e.TurnoverYears = IsEmpty(u.TurnoverYears,"Penghasilan perusahaan ")
 
-	e.Err, e.Email = IsEmpty(u.Email,"email")
-	//e.Err, e.PhoneNumber = IsEmpty(u.PhoneNumber,"no hp")
 
 
 	if !valid.IsEmail(u.Email) {
@@ -82,6 +73,21 @@ func ValidateRegisterUKM(u *models.UMKM) *models.UserErrors {
 		e.Err, e.Password = true, "Panjang kata sandi harus minimal 8 dan harus merupakan kombinasi dari huruf besar, huruf kecil dan angka "
 	}
 
+	e.Err, e.UkmName = IsEmpty(u.UkmName,"nama ukm")
+	e.Err, e.OwnerName = IsEmpty(u.OwnerName,"Nama Pemilik usaha")
+	e.Err, e.BusinessSize = IsEmpty(u.BusinessSize,"Bentuk usaha")
+	e.Err, e.BusinessAdress = IsEmpty(u.BusinessAdress,"Alamat usaha")
+	e.Err, e.BusinessBirth = IsEmpty(u.BusinessBirth,"Tanggal mulai usaha")
+	e.Err, e.TurnoverYears = IsEmpty(u.TurnoverYears,"Penghasilan perusahaan ")
+	e.Err, e.PhoneNumber = IsEmpty(u.PhoneNumber,"no hp")
+	e.Err, e.Email = IsEmpty(u.Email,"email")
+	e.Err,e.Password = IsEmpty(u.Password,"Password")
+	e.Err,e.Password = IsEmpty(u.Password,"Password")
+	e.Err, e.City = IsEmpty(u.City,"Kota")
+	e.Err, e.Districts = IsEmpty(u.Districts,"Kecamatan")
+	e.Err, e.Village = IsEmpty(u.Village,"Kelurahan")
+	e.Err, e.Address = IsEmpty(u.Address,"Alamat")
+	e.Err, e.PostCode = IsEmpty(u.PostCode,"Post Code")
 	return e
 }
 

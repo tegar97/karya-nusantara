@@ -19,9 +19,18 @@ function RegisterKonsumen() {
 
     try {
       console.log(formData);
-      await axios.post("/v1/users/register", formData);
-
+      const res = await axios.post("/v1/users/register", formData);
+      console.log(res.data);
       router.push("/success");
+      await axios.post(
+        `${process.env.API_LARAVEL}/api/sendEmail`,
+        {
+          email: res.data.email,
+          name: res.data.name,
+          token: res.data.VerifyToken,
+        },
+        { withCredentials: false }
+      );
     } catch (err) {
       setError(err.response.data);
     }

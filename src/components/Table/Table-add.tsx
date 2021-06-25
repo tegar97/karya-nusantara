@@ -219,10 +219,18 @@ const RequestProduct = ({ setYourProduct, yourProduct }) => {
                       >
                         Loading ....
                       </button>
-                    ) : (
+                    ) : user.Role ? (
                       <button
                         type="submit"
                         className="px-16 py-2 text-white bg-blue-100"
+                      >
+                        Buat Penawaran
+                      </button>
+                    ) : (
+                      <button
+                        type="submit"
+                        className="px-16 py-2 text-white bg-blue-100 opacity-50"
+                        disabled
                       >
                         Buat Penawaran
                       </button>

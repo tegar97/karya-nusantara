@@ -16,7 +16,7 @@ function Client() {
           ></div>
         </div>
         <h2 className="w-full text-3xl font-bold text-center lg:text-4xl text-grey-100 hover:text-blue-100">
-          Klein Kami
+          Klien Kami
         </h2>
         <div className="flex justify-end col-span-2 lg:w-full">
           <div

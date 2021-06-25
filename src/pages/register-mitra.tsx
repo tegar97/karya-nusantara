@@ -30,9 +30,10 @@ function RegisterUkm() {
   const [certificateName, setCertificateName] = useState("");
   const [certificateId, setCertificateId] = useState("");
   const [isMemberUkmIndonesia, setIsMemberUkmIndonesia]: any = useState(0);
-  const [selectedFile, setSelectedFile] = useState();
-
+  const [selectedFile, setSelectedFile]: any = useState();
+  const [error, setError]: any = useState({});
   const [interestedJoinUkm, setIsInterestedJoinUkm]: any = useState(0);
+
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -40,40 +41,89 @@ function RegisterUkm() {
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
+      console.log(selectedFile);
       setLoading(false);
       console.log();
-      const res = await axios
-        .post("/v1/users/UKM", {
-          UkmName: formData.ukmName,
-          OwnerName: formData.OwnerName,
-          Email: formData.email,
-          password: formData.password,
-          BusinessSize: formData.BusinessSize,
-          BusinessBirth: formData.BusinessBirth.toString(),
-          BusinessAdress: formData.BusinessAdress,
-          TurnoverYears: omset.toString(),
-          CertficateName: certificateName.toString(),
-          CertificateID: certificateId.toString(),
-          city: formData.city,
-          districts: formData.districts,
-          village: formData.village,
-          postCode: formData.postCode,
-          employees: parseInt(formData.employees),
-          PhoneNumber: formData.PhoneNumber,
-          ProductName: formData.productName,
-          Category: formData.category,
-          CapacityProduct: formData.capacity_product,
-          Description: formData.description,
-          IsMemberUKMID: parseInt(isMemberUkmIndonesia),
-          InterestedJoin: parseInt(interestedJoinUkm),
-          BussinessSocialMedia: socialMediaName,
-          BussinessSocialMediaLink: linkSocialMedia,
-        })
-        .then((res) => {
-          setLoading(false);
-          router.push("/success-ukm");
+      const ImageData = new FormData();
+      console.log(formData.capacity_product);
+
+      if (selectedFile) {
+        ImageData.append("Image", selectedFile);
+        await fetch(`${process.env.API_LARAVEL}/api/uploadFile`, {
+          method: "POST",
+          body: ImageData,
+        }).then(async (res) => {
+          const content = await res.json();
+          await axios
+            .post("/v1/users/UKM", {
+              UkmName: formData.ukmName,
+              OwnerName: formData.OwnerName,
+              Email: formData.email,
+              password: formData.password,
+              BusinessSize: formData.BusinessSize,
+              BusinessBirth: formData.BusinessBirth,
+              BusinessAdress: formData.BusinessAdress,
+              TurnoverYears: omset,
+              CertficateName: certificateName,
+              CertificateID: certificateId,
+              city: formData.city,
+              districts: formData.districts,
+              village: formData.village,
+              postCode: formData.postCode,
+              employees: parseInt(formData.employees),
+              PhoneNumber: formData.PhoneNumber,
+              ProductName: formData.productName,
+              Category: formData.category,
+              CapacityProduct: parseInt(formData.capacity_product),
+              Description: formData.description,
+              IsMemberUKMID: parseInt(isMemberUkmIndonesia),
+              InterestedJoin: parseInt(interestedJoinUkm),
+              BussinessSocialMedia: socialMediaName,
+              BussinessSocialMediaLink: linkSocialMedia,
+              Image: content.data,
+            })
+            .then((res) => {
+              setLoading(false);
+              router.push("/success-ukm");
+            });
         });
-    } catch (error) {}
+      } else {
+        await axios
+          .post("/v1/users/UKM", {
+            UkmName: formData.ukmName,
+            OwnerName: formData.OwnerName,
+            Email: formData.email,
+            password: formData.password,
+            BusinessSize: formData.BusinessSize,
+            BusinessBirth: formData.BusinessBirth,
+            BusinessAdress: formData.BusinessAdress,
+            TurnoverYears: omset,
+            CertficateName: certificateName,
+            CertificateID: certificateId,
+            city: formData.city,
+            districts: formData.districts,
+            village: formData.village,
+            postCode: formData.postCode,
+            employees: parseInt(formData.employees),
+            PhoneNumber: formData.PhoneNumber,
+            ProductName: formData.productName,
+            Category: formData.category,
+            CapacityProduct: parseInt(formData.capacity_product),
+            Description: formData.description,
+            IsMemberUKMID: parseInt(isMemberUkmIndonesia),
+            InterestedJoin: parseInt(interestedJoinUkm),
+            BussinessSocialMedia: socialMediaName,
+            BussinessSocialMediaLink: linkSocialMedia,
+          })
+          .then((res) => {
+            setLoading(false);
+            router.push("/success-ukm");
+          });
+      }
+    } catch (err) {
+      console.log(err);
+      setError(err.response.data);
+    }
   };
   return (
     <div
@@ -106,6 +156,7 @@ function RegisterUkm() {
             value={formData.email}
             onChange={(e) => onChange(e)}
             className=""
+            error={error.email}
           />
           <FormInput
             name="password"
@@ -115,6 +166,7 @@ function RegisterUkm() {
             value={formData.password}
             onChange={(e) => onChange(e)}
             className=""
+            error={error.password}
           />
           <FormInput
             name="ukmName"
@@ -124,6 +176,7 @@ function RegisterUkm() {
             value={formData.ukmName}
             onChange={(e) => onChange(e)}
             className=""
+            error={error.UkmName}
           />
           <FormInput
             name="OwnerName"
@@ -133,21 +186,34 @@ function RegisterUkm() {
             value={formData.OwnerName}
             onChange={(e) => onChange(e)}
             className=""
+            error={error.OwnerName}
           />
-          <SelectOptions
-            name="BusinessSize"
-            id="BusinessSize"
-            onChange={(e) => onChange(e)}
-            value={formData.BusinessSize}
-          >
-            <option className="text-grey-100 hover:text-blue-100">
-              Bentuk Badan Usaha
-            </option>
-            <option value="a">Firma</option>
-            <option value="b">Persekutuan</option>
-            <option value="c">Koperasi Terbatas</option>
-            <option value="d">Yayasan</option>
-          </SelectOptions>
+          <div>
+            <SelectOptions
+              name="BusinessSize"
+              id="BusinessSize"
+              onChange={(e) => onChange(e)}
+              value={formData.BusinessSize}
+              error={error.BusinessSize}
+              className="text-blue-100 hover:text-blue-100"
+            >
+              <option className="text-blue-100 hover:text-blue-100">
+                Bentuk Badan Usaha
+              </option>
+              <option value="a" className="text-blue-100 hover:text-blue-100">
+                Firma
+              </option>
+              <option value="b" className="text-blue-100 hover:text-blue-100">
+                Persekutuan
+              </option>
+              <option value="c" className="text-blue-100 hover:text-blue-100">
+                Koperasi Terbatas
+              </option>
+              <option value="d" className="text-blue-100 hover:text-blue-100">
+                Yayasan
+              </option>
+            </SelectOptions>
+          </div>
           <FormInput
             name="BusinessBirth"
             id="BusinessBirth"
@@ -156,6 +222,7 @@ function RegisterUkm() {
             onChange={(e) => onChange(e)}
             value={formData.BusinessBirth}
             className=""
+            error={error.BusinessBirth}
           />
           <FormInput
             name="PhoneNumber"
@@ -165,6 +232,7 @@ function RegisterUkm() {
             value={formData.PhoneNumber}
             onChange={(e) => onChange(e)}
             className=""
+            error={error.PhoneNumber}
           />
           <FormInput
             name="BusinessAdress"
@@ -174,6 +242,7 @@ function RegisterUkm() {
             type="text"
             onChange={(e) => onChange(e)}
             className=""
+            error={error.BusinessAdress}
           />
           <div className="grid grid-cols-3 gap-x-5">
             <FormInput
@@ -184,6 +253,7 @@ function RegisterUkm() {
               value={formData.city}
               onChange={(e) => onChange(e)}
               className=""
+              error={error.city}
             />
             <FormInput
               name="districts"
@@ -193,6 +263,7 @@ function RegisterUkm() {
               value={formData.districts}
               onChange={(e) => onChange(e)}
               className=""
+              error={error.districts}
             />
             <FormInput
               name="village"
@@ -202,6 +273,7 @@ function RegisterUkm() {
               type="text"
               onChange={(e) => onChange(e)}
               className=""
+              error={error.village}
             />
             <FormInput
               name="postCode"
@@ -211,6 +283,7 @@ function RegisterUkm() {
               type="text"
               onChange={(e) => onChange(e)}
               className=""
+              error={error.postCode}
             />
           </div>
           <div className="relative">
@@ -340,6 +413,11 @@ function RegisterUkm() {
             {omsetModal && (
               <OmsetPopup setOmset={setOmset} setOmsetModal={setOmsetModal} />
             )}
+            {error && (
+              <div className="mt-2">
+                <span className="mt-2 text-red-500">{error.TurnoverYears}</span>
+              </div>
+            )}
           </div>
           <div className="relative" style={{ marginBottom: "10px" }}>
             <div className="relative flex items-center">
@@ -412,12 +490,22 @@ function RegisterUkm() {
 
           <div className="flex flex-col items-center mt-2">
             <span>Ayo bergabung bersama ratusan mitra lainya</span>
-            <button
-              type="submit"
-              className="p-1 px-10 mt-4 text-lg text-white bg-blue-100"
-            >
-              Daftar Sebagai Mitra
-            </button>
+            {loading ? (
+              <button
+                type="button"
+                disabled
+                className="p-1 px-10 mt-4 text-lg text-white bg-blue-100 opacity-50"
+              >
+                Loading
+              </button>
+            ) : (
+              <button
+                type="submit"
+                className="p-1 px-10 mt-4 text-lg text-white bg-blue-100"
+              >
+                Daftar Sebagai Mitra
+              </button>
+            )}
           </div>
         </form>
       </Container>

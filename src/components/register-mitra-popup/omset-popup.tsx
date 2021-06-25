@@ -17,19 +17,19 @@ function OmsetPopup({ setOmset, setOmsetModal }) {
           *Tidak Termasuk tanah dan bangunan tempat usaha
         </span>
         <span
-          onClick={() => onClick(1)}
+          onClick={() => onClick("a")}
           className="cursor-pointer hover:text-blue-100"
         >
           Hasil Penjualan / Omset maksimal Rp.300.000.000 setahun
         </span>
         <span
-          onClick={() => onClick(2)}
+          onClick={() => onClick("b")}
           className="cursor-pointer hover:text-blue-100"
         >
           Hasil Penjualan / Omset maksimal Rp.300.000.000 - Rp.2.500.000.000{" "}
         </span>
         <span
-          onClick={() => onClick(3)}
+          onClick={() => onClick("c")}
           className="cursor-pointer hover:text-blue-100"
         >
           Hasil Penjualan / Omset maksimal Rp.2.500.000.000 - Rp.50.000.000.000{" "}

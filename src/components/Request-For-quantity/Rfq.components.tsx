@@ -44,27 +44,28 @@ function Rfq() {
           }
         ).then(async (res) => {
           const content = await res.json();
+          if (user.Role) {
+            await axios
+              .post(
+                `${process.env.API_LARAVEL}/api/rfq`,
+                {
+                  product_name: ProductName,
+                  capacity_product: CapacityProduct,
+                  description: Description,
+                  quantity: Quantity,
+                  unit: Unit,
+                  user_id: user.ID,
+                  image: content.data,
+                },
 
-          await axios
-            .post(
-              `${process.env.API_LARAVEL}/api/rfq`,
-              {
-                product_name: ProductName,
-                capacity_product: CapacityProduct,
-                description: Description,
-                quantity: Quantity,
-                unit: Unit,
-                user_id: user.ID,
-                image: content.data,
-              },
+                { withCredentials: false }
+              )
+              .then((res) => {
+                setLoadingRequest(false);
 
-              { withCredentials: false }
-            )
-            .then((res) => {
-              setLoadingRequest(false);
-
-              router.push("/request");
-            });
+                router.push("/request");
+              });
+          }
         });
       } else {
         content = "";
@@ -174,8 +175,16 @@ function Rfq() {
                         >
                           Loading ...
                         </button>
-                      ) : (
+                      ) : user.Role ? (
                         <button className="px-16 py-2 text-white bg-blue-100">
+                          Buat Penawaran
+                        </button>
+                      ) : (
+                        <button
+                          type="button"
+                          disabled
+                          className="px-16 py-2 text-white bg-blue-100 opacity-50"
+                        >
                           Buat Penawaran
                         </button>
                       )

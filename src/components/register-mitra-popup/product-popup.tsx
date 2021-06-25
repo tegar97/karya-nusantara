@@ -6,6 +6,7 @@ function ProductPopUp({
   onChange,
   setProductModal,
   selectedFile,
+
   setSelectedFile,
   formData,
 }) {
@@ -88,7 +89,7 @@ function ProductPopUp({
               name="capacity_product"
               id="capacity_product"
               placeholder="Kapasitas Produk"
-              type="text"
+              type="number"
               onChange={(e) => onChange(e)}
               className=""
               value={formData.capacity_product}
