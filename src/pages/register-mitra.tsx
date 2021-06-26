@@ -54,7 +54,7 @@ function RegisterUkm() {
           body: ImageData,
         }).then(async (res) => {
           const content = await res.json();
-          const res2 = await axios.post("/v1/users/UKM", {
+          const res2 = await setLoadingaxios.post("/v1/users/UKM", {
             UkmName: formData.ukmName,
             OwnerName: formData.OwnerName,
             Email: formData.email,

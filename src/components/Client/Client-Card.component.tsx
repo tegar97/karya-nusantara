@@ -2,6 +2,7 @@ import React from "react";
 import Slider from "react-slick";
 import Image from "next/image";
 import useSWR from "swr";
+
 const fetcher = (
   ...args: [input: RequestInfo, init?: RequestInit | undefined]
 ): any => fetch(...args).then((res) => res.json());
@@ -11,18 +12,20 @@ const ClientCard = () => {
     fetcher
   );
   var settings = {
-    dots: true,
+    dots: false,
     className: "center",
 
-    infinite: true,
-    slidesToShow: 3,
+    // infinite: true,
+    slidesToShow: 7,
     slidesToScroll: 1,
     initialSlide: 0,
-    autoplay: true,
-    speed: 20000,
-    autoplaySpeed: 0,
+    // autoplay: true,
+    // speed: 20000,
+    // autoplaySpeed: 0,
     cssEase: "linear",
-    pauseOnHover: true,
+    // pauseOnHover: true,
+    accessibility: true,
+    arrows: true,
 
     responsive: [
       {
@@ -30,8 +33,8 @@ const ClientCard = () => {
         className: "center",
         centerPadding: "60px",
         settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
+          slidesToShow: 5,
+          slidesToScroll: 1,
 
           infinite: true,
           dots: true,
@@ -42,7 +45,7 @@ const ClientCard = () => {
         className: "center",
         centerPadding: "60px",
         settings: {
-          slidesToShow: 1,
+          slidesToShow: 3,
           slidesToScroll: 1,
           initialSlide: 2,
         },
@@ -52,7 +55,7 @@ const ClientCard = () => {
         className: "center",
         centerPadding: "60px",
         settings: {
-          slidesToShow: 1,
+          slidesToShow: 3,
           slidesToScroll: 1,
         },
       },
@@ -63,51 +66,27 @@ const ClientCard = () => {
       <>
         {!data ? (
           <div>Loading ....</div>
-        ) : data.data.length >= 3 ? (
-          <Slider {...settings}>
+        ) : data.data.length >= 8 ? (
+          <Slider {...settings} style={{ zIndex: 2 }}>
             {data.data.map((data) => (
-              <div className="w-full p-2 text-center bg-white border-black shadow-lg">
-                <Image
+              <div className="px-5">
+                <img
                   src={`${process.env.API_LARAVEL}/storage/${data.icon}`}
-                  width={200}
-                  height={200}
-                  alt="Klient 1"
-                  className="self-center mb-5 text-center"
+                  alt={`${data.name}`}
+                  className="self-center object-cover mb-5 text-center "
                 />
-                <div>
-                  <span>{data.description}</span>
-                </div>
               </div>
             ))}
           </Slider>
         ) : (
-          <div className="grid items-center w-full grid-cols-4 gap-5 lg:grid-cols-7 justify-items-center">
-            {/* {data.data.map((data) => (
-                <div className="w-full p-2 text-center">
-                  <img
-                    src={`/assets/logo-farma.png`}
-                    width={200}
-                    height={200}
-                    alt="Klient 1"
-                    className="self-center mb-5 text-center"
-                  />
-                </div>
-              ))} */}
-            <img
-              src={`/assets/logo-farma.png`}
-              alt="Klient 1"
-              className="self-center w-20 h-20 mb-5 text-center lg:h-28 lg:w-28 "
-            />
-            <img
-              src={`https://upload.wikimedia.org/wikipedia/id/thumb/c/c3/Kimia_Farma_logo.svg/1200px-Kimia_Farma_logo.svg.png`}
-              alt="Klient 1"
-              className="self-center w-20 h-20 mb-5 text-center h-28 lg:w-28 "
-            />
-            <img
-              src={`/assets/logo-kemenkes.png`}
-              alt="Klient 1"
-              className="self-center w-20 h-20 mb-5 text-center h-28 lg:w-28 "
-            />
+          <div className="grid w-full grid-cols-3 p-0 gap-x-10 gap-y-5 lg:gap-x-10 lg:grid-cols-7 ">
+            {data.data.map((data) => (
+              <img
+                src={`${process.env.API_LARAVEL}/storage/${data.icon}`}
+                alt={`${data.name}`}
+                className="self-center object-cover mb-5 text-center "
+              />
+            ))}
           </div>
         )}
       </>

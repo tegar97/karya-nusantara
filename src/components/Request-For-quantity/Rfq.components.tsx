@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { useAuthState } from "../../context/auth";
 import FormInput from "../input-container/input-container";
 import LoginModal from "../Login-Modal/Login-Modal.component";
+import { RfqBackground } from "./rfq.styled";
 
 function Rfq() {
   const [formData, setFormData] = useState({});
@@ -76,10 +77,7 @@ function Rfq() {
   };
   return (
     <div className="py-3 mt-5 lg:px-20">
-      <div
-        className="bg-no-repeat bg-cover border-2 border-blue-100 "
-        style={{ backgroundImage: "url('/assets/newRfq.png')" }}
-      >
+      <RfqBackground>
         {/* <HeadingSecondary className="text-center ">
         Request For Quotation
       </HeadingSecondary> */}
@@ -197,7 +195,7 @@ function Rfq() {
             </div>
           </div>
         </div>
-      </div>
+      </RfqBackground>
     </div>
   );
 }

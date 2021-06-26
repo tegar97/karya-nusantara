@@ -1,12 +1,19 @@
 import React, { useEffect } from "react";
 import { TweenLite } from "gsap";
 import convertToRupiah from "../../util/converRupiah";
+import AOS from "aos";
 
 function KatalogItems({ key, data }) {
+  useEffect(() => {
+    AOS.init();
+    AOS.refresh();
+  }, []);
+
   return (
     <div
       key={key}
       id="ui"
+      data-aos="fade-up"
       className="flex flex-col w-full duration-300 transform cursor-pointer hover:scale-110 transation group"
     >
       <div>
