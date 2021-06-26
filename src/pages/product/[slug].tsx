@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import ProductDetailImage from "../../components/product-detail-image/product-detail-image";
 import OrderModal from "../../components/order-modal/Order-Modal.component";
@@ -7,6 +7,11 @@ import convertToRupiah from "../../util/converRupiah";
 import Link from "next/link";
 import { NextSeo } from "next-seo";
 import Head from "next/head";
+import BorderBottom from "../../components/border-bottom/border-bottom";
+import KatalogItems from "../../components/katalog-items/katalog-items";
+import { useRouter } from "next/router";
+
+import axios from "axios";
 // This function gets called at build time
 export async function getStaticPaths() {
   // Call an external API endpoint to get posts
@@ -30,15 +35,41 @@ export async function getStaticProps({ params }) {
   const res = await fetch(
     `${process.env.API_LARAVEL}/api/productd/${params.slug}`
   );
+  const resReccomend = await fetch(
+    `${process.env.API_LARAVEL}/api/productGetSameCategory/${params.slug}`
+  );
   const product = await res.json();
+  const productReccomend = await resReccomend.json();
 
   // Pass post data to the page via props
-  return { props: { product }, revalidate: 1 };
+  return { props: { product, productReccomend }, revalidate: 1 };
 }
-function Slug({ product }) {
-  if(!product) return (
-    <div>Loading ..</div>
-  )
+
+function Slug({ product, productReccomend }) {
+  const router = useRouter();
+  const [productRecommend, setProductRecommend]: any = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { slug } = router.query;
+  // useEffect(() => {
+  //   const getRecommendProduct = async () => {
+  //     setIsLoading(true);
+  //     await axios
+  //       .get(`${process.env.API_LARAVEL}/api/productGetSameCategory/${slug}`, {
+  //         withCredentials: false,
+  //       })
+  //       .then((res) => {
+  //         // setProductRecommend(res.data);
+  //         setIsLoading(false);
+  //         setProductRecommend(res.data.data);
+  //       });
+  //   };
+
+  //   getRecommendProduct();
+  // }, []);
+  if (!product) return <div>Loading ..</div>;
+
+  console.log(productReccomend);
   return (
     <>
       <Head>
@@ -83,6 +114,20 @@ function Slug({ product }) {
               </div>
             </div>
           </div>
+
+          <div className="px-5 mt-5 lg:px-0">
+            <div className="w-full">
+              <span className="text-lg font-bold ">
+                Produk lain dari {productReccomend.categoryName.name}
+              </span>
+              <BorderBottom />
+            </div>
+            <div className="grid grid-cols-2 gap-8 mt-5 lg:grid-cols-4">
+              {productReccomend.data.map((data, i) => (
+                <KatalogItems key={i} data={data} />
+              ))}
+            </div>
+          </div>
         </div>
 
         <div className="fixed bottom-0 grid items-center justify-center w-full grid-cols-2 p-5 bg-white border-2 border-gray-200 shadow-2xl rounded-t-2xl lg:hidden ">
@@ -94,7 +139,7 @@ function Slug({ product }) {
 
           <OrderModal product={product} />
         </div>
-        <div className="fixed bottom-0 items-center justify-between hidden w-full h-20 px-20 py-10 bg-white border-2 border-gray-200 rounded-t-lg shadow-2xl lg:flex justify-items-center">
+        {/* <div className="fixed bottom-0 items-center justify-between hidden w-full h-20 px-20 py-10 bg-white border-2 border-gray-200 rounded-t-lg shadow-2xl lg:flex justify-items-center">
           <div>
             <h2 className="mt-5 text-xl font-semibold text-blue-100 lg:mt-0">
               {product.data[0].name}
@@ -115,7 +160,7 @@ function Slug({ product }) {
 
             <OrderModal product={product} />
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   );

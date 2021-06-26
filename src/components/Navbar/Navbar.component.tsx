@@ -41,7 +41,7 @@ function Navbar({ menuDrop, setMenuDrop }) {
         }}
         className={`fixed flex items-center justify-between w-full  px-5 py-4  NavbarMenu lg:px-14  ${
           !bgActive && homeRouter
-            ? "lg:ransparent lg:text-white"
+            ? "lg:transparent lg:text-white"
             : "lg:bg-white  lg:shadow-md "
         }`}
       >

@@ -38,7 +38,7 @@ const FadeInAnimation = ({
     gsap.from(compRef.current, 1, {
       ...fadeDirection,
       opacity: 0,
-      lazy: true,
+      lazy: false,
       delay,
     });
   }, [compRef, fadeDirection, delay]);
