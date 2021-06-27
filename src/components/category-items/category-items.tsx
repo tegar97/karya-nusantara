@@ -25,7 +25,7 @@ function CategoryItems({ data, setCategoryId }) {
         alt="Logo "
       />
       <div className="relative" style={{ zIndex: 100 }}>
-        <WrapperKatalog className="absolute z-10 w-40 p-0 px-2 py-2 duration-300 bg-white border-2 border-blue-100 opacity-0 -bottom-10 transation group-hover:opacity-100">
+        <WrapperKatalog className="absolute z-10 w-40 p-0 px-2 py-2 duration-300 bg-white border-2 border-blue-100 opacity-0 -bottom-0 transation group-hover:opacity-100">
           {data.data.length == 0 ? (
             "Tidak Ada Produck"
           ) : (
