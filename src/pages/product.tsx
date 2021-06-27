@@ -13,6 +13,8 @@ import CategoryItems from "../components/category-items/category-items";
 import ProductItems from "../components/product-items/product-items";
 import router from "next/router";
 import axios from "axios";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+
 import {
   CategoryContainer,
   SearchContainer,
@@ -41,6 +43,7 @@ function Product({ category }) {
   const [categoryData, setCategoryData]: any = useState([]);
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
+  const [search2, setSearch2] = useState("");
 
   const [categoryId, setCategoryId] = useState(0);
   const onSearch = (e) => {
@@ -70,6 +73,8 @@ function Product({ category }) {
     };
     getProductByCategory();
   }, [categoryId]);
+
+  console.log(search2.includes(search.toLowerCase()));
   useEffect(() => {
     setLoading(true);
     setCategoryData(category.data);
@@ -128,23 +133,35 @@ function Product({ category }) {
         </SearchContainer>
       </div>
 
-      {loading
-        ? "Loading..."
-        : categoryData
-            .filter((product) => {
-              if (search == "") {
-                return product;
-              } else if (
-                product.data.map((productName) => {
-                  return productName.name
-                    .toLowerCase()
-                    .includes(search.toLowerCase());
-                })
-              ) {
-                return product;
-              }
-            })
-            .map((data) => <ProductItems data={data} />)}
+      {loading ? (
+        <SkeletonTheme color="#fffff" highlightColor="#ffff">
+          <p>
+            <Skeleton count={3} />
+          </p>
+        </SkeletonTheme>
+      ) : categoryData.length == 0 ? (
+        ""
+      ) : (
+        categoryData
+          .filter((product) => {
+            if (search == "") {
+              return product;
+            } else {
+              product.data.map((productData) => {
+                product = productData.name
+                  .toString()
+                  .toLowerCase()
+                  .includes(search.toLowerCase());
+              });
+            }
+            {
+              return product;
+            }
+          })
+          .map((data) => (
+            <ProductItems data={data} search={search} setSearch2={setSearch2} />
+          ))
+      )}
     </div>
   );
 }

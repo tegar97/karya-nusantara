@@ -2,7 +2,7 @@ import React from "react";
 import BorderBottom from "../border-bottom/border-bottom";
 import KatalogItems from "../katalog-items/katalog-items";
 
-function ProductItems({ data }) {
+function ProductItems({ data, search, setSearch2 }) {
   return (
     <div className="px-10 mt-10">
       <div>
@@ -12,20 +12,9 @@ function ProductItems({ data }) {
         <BorderBottom />
       </div>
       <div className="grid gap-5 mt-10 lg:grid-cols-4 gap-y-11 ">
-        {data.data
-          // .filter((product) => {
-          //   console.log(product.data);
-          //   if (search == "") {
-          //     return product;
-          //   } else if (
-          //     product.name.toLowerCase().includes(search.toLowerCase())
-          //   ) {
-          //     return product;
-          //   }
-          // })
-          .map((data, i) => (
-            <KatalogItems key={i} data={data} />
-          ))}
+        {data.data.map((data, i) => (
+          <KatalogItems key={i} data={data} />
+        ))}
       </div>
     </div>
   );
