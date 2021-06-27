@@ -9,7 +9,7 @@ module.exports = {
     ],
   },
   env: {
-    API_LARAVEL: "http://api.karyanusantara.co.id",
+    API_LARAVEL: "https://api.karyanusantara.co.id",
     API_GOLANG: "https://api-go.karyanusantara.co.id",
     NO_WA: "081281712428",
   },
