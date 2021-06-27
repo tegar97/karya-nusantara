@@ -3,7 +3,13 @@ import { Container } from "@material-ui/core";
 import FormInput from "../components/input-container/input-container";
 import router from "next/router";
 import axios from "axios";
+import styled from "styled-components";
 
+const BgContainer = styled.div`
+  background: url("/assets/bg-register2.jpg");
+  min-height: 180vh;
+  background-repeat: none;
+`;
 function RegisterKonsumen() {
   const [formData, setFormData] = useState({});
   const [loading, setLoading] = useState(false);
@@ -38,14 +44,7 @@ function RegisterKonsumen() {
     setLoading(false);
   };
   return (
-    <div
-      style={{
-        background: "url('/assets/bg-register2.jpg')",
-        minHeight: "180vh",
-        backgroundRepeat: "none",
-      }}
-      className="flex justify-center w-full bg-no-repeat bg-cover "
-    >
+    <BgContainer className="flex justify-center w-full bg-no-repeat bg-cover ">
       <Container
         maxWidth="xl"
         className="w-11/12 h-full px-5 py-5 mt-10 bg-white lg:mt-32 lg:w-1/2"
@@ -175,7 +174,7 @@ function RegisterKonsumen() {
           </div>
         </form>
       </Container>
-    </div>
+    </BgContainer>
   );
 }
 

@@ -75,7 +75,10 @@ function forgotPassword() {
               <p className="text-red-500">{error}</p>
 
               {success ? (
-                <h2 className="text-green-500">{success}</h2>
+                <h2 className="text-green-500">
+                  {success &&
+                    "Silahkan cek di kotak masuk atau spam email anda untuk reset password"}
+                </h2>
               ) : (
                 <>
                   <div className="mt-5 text-sm">

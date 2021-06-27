@@ -79,7 +79,7 @@ const ClientCard = () => {
             ))}
           </Slider>
         ) : (
-          <div className="grid w-full grid-cols-3 p-0 gap-x-10 gap-y-5 lg:gap-x-10 lg:grid-cols-7 ">
+          <div className="grid w-full grid-cols-3 p-0 gap-x-16 gap-y-5 lg:gap-x-10 lg:grid-cols-7 ">
             {data.data.map((data) => (
               <img
                 src={`${process.env.API_LARAVEL}/storage/${data.icon}`}

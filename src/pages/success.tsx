@@ -22,7 +22,10 @@ function Success() {
             Terima Kasih Sudah Mendaftar
           </h1>
           <div className="mt-5">
-            <p>Silahkan verifikasi email anda,untuk mulai bertransaksi. </p>
+            <p>Silahkan verifikasi email anda untuk mulai bertransaksi. </p>
+            <p className="mt-5 text-sm text-red-500">
+              Cek Spam Jika email verifikasi tidak masuk ke Kotak Masuk
+            </p>
           </div>
           <div className="mt-5">
             <Link href="/">

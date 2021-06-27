@@ -54,7 +54,7 @@ function RegisterUkm() {
           body: ImageData,
         }).then(async (res) => {
           const content = await res.json();
-          const res2 = await setLoadingaxios.post("/v1/users/UKM", {
+          const res2 = await axios.post("/v1/users/UKM", {
             UkmName: formData.ukmName,
             OwnerName: formData.OwnerName,
             Email: formData.email,
@@ -141,6 +141,7 @@ function RegisterUkm() {
       }
     } catch (err) {
       console.log(err);
+      setLoading(false);
       setError(err.response.data);
     }
   };
@@ -237,7 +238,7 @@ function RegisterUkm() {
             name="BusinessBirth"
             id="BusinessBirth"
             placeholder="Tahun Mulai Usaha "
-            type="text"
+            type="number"
             onChange={(e) => onChange(e)}
             value={formData.BusinessBirth}
             className=""
@@ -415,11 +416,11 @@ function RegisterUkm() {
                   paddingRight: "10px",
                 }}
               >
-                {omset == 1
+                {omset == "a"
                   ? " Hasil Penjualan / Omset maksimal Rp.300.000.000 setahun"
-                  : omset == 2
+                  : omset == "b"
                   ? "Hasil Penjualan / Omset maksimal Rp.300.000.000 - Rp.2.500.000.000"
-                  : omset == 3
+                  : omset == "c"
                   ? 'Hasil Penjualan / Omset maksimal Rp.2.500.000.000 - Rp.50.000.000.000{" "}'
                   : "Omset Tahunan"}
               </button>

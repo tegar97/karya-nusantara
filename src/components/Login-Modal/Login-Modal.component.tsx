@@ -90,14 +90,14 @@ const LoginModal = ({
   return (
     <div className="inline-block ">
       <div
-        className={`lg:px-5 py-1    ${
+        className={`lg:px-5 lg:py-1    ${
           !bgActive && homeRouter
             ? ` lg:text-white  ${
                 !loginRequire && "lg:border-white lg:border-2"
               }  lg:hover:border-blue-100 lg:hover:text-blue-100 lg:bg-transparent bg-blue-100 py-3 px-3.5  lg:rounded-none rounded-lg	 text-white  `
             : ` lg:text-blue-100   ${
                 !loginRequire && "lg:border-blue-100 lg:border-2"
-              }  lg:hover:border-blue-100 lg:hover:text-blue-100`
+              }  lg:hover:border-blue-100 lg:hover:text-blue-100 lg:bg-transparent bg-blue-100 py-3 px-3.5  lg:rounded-none rounded-lg	 text-white  `
         }  `}
       >
         {loginRequire ? (

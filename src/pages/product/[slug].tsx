@@ -12,6 +12,7 @@ import KatalogItems from "../../components/katalog-items/katalog-items";
 import { useRouter } from "next/router";
 
 import axios from "axios";
+import FormInput from "../../components/input-container/input-container";
 // This function gets called at build time
 export async function getStaticPaths() {
   // Call an external API endpoint to get posts
@@ -49,8 +50,25 @@ function Slug({ product, productReccomend }) {
   const router = useRouter();
   const [productRecommend, setProductRecommend]: any = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const [quantity, setQuantity] = useState("");
+  const [description, setDescription] = useState("");
+  const [error, setError] = useState("");
 
   const { slug } = router.query;
+
+  const orderViaWhatsApp = () => {
+    const number = "+6281281712428";
+    if (!quantity && !description) {
+      return setError("Form Wajib di isi");
+    }
+    const message = `Halo Admin , saya mau membeli ${product.data[0].name}  dengan jumlah ${quantity} dengan keterangan ${description}  `;
+    const url =
+      "https://api.whatsapp.com/send?phone=" + number + "&text=%20" + message;
+    const newWindow = window.open(url, "_blank", "noopener,noreferrer");
+    if (newWindow) newWindow.opener = null;
+    setError("");
+    return newWindow;
+  };
   // useEffect(() => {
   //   const getRecommendProduct = async () => {
   //     setIsLoading(true);
@@ -100,18 +118,74 @@ function Slug({ product, productReccomend }) {
         }}
       />
       <div style={{ backgroundColor: "#ffff", minHeight: "100vh" }}>
-        <div className="h-full px-0 py-0 lg:px-20 lg:py-40">
-          <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
-            <div className="grid grid-cols-1">
+        <div className="h-full px-0 py-0 lg:px-24 lg:p-32 ">
+          <div className="grid grid-cols-1 gap-5 lg:grid-cols-5">
+            <div className="grid grid-cols-1 col-span-2">
               <ProductDetailImage product={product} />
             </div>
-            <div className="px-5 lg:px-0">
+            <div className="col-span-2 px-5 lg:px-0">
               <h1 className="mt-5 text-3xl font-semibold lg:mt-0">
                 {product.data[0].name}
               </h1>
-              <div className="mt-5">
+              <h2 className="text-lg text-grey-100">
+                {convertToRupiah(product.data[0].low_price)} - s/d &nbsp;
+                {convertToRupiah(product.data[0].high_price)}
+              </h2>
+              <div className="mt-5 ">
                 <ProductDetailSpec product={product} />
               </div>
+            </div>
+            <div className="sticky items-center justify-center hidden p-2 bg-white shadow-lg top-24 lg:flex h-60 lg:flex-col">
+              <span className="text-lg font-bold text-blue-100">
+                Ajukan Penawaran
+              </span>
+              <form className="mt-2" onSubmit={orderViaWhatsApp}>
+                <div>
+                  <label htmlFor="quantity" className="text-sm">
+                    Kuantitas
+                  </label>
+                  <input
+                    id="quantity"
+                    placeholder="1"
+                    type="number"
+                    className="p-1 mb-2 focus:border-2 focus:border-blue-100 focus:outline-none focus:ring-1 focus:ring-blue-100 "
+                    style={{ border: "1px solid rgba(0,0,0,.4)" }}
+                    onChange={(e) => setQuantity(e.target.value)}
+                    value={quantity}
+                  />
+                </div>
+                <div>
+                  <label htmlFor="quantity" className="text-sm">
+                    Keterangan
+                  </label>
+                  <input
+                    id="quantity"
+                    placeholder="Warna , Ukuran , dll"
+                    type="text"
+                    className="p-1 mb-2 focus:border-2 focus:border-blue-100 focus:outline-none focus:ring-1 focus:ring-blue-100 "
+                    style={{ border: "1px solid rgba(0,0,0,.4)" }}
+                    onChange={(e) => setDescription(e.target.value)}
+                    value={description}
+                  />
+                </div>
+                <div className="flex flex-col items-center justify-center mt-3 mb-3">
+                  <Link href="request ">
+                    <button
+                      type="button"
+                      className="px-5 py-1 mb-1 text-sm text-white bg-blue-100 "
+                    >
+                      Ajukan Penawran
+                    </button>
+                  </Link>
+                  <button
+                    type="submit"
+                    className="px-3 py-1 text-sm text-white"
+                    style={{ backgroundColor: "#a4cc3e" }}
+                  >
+                    Order Via Whatsapp
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
 
