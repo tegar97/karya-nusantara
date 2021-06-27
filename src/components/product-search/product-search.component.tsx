@@ -10,7 +10,10 @@ function ProductSearch({ onSearch }) {
         onChange={(e) => onSearch(e)}
         style={{ border: "1px solid #5996ab" }}
       />
-      <button className="w-1/6 p-2 text-white bg-blue-100 shadow-md ">
+      <button
+        type="submit"
+        className="w-1/6 p-2 text-white bg-blue-100 shadow-md "
+      >
         Cari
       </button>
     </div>

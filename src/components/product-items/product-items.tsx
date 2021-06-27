@@ -2,9 +2,9 @@ import React from "react";
 import BorderBottom from "../border-bottom/border-bottom";
 import KatalogItems from "../katalog-items/katalog-items";
 
-function ProductItems({ data, search, setSearch2 }) {
+function ProductItems({ data }) {
   return (
-    <div className="px-10 mt-10">
+    <div key={data.category.id} className="px-10 mt-10">
       <div>
         <span className="text-lg font-bold capitalize">
           {data.category.name}

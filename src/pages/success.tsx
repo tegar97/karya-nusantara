@@ -18,7 +18,7 @@ function Success() {
         style={{ boxShadow: "2px 2px #5996ab", borderRadius: "10px" }}
       >
         <div className="py-5 text-center bg-white lg:px-20">
-          <h1 className="text-4xl font-medium font-bold text-blue-100">
+          <h1 className="text-4xl font-bold text-blue-100">
             Terima Kasih Sudah Mendaftar
           </h1>
           <div className="mt-5">

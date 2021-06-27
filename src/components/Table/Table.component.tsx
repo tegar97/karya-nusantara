@@ -43,8 +43,6 @@ function Table({
     isLoading(false);
   }, [user, userLoad, page]);
 
-  console.log(yourProduct);
-
   function converToRupiah(angka) {
     var rupiah = "";
     var angkarev = angka.toString().split("").reverse().join("");
@@ -60,7 +58,6 @@ function Table({
   }
 
   const deleteProduct = async (id) => {
-    console.log(id);
     setYourProduct(yourProduct.filter((product) => product.id !== id));
     await axios.delete(`${process.env.API_LARAVEL}/api/rfq/${id}`, {
       withCredentials: false,

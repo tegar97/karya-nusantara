@@ -60,7 +60,6 @@ function ResetPassword() {
           .then((res) => {
             setTokenValid(true);
             setLoading(false);
-            console.log(res);
           })
           .catch((err) => {
             setIsAllow(err.response.data.message);
@@ -72,7 +71,6 @@ function ResetPassword() {
     };
     CheckToken();
   }, [token]);
-  console.log(isAllow);
   return (
     <Container
       maxWidth="lg"

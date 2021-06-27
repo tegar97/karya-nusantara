@@ -42,14 +42,12 @@ function Product({ category }) {
   const [fixPosition, setFixPosition] = useState(false);
   const [categoryData, setCategoryData]: any = useState([]);
   const [loading, setLoading] = useState(false);
-  const [search, setSearch] = useState("");
+  const [search, setSearch]: any = useState("");
   const [search2, setSearch2] = useState("");
 
   const [categoryId, setCategoryId] = useState(0);
   const onSearch = (e) => {
-    setLoading(true);
     setSearch(e.target.value.toLowerCase());
-    setLoading(false);
   };
   useEffect(() => {
     const getProductByCategory = async () => {
@@ -66,15 +64,12 @@ function Product({ category }) {
 
             setCategoryData(res.data.data);
             setLoading(false);
-
-            console.log(res);
           });
       }
     };
     getProductByCategory();
   }, [categoryId]);
 
-  console.log(search2.includes(search.toLowerCase()));
   useEffect(() => {
     setLoading(true);
     setCategoryData(category.data);
@@ -95,12 +90,22 @@ function Product({ category }) {
   }, []);
 
   const changeBox = () => {
-    console.log(window.scrollY);
     if (window.scrollY >= 300) {
       setFixPosition(true);
     } else {
       setFixPosition(false);
     }
+  };
+  const onSearchSubmit = async (e) => {
+    e.preventDefault();
+
+    await axios
+      .get(`${process.env.API_LARAVEL}/api/categoryProduct/${search}`, {
+        withCredentials: false,
+      })
+      .then((res) => {
+        setCategoryData(res.data.data);
+      });
   };
 
   const settings = {
@@ -129,7 +134,9 @@ function Product({ category }) {
           ))}
         </CategoryContainer>
         <SearchContainer className="z-0 mt-3 group-hover:z-1">
-          <ProductSearch onSearch={onSearch} />
+          <form onSubmit={onSearchSubmit} method="GET">
+            <ProductSearch onSearch={onSearch} />
+          </form>
         </SearchContainer>
       </div>
 
@@ -142,25 +149,7 @@ function Product({ category }) {
       ) : categoryData.length == 0 ? (
         ""
       ) : (
-        categoryData
-          .filter((product) => {
-            if (search == "") {
-              return product;
-            } else {
-              product.data.map((productData) => {
-                product = productData.name
-                  .toString()
-                  .toLowerCase()
-                  .includes(search.toLowerCase());
-              });
-            }
-            {
-              return product;
-            }
-          })
-          .map((data) => (
-            <ProductItems data={data} search={search} setSearch2={setSearch2} />
-          ))
+        categoryData.map((data) => <ProductItems data={data} />)
       )}
     </div>
   );

@@ -24,9 +24,7 @@ function RegisterKonsumen() {
     setLoading(true);
 
     try {
-      console.log(formData);
       const res = await axios.post("/v1/users/register", formData);
-      console.log(res.data);
       router.push("/success");
       await axios.post(
         `${process.env.API_LARAVEL}/api/sendEmail`,

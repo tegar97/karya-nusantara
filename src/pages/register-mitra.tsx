@@ -41,11 +41,8 @@ function RegisterUkm() {
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log(selectedFile);
       setLoading(true);
-      console.log();
       const ImageData = new FormData();
-      console.log(formData.capacity_product);
 
       if (selectedFile) {
         ImageData.append("Image", selectedFile);
