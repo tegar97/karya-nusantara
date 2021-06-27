@@ -9,11 +9,14 @@ import "aos/dist/aos.css";
 import Slider from "react-slick";
 
 import FadeInAnimation from "../components/gsap/FadeIn";
-import { ImageFilter } from "../components/image-manipulation/image-manipulation";
 import CategoryItems from "../components/category-items/category-items";
 import ProductItems from "../components/product-items/product-items";
 import router from "next/router";
 import axios from "axios";
+import {
+  CategoryContainer,
+  SearchContainer,
+} from "../components/category-items/category-items.styled";
 
 export async function getStaticProps() {
   const res = await fetch(`${process.env.API_LARAVEL}/api/categoryProduct`);
@@ -110,19 +113,19 @@ function Product({ category }) {
       className="w-full px-6 py-10 lg:py-20 lg:px-16 "
     >
       <div
-        className={`flex flex-col justify-center w-full mt-10 lg:px-60  transition duration-700 ease-in  ${
+        className={`flex flex-col justify-center w-full mt-10 lg:px-60  transition duration-700 ease-in group ${
           fixPosition &&
-          "  border-2  border-blue-100 z-10 bg-white lg:py-10 top-10 "
+          "  border-2  border-blue-100 z-10 bg-white lg:py-10 top-10  "
         }`}
       >
-        <div className="grid grid-cols-4 gap-x-5 lg:gap-x-10 gap-y-5 lg:grid-cols-5">
+        <CategoryContainer className="grid grid-cols-4 gap-x-5 lg:gap-x-10 gap-y-5 lg:grid-cols-5">
           {category.data.map((data) => (
             <CategoryItems data={data} setCategoryId={setCategoryId} />
           ))}
-        </div>
-        <div className="mt-3">
+        </CategoryContainer>
+        <SearchContainer className="z-0 mt-3 group-hover:z-1">
           <ProductSearch onSearch={onSearch} />
-        </div>
+        </SearchContainer>
       </div>
 
       {loading
@@ -132,11 +135,11 @@ function Product({ category }) {
               if (search == "") {
                 return product;
               } else if (
-                product.data
-                  .map((productName) => {
-                    return productName.name.toLowerCase();
-                  })
-                  .includes(search.toLowerCase())
+                product.data.map((productName) => {
+                  return productName.name
+                    .toLowerCase()
+                    .includes(search.toLowerCase());
+                })
               ) {
                 return product;
               }
