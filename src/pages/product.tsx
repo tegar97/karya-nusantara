@@ -26,7 +26,9 @@ export async function getStaticProps() {
   }
 
   return {
-    props: { category }, // will be passed to the page component as props
+    props: { category },
+    revalidate: 1,
+    // will be passed to the page component as props
   };
 }
 
