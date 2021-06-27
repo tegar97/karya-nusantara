@@ -220,16 +220,28 @@ function RegisterUkm() {
               <option className="text-blue-100 hover:text-blue-100">
                 Bentuk Badan Usaha
               </option>
-              <option value="a" className="text-blue-100 hover:text-blue-100">
+              <option
+                value="Firma"
+                className="text-blue-100 hover:text-blue-100"
+              >
                 Firma
               </option>
-              <option value="b" className="text-blue-100 hover:text-blue-100">
+              <option
+                value="Persekutuan"
+                className="text-blue-100 hover:text-blue-100"
+              >
                 Persekutuan
               </option>
-              <option value="c" className="text-blue-100 hover:text-blue-100">
+              <option
+                value="Koperasi Terbatas"
+                className="text-blue-100 hover:text-blue-100"
+              >
                 Koperasi Terbatas
               </option>
-              <option value="d" className="text-blue-100 hover:text-blue-100">
+              <option
+                value="Yayasan"
+                className="text-blue-100 hover:text-blue-100"
+              >
                 Yayasan
               </option>
             </SelectOptions>
