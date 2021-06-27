@@ -1,6 +1,5 @@
 import React, { useRef, useEffect } from "react";
 import { gsap } from "gsap";
-import ScrollAnimation from "react-animate-on-scroll";
 
 const FadeInAnimation = ({
   children,
