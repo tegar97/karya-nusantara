@@ -13,9 +13,12 @@ function Dasboard() {
   const { user: userData, authenticated, loading } = useAuthState();
   const router = useRouter();
 
-  useEffect(() => {}, []);
-
-  return (
+  useEffect(() => {
+    if (!authenticated) {
+      router.push("/");
+    }
+  }, [authenticated]);
+  return authenticated ? (
     <div>
       <div
         className="relative w-full bg-top bg-cover"
@@ -25,16 +28,21 @@ function Dasboard() {
       >
         <div className="absolute bottom-0 w-full bg-black opacity-25 h-1/4"></div>
         <div
-          className="absolute flex items-center left-5"
+          className="absolute flex items-center left-5 group "
           style={{ bottom: "-60px" }}
         >
-          <Image
-            src="/assets/default2.jpg"
-            className="rounded-full "
-            width={150}
-            height={150}
-            alt="profile"
-          />
+          <div className="relative">
+            <Image
+              src="/assets/default2.jpg"
+              className="rounded-full "
+              width={150}
+              height={150}
+              alt="profile"
+            />
+            <span className="absolute text-blue-100 left-7 top-14 group">
+              Ganti Profile
+            </span>
+          </div>
           <div className="flex flex-col mt-10">
             <span className="mb-5 ml-10 text-4xl text-white">
               {!loading && authenticated && userData && userData.UkmName}
@@ -48,11 +56,14 @@ function Dasboard() {
 
       {!loading && userData.UkmName && (
         <div className="px-5 py-10">
-          <div className="grid grid-cols-2 px-10 py-10 mt-20 bg-white border-2 border-blue-100 shadow-md lg:grid-cols-4">
+          <div
+            className="grid grid-cols-2 px-10 py-10 mt-20 bg-white border-2 border-blue-100 shadow-md lg:grid-cols-4"
+            style={{ borderRadius: "7px" }}
+          >
             <div>
               <ul>
                 <li
-                  className="flex items-center mb-5 cursor-pointer"
+                  className="flex items-center mb-5 cursor-pointer hover:text-blue-100"
                   onClick={() => SetMenu("profil")}
                 >
                   {/* <PersonIcon className="text-blue-100" /> */}
@@ -70,7 +81,7 @@ function Dasboard() {
                 </li>
                 <li
                   onClick={() => SetMenu("account")}
-                  className="flex items-center mb-5 cursor-pointer"
+                  className="flex items-center mb-5 cursor-pointer hover:text-blue-100"
                 >
                   <Image
                     src="/assets/i2.png"
@@ -86,7 +97,7 @@ function Dasboard() {
                   </span>
                 </li>
                 <Link href="/penawaran">
-                  <li className="flex items-center mb-5 cursor-pointer">
+                  <li className="flex items-center mb-5 cursor-pointer hover:text-blue-100">
                     <Image
                       src="/assets/i3.png"
                       alt="icon"
@@ -103,7 +114,7 @@ function Dasboard() {
                 </Link>
                 <li
                   onClick={() => SetMenu("progres")}
-                  className="flex items-center mb-5 cursor-pointer"
+                  className="flex items-center mb-5 cursor-pointer hover:text-blue-100"
                 >
                   <Image
                     src="/assets/i1.png"
@@ -119,7 +130,7 @@ function Dasboard() {
                 </li>
               </ul>
             </div>
-            <div className="col-span-3">
+            <div className="col-span-3 hover:text-blue-100">
               {Menu == "profil" && <DasboardProfile />}
               {Menu == "account" && <DasboardAccount />}
               {Menu == "progres" && <HistoryBid user={userData} />}
@@ -128,6 +139,8 @@ function Dasboard() {
         </div>
       )}
     </div>
+  ) : (
+    ""
   );
 }
 

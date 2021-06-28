@@ -56,7 +56,10 @@ function DasboardProfile() {
       animate="visible"
       variants={variants}
       className="p-2 mt-5"
-      style={{ maxHeight: "40rem", overflow: "scroll" }}
+      style={{
+        maxHeight: "40rem",
+        overflow: "scroll",
+      }}
     >
       <form onSubmit={onSubmit}>
         <div className={`${formDetail ? "hidden" : ""}`}>

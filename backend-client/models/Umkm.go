@@ -30,6 +30,8 @@ type UMKM struct {
 	Address            string    `json:"address"`
 	Village            string    `json:"village" gorm:"size:64"`
 	PostCode           string    `json:"postCode" gorm:"size:15"`
+	ProfilePhoto           string    `json:"profilePhoto" `
+
 	CertficateName string
 	CertificateID string
 	Employees   int `json:"employees"  `

@@ -3,14 +3,16 @@ package models
 import (
 	"github.com/dgrijalva/jwt-go"
 	"gorm.io/gorm"
-	"math/rand"
 	"time"
+	"github.com/google/uuid"
+
 )
 
 type Konsumen struct {
 	gorm.Model
 	Name               string ` json:"name" gorm:"size:64"`
-	UUID               int
+	UUID               string   `json:"UUID"  gorm:"unique"`
+	LoginKey           string     `json:"LoginKey"  gorm:"unique"`
 	Email              string    `json:"email" gorm:"unique"`
 	City               string    `json:"city" gorm:"size:64"`
 	Districts          string   `json:"districts"gorm:"size:64"`
@@ -30,7 +32,7 @@ type Konsumen struct {
 }
 
 func (u *Konsumen) BeforeCreate(tx *gorm.DB) (err error) {
-	u.UUID = rand.Intn(9000000000000000)
+	u.LoginKey = uuid.New().String()
 
 
 	return

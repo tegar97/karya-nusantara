@@ -41,7 +41,7 @@ function Navbar({ menuDrop, setMenuDrop }) {
       style={{
         zIndex: 20,
       }}
-      className={`top-0 left-0 fixed flex items-center justify-between w-full  px-5 py-4   lg:px-14  ${
+      className={`top-0 left-0 fixed flex items-center justify-between w-full  px-5 py-3   lg:px-14  ${
         !bgActive && homeRouter
           ? "transparent text-white"
           : "bg-white  shadow-md "

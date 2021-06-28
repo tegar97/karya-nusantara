@@ -32,13 +32,13 @@ function Client() {
         <ClientCard></ClientCard>
       </div>
 
-      <div
+      {/* <div
         className="w-full mt-5"
         style={{
           background: "#5996ab",
           padding: "0.8px",
         }}
-      ></div>
+      ></div> */}
     </div>
   );
 }

@@ -19,15 +19,15 @@ export const CategoryProductListContainer = styled.div`
 export const CategoryProductList = styled.li`
     background-color: #a7cf54;
     color: #fff;
-    padding: .5rem;
     border-radius: .5rem;
+    padding : .5rem;
     display: flex;
     flex-direction: row;
     align-items: center;
     cursor: pointer;
     margin-bottom: 1rem;
     transition: .5s all;
-
+    
     &:hover{
         transform: translateY(-4px);
         box-shadow: 9px 10px 16px -9px rgba(0,0,0,0.61);

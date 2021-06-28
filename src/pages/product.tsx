@@ -19,6 +19,7 @@ import {
   CategoryContainer,
   SearchContainer,
 } from "../components/category-items/category-items.styled";
+import { NextSeo } from "next-seo";
 
 export async function getStaticProps() {
   const res = await fetch(`${process.env.API_LARAVEL}/api/categoryProduct`);
@@ -116,42 +117,63 @@ function Product({ category }) {
     slidesToScroll: 1,
   };
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-      }}
-      className="w-full px-6 py-10 lg:py-20 lg:px-16 "
-    >
+    <>
+      <NextSeo
+        title="Ragam Solusi Berkualitas Hasil Karya UKM Lokal Indonesia"
+        description="Karya Nusantara adalah program konsolidasi produk UKM terpilih hasil kurasi yang menyelaraskan permintaan dari konsumen (B2B, B2G, dan B2E) dengan produk/jasa yang disediakan oleh UKM melalui pendampingan untuk menyetarakan standarisasi. Program ini didukung oleh UKMindonesia.id dan Kementerian Koperasi dan UKM RI."
+        canonical="karyanusantara.co.id"
+        openGraph={{
+          url: "karyanusantara.co.id",
+          title: "Ragam Solusi Berkualitas Hasil Karya UKM Lokal Indonesia",
+          description: "",
+          images: [
+            {
+              url: "/favicon.ico",
+              width: 800,
+              height: 600,
+              alt: "Logo Karya Nusantara",
+            },
+          ],
+          site_name: "Karya Nusantara ",
+        }}
+      />
       <div
-        className={`flex flex-col justify-center w-full mt-10 lg:px-60  transition duration-700 ease-in group ${
-          fixPosition &&
-          "  border-2  border-blue-100 z-10 bg-white lg:py-10 top-10  "
-        }`}
+        style={{
+          minHeight: "100vh",
+        }}
+        className="w-full px-6 py-10 lg:py-20 lg:px-16 "
       >
-        <CategoryContainer className="grid grid-cols-4 gap-x-5 lg:gap-x-10 gap-y-5 lg:grid-cols-5">
-          {category.data.map((data) => (
-            <CategoryItems data={data} setCategoryId={setCategoryId} />
-          ))}
-        </CategoryContainer>
-        <SearchContainer className="z-0 mt-3 group-hover:z-1">
-          <form onSubmit={onSearchSubmit} method="GET">
-            <ProductSearch onSearch={onSearch} />
-          </form>
-        </SearchContainer>
-      </div>
+        <div
+          className={`flex flex-col justify-center w-full mt-10 lg:px-60  transition duration-700 ease-in group ${
+            fixPosition &&
+            "  border-2  border-blue-100 z-10 bg-white lg:py-10 top-10  "
+          }`}
+        >
+          <CategoryContainer className="grid grid-cols-4 gap-x-5 lg:gap-x-10 gap-y-5 lg:grid-cols-5">
+            {category.data.map((data) => (
+              <CategoryItems data={data} setCategoryId={setCategoryId} />
+            ))}
+          </CategoryContainer>
+          <SearchContainer className="z-0 mt-3 group-hover:z-1">
+            <form onSubmit={onSearchSubmit} method="GET">
+              <ProductSearch onSearch={onSearch} />
+            </form>
+          </SearchContainer>
+        </div>
 
-      {loading ? (
-        <SkeletonTheme color="#fffff" highlightColor="#ffff">
-          <p>
-            <Skeleton count={3} />
-          </p>
-        </SkeletonTheme>
-      ) : categoryData.length == 0 ? (
-        ""
-      ) : (
-        categoryData.map((data) => <ProductItems data={data} />)
-      )}
-    </div>
+        {loading ? (
+          <SkeletonTheme color="#fffff" highlightColor="#ffff">
+            <p>
+              <Skeleton count={3} />
+            </p>
+          </SkeletonTheme>
+        ) : categoryData.length == 0 ? (
+          ""
+        ) : (
+          categoryData.map((data) => <ProductItems data={data} />)
+        )}
+      </div>
+    </>
   );
 }
 

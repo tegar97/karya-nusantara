@@ -14,7 +14,10 @@ import ScrollAnimation from "react-animate-on-scroll";
 function ProductCategory() {
   return (
     <div className="grid grid-cols-4 lg:px-20 lg:py-10 gap-7 ">
-      <LeftCategory className="col-span-4 bg-white border-2 border-blue-100 lg:p-5 lg:col-span-1">
+      <LeftCategory
+        className="col-span-4 bg-white border-2 border-blue-100 lg:p-5 lg:col-span-1 "
+        style={{ borderRadius: "7px" }}
+      >
         <CategoryProductListContainer>
           <ScrollAnimation animateIn="fadeIn">
             <FadeInAnimation direction="left">
@@ -36,7 +39,9 @@ function ProductCategory() {
                       width={35}
                       height={34}
                     ></Image>
-                    <span className="ml-3 text-lg">Alat Pelindung Diri</span>
+                    <span className="ml-3 text-sm md:text-md lg:text-lg">
+                      Alat Pelindung Diri
+                    </span>
                   </CategoryProductList>
                 </Link>
                 <Link href="/product">
@@ -103,6 +108,7 @@ function ProductCategory() {
                     src="/assets/b1.jpg"
                     alt="Banner Hampers"
                     className="w-full h-full cursor-pointer"
+                    style={{ borderRadius: "10px" }}
                   ></img>
                 </div>
               </Link>
@@ -112,6 +118,7 @@ function ProductCategory() {
                     src="/assets/b2.jpg"
                     alt="banner Alat Pelindung Diri "
                     className="w-full"
+                    style={{ borderRadius: "10px" }}
                   ></img>
                 </div>
               </Link>
@@ -121,6 +128,7 @@ function ProductCategory() {
                     src="/assets/b3.jpg"
                     alt="Banners Penkonversian "
                     className="w-full"
+                    style={{ borderRadius: "10px" }}
                   ></img>
                 </div>
               </Link>

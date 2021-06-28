@@ -42,9 +42,9 @@ function about() {
 
       <div>
         <div className="text-center">
-          <HeadingSecondary className="text-blue-100">
+          <h2 className="w-full col-span-3 text-3xl font-bold text-center lg:col-span-1 lg:-col-span-1 lg:text-4xl text-grey-100 hover:text-blue-100">
             Tentang Kami
-          </HeadingSecondary>
+          </h2>
         </div>
 
         <div className="w-full mt-5">

@@ -37,7 +37,7 @@ const LoginModal = ({
   const [error, setError] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [Loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [isUkm, setUkm] = useState(false);
   const [forgotPassword, setForgotPassword] = useState();
 
@@ -64,17 +64,27 @@ const LoginModal = ({
       setLoading(false);
     } else {
       try {
-        const res = await axios.post(
-          "/v1/users/login",
-          {
-            email,
-            password,
-            Role: isUkm ? "ukm" : "users",
-          },
-          { withCredentials: true }
-        );
+        await axios
+          .post(
+            "/v1/users/login",
+            {
+              email,
+              password,
+              Role: isUkm ? "ukm" : "users",
+            },
+            { withCredentials: true }
+          )
+          .then(async (res) => {
+            await axios
+              .get(`${process.env.API_LARAVEL}/api/updateKey/${res.data.ID}`, {
+                withCredentials: false,
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+            dispatch("LOGIN_REGISTER", res.data);
+          });
 
-        dispatch("LOGIN_REGISTER", res.data);
         setIsOpen(false);
         router.push("/");
       } catch (err) {
@@ -182,10 +192,19 @@ const LoginModal = ({
                   </Link>
                 </div>
                 <div className="flex flex-col items-center w-full mt-5">
-                  <button className="px-20 py-2 text-white bg-blue-100 ">
-                    Masuk
-                  </button>
-                  <Link href="/register">
+                  {loading ? (
+                    <button
+                      disabled
+                      className="px-20 py-2 text-white bg-blue-100 opacity-50 "
+                    >
+                      Loading
+                    </button>
+                  ) : (
+                    <button className="px-20 py-2 text-white bg-blue-100 ">
+                      Masuk
+                    </button>
+                  )}
+                  <Link href="/register-mitra">
                     <span
                       onClick={() => setIsOpen(false)}
                       className="mt-3 text-blue-100 underline cursor-pointer text-md"

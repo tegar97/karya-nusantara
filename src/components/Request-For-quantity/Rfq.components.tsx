@@ -76,13 +76,16 @@ function Rfq() {
     }
   };
   return (
-    <div className="py-3 mt-5 lg:px-20">
+    <div className="py-3 mt-5 lg:px-20 ">
       <RfqBackground>
         {/* <HeadingSecondary className="text-center ">
         Request For Quotation
       </HeadingSecondary> */}
         <div>
-          <div className="flex items-end justify-end p-5 lg:p-10">
+          <div
+            className="flex items-end justify-end p-5 lg:p-10"
+            style={{ borderRadius: "10px" }}
+          >
             <div className="w-full mt-10 border-2 border-blue-100 md:w-full lg:w-5/12 ">
               <div
                 className="p-5 "

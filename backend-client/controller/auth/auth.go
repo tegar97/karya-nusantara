@@ -280,19 +280,22 @@ func LoginUser(c *fiber.Ctx) error {
 	P := new(models.UMKM)
 
 
-	database.DB.Where(&models.UMKM{Email : input.Email}).First(&u);
+	 database.DB.Where(&models.Konsumen{Email : input.Email}).First(&u);
 	database.DB.Where(&models.UMKM{Email : input.Email}).First(&P);
 	if u.Role == 1 {
 		//if err := 	database.DB.Where(&models.UMKM{Email : input.Email}).First(&u); err.RowsAffected <= 0 {
 		//	return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": true, "general": "Email tidak di temukan"})
 		//
 		//}
+
+
+
 		if err := bcrypt.CompareHashAndPassword([]byte(u.Password), []byte(input.Password)); err != nil {
 			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": true, "general": "Password Salah"})
 		}
 
 		claims := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.StandardClaims{
-			Issuer:    strconv.Itoa(int(u.ID)),
+			Issuer:    u.LoginKey,
 			ExpiresAt: time.Now().Add(time.Hour * 24).Unix(),
 		})
 		token, err := claims.SignedString([]byte(jwtKey))
@@ -316,26 +319,28 @@ func LoginUser(c *fiber.Ctx) error {
 
 	}else{
 
-		//if res := 	database.DB.Where(&models.UMKM{Email : input.Email}).First(&P); res.RowsAffected <= 0 {
-		//	return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": true, "general": "Email tidak di temukan"})
-		//
-		//}
+
+		if res := 	database.DB.Where(&models.UMKM{Email : input.Email}).First(&P); res.RowsAffected <= 0 {
+			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": true, "general": "Email tidak di temukan"})
+
+		}
 
 		//if err := P.IsAccept != 1;  err != nil {
 		//	return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": true, "general": "Akun anda belum aktif 2"})
 		//
 		//}
 
-		if(P.IsAccept != 1 ) {
-			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": true, "general": "Akun anda belum aktif"})
 
-		}
 		//if res := database.DB.Where(&models.UMKM{IsAccept: 2}).First(&P); res != nil {
 		//	return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": true, "general": "Anda ditolak sebagi mitra ukm karya nusantara"})
 		//
 		//}
 		if err := bcrypt.CompareHashAndPassword([]byte(P.Password), []byte(input.Password)); err != nil {
 			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": true, "general": "Password Salah."})
+		}
+		if(P.IsAccept != 1 ) {
+			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": true, "general": "Akun anda belum aktif"})
+
 		}
 		claims := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.StandardClaims{
 			Issuer:    strconv.Itoa(int(P.ID)),
@@ -468,19 +473,19 @@ func GetUser(c *fiber.Ctx) error {
 
 	}
 	claims := token.Claims.(*jwt.StandardClaims)
-	var user models.Konsumen
-	var ukm models.UMKM
 
+	u := new(models.Konsumen)
+	P := new(models.UMKM)
 
-	 dataUser := database.DB.Where("id = ?", claims.Issuer).Find(&user).RowsAffected
+	database.DB.Where("login_key = ?", claims.Issuer).First(&u)
 
-	if dataUser == 1 {
-		database.DB.Where("id = ?", claims.Issuer).First(&user)
-		return c.JSON(user)
+	if u.Role == 1 {
+		database.DB.Where("login_key = ?", claims.Issuer).First(&u)
+		return c.JSON(u)
 
 	}else{
-		database.DB.Where("id = ?", claims.Issuer).First(&ukm)
-		return c.JSON(ukm)
+		database.DB.Where("id = ?", claims.Issuer).First(&P)
+		return c.JSON(P)
 	}
 
 }

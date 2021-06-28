@@ -36,12 +36,13 @@ export default function Home({ data }) {
         />
       </Head>
       <NextSeo
-        title="Karya Nusantara"
+        title="Karya Nusantara - Ragam Solusi Berkualitas Hasil Karya UKM Lokal Indonesia"
         description={data[0].web_description}
         canonical="karyanusantara.co.id"
         openGraph={{
           url: "karyanusantara.co.id",
-          title: "Karya Nusantara",
+          title:
+            "Karya Nusantara - Ragam Solusi Berkualitas Hasil Karya UKM Lokal Indonesia",
           description: `${data[0].web_description}`,
           images: [
             {
