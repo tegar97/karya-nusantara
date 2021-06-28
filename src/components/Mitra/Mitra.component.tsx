@@ -60,7 +60,7 @@ function OurMitra() {
     ],
   };
   return (
-    <div className="px-5 pt-2 mb-10 lg:p-20 ">
+    <div className="px-5 pt-2 mb-10 lg:py-10 lg:px-20 ">
       <div className="mb-5">
         <h2 className="w-full text-3xl font-bold text-center lg:text-4xl text-grey-100 hover:text-blue-100">
           Mitra Kami

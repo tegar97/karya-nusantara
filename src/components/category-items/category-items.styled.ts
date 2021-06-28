@@ -15,7 +15,8 @@ export const WrapperKatalog = styled.div`
    
 `
 export const CategoryContainer = styled.div`
-    
+
+
 `
 
 export const SearchContainer = styled.div`

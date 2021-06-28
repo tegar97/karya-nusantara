@@ -149,7 +149,7 @@ function Product({ category }) {
             "  border-2  border-blue-100 z-10 bg-white lg:py-10 top-10  "
           }`}
         >
-          <CategoryContainer className="grid grid-cols-4 gap-x-5 lg:gap-x-10 gap-y-5 lg:grid-cols-5">
+          <CategoryContainer className="grid justify-center grid-cols-4 gap-x-5 lg:gap-x-10 gap-y-5 lg:grid-cols-5 ">
             {category.data.map((data) => (
               <CategoryItems data={data} setCategoryId={setCategoryId} />
             ))}
