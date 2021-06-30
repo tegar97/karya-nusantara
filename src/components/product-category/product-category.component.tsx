@@ -13,6 +13,7 @@ import ScrollAnimation from "react-animate-on-scroll";
 import { CategoryProductContext } from "../../context/productCategory";
 function ProductCategory({ data2 }) {
   const [categoryId, setCategoryId] = useContext(CategoryProductContext);
+
   return (
     <div className="grid grid-cols-4 lg:px-20 lg:py-10 gap-7 ">
       <LeftCategory
@@ -127,7 +128,7 @@ function ProductCategory({ data2 }) {
                   </div>
                 </Link>
               )}
-              {data2.data[0].image4 != "0" && (
+              {data2.data[0].image4 == "0" ? null : (
                 <Link href="/product?category=4">
                   <div>
                     <img
@@ -139,7 +140,9 @@ function ProductCategory({ data2 }) {
                   </div>
                 </Link>
               )}
-              {data2.data[0].image5 != "0" && (
+              {data2.data[0].image5 == "0" ? (
+                ""
+              ) : (
                 <Link href="/product?category=4">
                   <div>
                     <img
