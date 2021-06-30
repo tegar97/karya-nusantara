@@ -128,32 +128,6 @@ function ProductCategory({ data2 }) {
                   </div>
                 </Link>
               )}
-              {data2.data[0].image4 == "0" ? null : (
-                <Link href="/product?category=4">
-                  <div>
-                    <img
-                      src={`${process.env.API_LARAVEL}/storage/${data2.data[0].image4}`}
-                      alt={`gambar ${data2.data[0].image4}`}
-                      className="w-full"
-                      style={{ borderRadius: "10px" }}
-                    ></img>
-                  </div>
-                </Link>
-              )}
-              {data2.data[0].image5 == "0" ? (
-                ""
-              ) : (
-                <Link href="/product?category=4">
-                  <div>
-                    <img
-                      src={`${process.env.API_LARAVEL}/storage/${data2.data[0].image5}`}
-                      alt={`gambar ${data2.data[0].image5}`}
-                      className="w-full"
-                      style={{ borderRadius: "10px" }}
-                    ></img>
-                  </div>
-                </Link>
-              )}
             </Carousel>
           </FadeInAnimation>
         </ScrollAnimation>
