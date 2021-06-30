@@ -8,10 +8,11 @@ import { route } from "next/dist/next-server/server/router";
 import { useRouter } from "next/router";
 import AddIcon from "@material-ui/icons/Add";
 import Link from "next/link";
+import LoginModal from "../Login-Modal/Login-Modal.component";
 
 /* Fungsi formatRupiah */
 
-const AddBid = ({ id }) => {
+const AddBid = ({ data, setSuccessMessage }) => {
   const [open, setOpen] = useState(false);
 
   const onOpenModal = () => setOpen(true);
@@ -22,7 +23,6 @@ const AddBid = ({ id }) => {
   const [DatabasePrice, setDatabasePrice] = useState("");
   const [Deadlines, setDeadlines] = useState("");
   const { user, authenticated } = useAuthState();
-
   const SetToRupiah = (angka, prefix) => {
     setDatabasePrice(angka.replace(/[^,\d]/g, "").toString());
     const converNumber = angka;
@@ -42,19 +42,29 @@ const AddBid = ({ id }) => {
     setPrice(prefix == undefined ? rupiah : rupiah ? "Rp. " + rupiah : "");
   };
   const onSubmit = async (e) => {
+    console.log(parseInt(DatabasePrice));
     try {
       e.preventDefault();
       setLoading(true);
-      await axios.post("/v1/bid", {
-        CapacityProduct: parseInt(CapacityProduct),
-        BidPrice: parseInt(DatabasePrice),
-        UkmID: parseInt(user.ID),
-        ProductID: parseInt(id),
-        Deadlines: Deadlines,
-      });
+      await axios.post(
+        `${process.env.API_LARAVEL}/api/bid_ukm`,
+        {
+          capacity_product: CapacityProduct,
+          estimatePrice: parseInt(DatabasePrice),
+          ukm_id: user.ID,
+          offer_id: data.id,
+          estimateTime: Deadlines,
+        },
+        { withCredentials: false }
+      );
       setLoading(false);
       setOpen(false);
-    } catch (error) {}
+      setSuccessMessage(true);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+      setSuccessMessage(false);
+    }
   };
 
   return (
@@ -71,16 +81,16 @@ const AddBid = ({ id }) => {
             <form onSubmit={onSubmit}>
               <div className="my-5 text-sm">
                 <label
-                  htmlFor="email"
+                  htmlFor="capacityProduct"
                   className="block text-black "
                   style={{ fontSize: "1.05rem" }}
                 >
                   Kapasitas Produksi
                 </label>
                 <input
-                  type="text"
+                  type="number"
                   autoFocus
-                  id="name"
+                  id="capacityProduct"
                   onChange={(e) => setCapacityProduct(e.target.value)}
                   className="w-full px-2 py-2 mt-3 border-2 border-gray-300 rounded-md bg-gray-50 focus:outline-none"
                   placeholder="Jumlah Produk / Hari"
@@ -116,7 +126,7 @@ const AddBid = ({ id }) => {
                   Perkiraan Waktu Produksi
                 </label>
                 <input
-                  type="datetime-local"
+                  type="date"
                   autoFocus
                   onChange={(e) => setDeadlines(e.target.value)}
                   className="w-full px-2 py-2 mt-3 mb-3 border-2 border-gray-300 rounded-md bg-gray-50 focus:outline-none"
@@ -132,9 +142,14 @@ const AddBid = ({ id }) => {
                     Ajukan Penawaran
                   </button>
                 ) : (
-                  <a type="button" className="p-2 text-white bg-blue-100 ">
-                    <Link href="/register">Silahkan Login Terlebih Dahulu</Link>
-                  </a>
+                  <div>
+                    <button
+                      className="p-2 text-white bg-blue-100 opacity-50"
+                      disabled
+                    >
+                      Silahkan login terlebih dahulu untuk melanjutkan
+                    </button>
+                  </div>
                 )}
               </div>
             </form>

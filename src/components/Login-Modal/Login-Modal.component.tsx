@@ -112,6 +112,7 @@ const LoginModal = ({
       >
         {loginRequire ? (
           <button
+            type="button"
             onClick={openModal}
             className="px-16 py-2 text-white bg-blue-100"
           >

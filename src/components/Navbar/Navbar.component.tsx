@@ -83,7 +83,7 @@ function Navbar({ menuDrop, setMenuDrop }) {
               onClick={() => setActive(!active)}
               className="w-full p-1 ml-4 cursor-pointer text-grey-100 hover:text-blue-100"
             >
-              Tentang Karya Nusantara
+              Tentang Kami
             </li>
           </Link>
           <li
@@ -173,7 +173,7 @@ function Navbar({ menuDrop, setMenuDrop }) {
         <ul className="flex flex-row">
           <Link href="/about">
             <li className="ml-4 cursor-pointer hover:text-blue-100 ">
-              Tentang Karya Nusantara
+              Tentang Kami
             </li>
           </Link>
           <li className="ml-4 cursor-pointer hover:text-blue-100 ">
@@ -186,7 +186,7 @@ function Navbar({ menuDrop, setMenuDrop }) {
             <Link href="/klien"> Klien Kami</Link>
           </li>
           <li className="ml-4 cursor-pointer hover:text-blue-100 ">
-            <Link href="/mitra"> UKM Mitra</Link>
+            <Link href="/mitra"> Cerita Ukm</Link>
           </li>
         </ul>
       </div>

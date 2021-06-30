@@ -19,13 +19,21 @@ function KatalogItems({ key, data }) {
           className="flex flex-col w-full duration-300 transform cursor-pointer hover:scale-110 transation group"
         >
           <div>
-            <img
-              src={`${process.env.API_LARAVEL}/storage/${
-                data.images.split(",")[0]
-              }`}
-              className="object-cover w-full"
-              alt="product thumbnail"
-            />
+            {data.main_photo ? (
+              <img
+                src={`${process.env.API_LARAVEL}/storage/${data.main_photo}`}
+                className="object-cover w-full"
+                alt="product thumbnail"
+              />
+            ) : (
+              <img
+                src={`${process.env.API_LARAVEL}/storage/${
+                  data.images.split(",")[0]
+                }`}
+                className="object-cover w-full"
+                alt="product thumbnail"
+              />
+            )}
           </div>
           <div className="flex flex-col text-center">
             <h2 className="font-bold text-blue-100 group-hover:font-bold">

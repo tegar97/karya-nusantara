@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import "react-responsive-modal/styles.css";
-import { Modal } from "react-responsive-modal";
+import Modal from "react-modal";
 import AddIcon from "@material-ui/icons/Add";
 import axios from "axios";
 import { useAuthState } from "../../context/auth";
@@ -9,79 +9,65 @@ import { useRouter } from "next/router";
 import LoginModal from "../Login-Modal/Login-Modal.component";
 import convertToRupiah from "../../util/converRupiah";
 
-const DetailProduct = ({ product }) => {
+const customStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+    padding: "0",
+    maxHeight: "30rem",
+    overflow: "auto",
+    border: "1px solid #5996ab",
+  },
+  overlay: {
+    background: "rgba(0, 0, 0, 0.6)",
+    zIndex: 1000000000000,
+  },
+};
+const DetailProduct = ({ data }) => {
   const router = useRouter();
-  const [open, setOpen] = useState(false);
+  const [modalIsOpen, setIsOpen] = React.useState(false);
 
-  const onOpenModal = () => setOpen(true);
-  const onCloseModal = () => setOpen(false);
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
   return (
     <>
       <div className="inline-block">
         <button
-          onClick={onOpenModal}
-          className="px-3 py-2 text-black border-2 border-blue-100"
+          onClick={openModal}
+          className="px-3 text-black border-2 border-blue-100"
         >
-          Detail
+          Spesifikasi
         </button>
-        <Modal open={open} onClose={onCloseModal} center>
-          <div className="flex items-center justify-between p-0 border-b border-gray-300 border-1 ">
-            <span>Detail Barang </span>
+        <Modal
+          isOpen={modalIsOpen}
+          style={customStyles}
+          contentLabel="Login Modal"
+        >
+          <div className="w-full ">
+            <div className="relative mt-5 ">
+              {data.images.split(",").map((img, index) => (
+                <img
+                  className="object-cover w-full mb-5"
+                  src={`${process.env.API_LARAVEL}/storage/${img}`}
+                  alt={`gambar ${img}`}
+                />
+              ))}
+              <div className="absolute flex justify-end w-full text-lg -top-6 justify-items-center">
+                <button onClick={closeModal} className="text-blue-100 ">
+                  X
+                </button>
+              </div>
+            </div>
           </div>
-          <div className="mt-5">
-            <table
-              style={{ borderSpacing: "5em" }}
-              className="table w-full h-full min-w-full leading-normal border-2 border-collapse border-gray-300 table-bordered"
-            >
-              <tbody className="p-10">
-                <tr className="w-2/5 px-5 py-5 pb-10 bg-white border-b border-gray-200 text-md">
-                  <th
-                    className="px-2 py-2"
-                    style={{ width: "50%" }}
-                    scope="row"
-                  >
-                    Nama Barang
-                  </th>
-                  <td>{product.product_name}</td>
-                </tr>
-                <tr className="w-2/5 px-5 py-5 bg-white border-b border-gray-200 text-md">
-                  <th scope="row" className="px-2 py-2">
-                    Kebutuhan Barang
-                  </th>
-                  <td>{product.capacity_product}</td>
-                </tr>
-                <tr className="w-2/5 px-5 py-5 bg-white border-b border-gray-200 text-md">
-                  <th className="px-2 py-2" scope="row">
-                    Kisaran Harga
-                  </th>
-                  <td> {convertToRupiah(product.price)}</td>
-                </tr>
-                <tr className="w-2/5 px-5 py-5 bg-white border-b border-gray-200 text-md">
-                  <th className="px-2 py-2" scope="row">
-                    Penjelasan Barang / Deskripsi Barang
-                  </th>
-                  <td> {product.description}</td>
-                </tr>
-                <tr className="w-2/5 px-5 py-5 bg-white border-b border-gray-200 text-md">
-                  <th className="px-2 py-2" scope="row">
-                    Gambar Barang
-                  </th>
-                  <td>
-                    <img
-                      src={`${process.env.API_LARAVEL}/storage/${product.image}`}
-                      width="100"
-                      height="100"
-                    />
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <p style={{ visibility: "hidden" }}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
-            pulvinar risus non risus hendrerit venenatis. Pellentesque sit amet
-            hendrerit risus, sed porttitor quam.
-          </p>
         </Modal>
       </div>
     </>

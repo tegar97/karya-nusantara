@@ -6,10 +6,63 @@
     rgba(167, 207, 84, 1) 50%
   );
 
+  /* background: url("/assets/bg_example1.jpg"); */
+  /* background-size: 100% 100%; */
+
   width: 100%;
   position: relative;
+  /* animation: shrink 10s infinite alternate; */
+  /* background-position: 100% 100%; */
+  background-repeat: no-repeat;
+  /* animation: animatedBackground 10s linear infinite;
+  -moz-animation: animatedBackground 10s linear infinite;
+  -webkit-animation: animatedBackground 10s linear infinite;
+  -ms-animation: animatedBackground 10s linear infinite;
+  -o-animation: animatedBackground 10s linear infinite; */
+}
+.HeroTextContainer {
 }
 
+@keyframes animatedBackground {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: -100px 0;
+  }
+}
+@-moz-keyframes animatedBackground {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: -300px 0;
+  }
+}
+@-webkit-keyframes animatedBackground {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: -300px 0;
+  }
+}
+@-ms-keyframes animatedBackground {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: -300px 0;
+  }
+}
+@-o-keyframes animatedBackground {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: -300px 0;
+  }
+}
 .daun {
   position: absolute;
   width: 30rem;

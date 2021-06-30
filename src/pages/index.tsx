@@ -13,20 +13,18 @@ import ProductCategoryMobile from "../components/product-category/product-catego
 
 export async function getStaticProps(context) {
   const res = await fetch(`${process.env.API_LARAVEL}/api/settings`);
-  const data = await res.json();
+  const res2 = await fetch(`${process.env.API_LARAVEL}/api/setting-carousel`);
 
-  if (!data) {
-    return {
-      notFound: true,
-    };
-  }
+  const data = await res.json();
+  const data2 = await res2.json();
 
   return {
-    props: { data }, // will be passed to the page component as props
+    props: { data, data2 },
+    revalidate: 10, // will be passed to the page component as props
   };
 }
 
-export default function Home({ data }) {
+export default function Home({ data, data2 }) {
   return (
     <div>
       <Head>
@@ -59,7 +57,7 @@ export default function Home({ data }) {
       <Hero />
       <About image={data} />
       <div className="hidden lg:block">
-        <ProductCategory />
+        <ProductCategory data2={data2} />
       </div>
       <div className="block lg:hidden">
         <ProductCategoryMobile />

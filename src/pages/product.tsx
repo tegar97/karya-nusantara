@@ -1,17 +1,10 @@
-import React, { useState, useRef, useEffect } from "react";
-import BorderBottom from "../components/border-bottom/border-bottom";
-import KatalogItems from "../components/katalog-items/katalog-items";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import ProductSearch from "../components/product-search/product-search.component";
-import { ReactSVG } from "react-svg";
-import ScrollAnimation from "react-animate-on-scroll";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import Slider from "react-slick";
 
-import FadeInAnimation from "../components/gsap/FadeIn";
 import CategoryItems from "../components/category-items/category-items";
 import ProductItems from "../components/product-items/product-items";
-import router from "next/router";
 import axios from "axios";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
@@ -20,6 +13,7 @@ import {
   SearchContainer,
 } from "../components/category-items/category-items.styled";
 import { NextSeo } from "next-seo";
+import { CategoryProductContext } from "../context/productCategory";
 
 export async function getStaticProps() {
   const res = await fetch(`${process.env.API_LARAVEL}/api/categoryProduct`);
@@ -46,7 +40,8 @@ function Product({ category }) {
   const [search, setSearch]: any = useState("");
   const [search2, setSearch2] = useState("");
 
-  const [categoryId, setCategoryId] = useState(0);
+  const [categoryId, setCategoryId] = useContext(CategoryProductContext);
+  console.log(categoryId);
   const onSearch = (e) => {
     setSearch(e.target.value.toLowerCase());
   };

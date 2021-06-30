@@ -17,6 +17,8 @@
     "framer-motion": "^4.1.2",
     "globby": "^11.0.3",
     "gsap": "^3.7.0",
+    "jquery": "^3.6.0",
+    "ken-burns-carousel": "^0.2.5",
     "moment": "^2.29.1",
     "next": "10.1.2",
     "next-seo": "^4.24.0",
