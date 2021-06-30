@@ -127,7 +127,7 @@ function ProductCategory({ data2 }) {
                   </div>
                 </Link>
               )}
-              {data2.data[0].image4 && (
+              {data2.data[0].image4 != 0 && (
                 <Link href="/product?category=4">
                   <div>
                     <img
@@ -139,7 +139,7 @@ function ProductCategory({ data2 }) {
                   </div>
                 </Link>
               )}
-              {data2.data[0].image5 && (
+              {data2.data[0].image5 != 0 && (
                 <Link href="/product?category=4">
                   <div>
                     <img
