@@ -21,7 +21,7 @@ const ClientCard = () => {
     initialSlide: 0,
     autoplay: true,
     speed: 4000,
-    autoplaySpeed: 4000,
+    autoplaySpeed: 1000,
     cssEase: "linear",
     // pauseOnHover: true,
     accessibility: true,
