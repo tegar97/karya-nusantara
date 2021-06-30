@@ -39,9 +39,6 @@ function Dasboard() {
               height={150}
               alt="profile"
             />
-            <span className="absolute text-blue-100 left-7 top-14 group">
-              Ganti Profile
-            </span>
           </div>
           <div className="flex flex-col mt-10">
             <span className="mb-5 ml-10 text-4xl text-white">
