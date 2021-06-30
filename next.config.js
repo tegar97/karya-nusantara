@@ -9,10 +9,10 @@ module.exports = {
     ],
   },
   env: {
-    API_LARAVEL: "http://127.0.0.1:8000",
-    API_GOLANG: "http://127.0.0.1:5000",
-    // API_LARAVEL: "https://api.karyanusantara.co.id",
-    // API_GOLANG: "https://api-go.karyanusantara.co.id",
+    // API_LARAVEL: "http://127.0.0.1:8000",
+    // API_GOLANG: "http://127.0.0.1:5000",
+    API_LARAVEL: "https://api.karyanusantara.co.id",
+    API_GOLANG: "https://api-go.karyanusantara.co.id",
     NO_WA: "081281712428",
   },
 };
