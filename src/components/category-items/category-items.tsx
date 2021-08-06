@@ -40,6 +40,10 @@ function CategoryItems({ data, setCategoryId }) {
             "Tidak Ada Produck"
           ) : (
             <ul className="z-10 w-full ">
+              <p className="mb-2 text-blue-100 border-b-2 border-gray-200">
+                {data.category.name}
+              </p>
+
               {data.data.map((product) => (
                 <Link href={`product/${product.slug}`}>
                   <li className="text-sm hover:text-blue-100">
