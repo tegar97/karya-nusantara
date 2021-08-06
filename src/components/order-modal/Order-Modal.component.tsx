@@ -93,7 +93,7 @@ const OrderModal = ({ product }) => {
             <button
               className="p-3 mt-3 text-white "
               style={{ backgroundColor: "#128c7e		" }}
-              onClick={() => getLinkWhastapp(`081281712428`)}
+              onClick={() => getLinkWhastapp(`+6281281712428`)}
             >
               Beli via whatsapp
             </button>
