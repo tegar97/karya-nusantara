@@ -93,7 +93,7 @@ function Slug({ product, productReccomend }) {
       <Head>
         <meta
           name="keywords"
-          content="ukm indonesia, umks indonesia, karya nusantara,jual,beli,ukm"
+          content={`Jual ${product.data[0].name}, ${product.data[0].name},ukm indonesia, umks indonesia, karya nusantara,jual,beli,ukm`}
         />
       </Head>
       <NextSeo

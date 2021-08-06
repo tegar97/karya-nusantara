@@ -22,14 +22,14 @@ function CategoryItems({ data, setCategoryId }) {
   };
   return (
     <CategoryItemsContainer
+      onMouseEnter={() => handleBox()}
+      onMouseLeave={() => onLeave()}
       key={data.category.id}
       className="relative w-full cursor-pointer "
       data-aos="fade-right"
       onClick={() => setCategoryId(data.category.id)}
     >
       <ImageFilter
-        onMouseEnter={() => handleBox()}
-        onMouseLeave={() => onLeave()}
         className="w-full transition duration-700 ease-in "
         src={`${process.env.API_LARAVEL}/storage/${data.category.image}`}
         alt="Logo "

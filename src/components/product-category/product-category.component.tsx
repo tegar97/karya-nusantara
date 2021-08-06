@@ -78,6 +78,34 @@ function ProductCategory({ data2 }) {
                     <span className="ml-3 text-lg">Hampers</span>
                   </CategoryProductList>
                 </Link>
+                <Link href="/product">
+                  <CategoryProductList
+                    className="shadow-lg"
+                    onClick={() => setCategoryId(5)}
+                  >
+                    <Image
+                      src="/assets/icon putih 6.png"
+                      alt="Picture of the author"
+                      width={35}
+                      height={34}
+                    ></Image>
+                    <span className="ml-3 text-lg">Craft</span>
+                  </CategoryProductList>
+                </Link>
+                <Link href="/product">
+                  <CategoryProductList
+                    className="shadow-lg"
+                    onClick={() => setCategoryId(6)}
+                  >
+                    <Image
+                      src="/assets/icon-star.png"
+                      alt="Picture of the author"
+                      width={35}
+                      height={34}
+                    ></Image>
+                    <span className="ml-3 text-lg">Populer</span>
+                  </CategoryProductList>
+                </Link>
               </ul>
             </FadeInAnimation>
           </ScrollAnimation>

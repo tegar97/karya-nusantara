@@ -4,6 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { Carousel } from "react-responsive-carousel";
 import Slider from "react-slick";
+import { useContext } from "react";
+import { CategoryProductContext } from "../../context/productCategory";
 
 function ProductCategoryMobile() {
   var settings = {
@@ -49,23 +51,32 @@ function ProductCategoryMobile() {
       },
     ],
   };
+
+  const [categoryId, setCategoryId] = useContext(CategoryProductContext);
+
   return (
     <div className="py-5">
       <div className="w-full px-2 py-10 ">
         <div className="grid justify-center grid-cols-4 gap-5 ">
           <Link href="/product">
-            <div className="flex flex-col items-center text-center cursor-pointer hover:translate-y-5">
+            <div
+              onClick={() => setCategoryId(2)}
+              className="flex flex-col items-center py-2 text-center cursor-pointer hover:translate-y-5"
+            >
               <img
                 src="/assets/APD-ICON.png"
                 alt="logo apd"
                 className="w-16 mb-2 h-13"
               />
-              <span className="text-sm">Masker Kain</span>
+              <span className="text-sm"> Alat Pelindung Diri</span>
             </div>
           </Link>
 
           <Link href="/product">
-            <div className="flex flex-col items-center text-center cursor-pointer hover:translate-y-5 ">
+            <div
+              onClick={() => setCategoryId(3)}
+              className="flex flex-col items-center py-2 text-center cursor-pointer hover:translate-y-5"
+            >
               <img
                 src="/assets/Perkonveksiann.png"
                 alt="logo apd"
@@ -76,7 +87,10 @@ function ProductCategoryMobile() {
           </Link>
 
           <Link href="/product">
-            <div className="flex flex-col items-center text-center cursor-pointer hover:translate-y-5 ">
+            <div
+              onClick={() => setCategoryId(4)}
+              className="flex flex-col items-center py-2 text-center cursor-pointer hover:translate-y-5"
+            >
               <img
                 src="/assets/hampers.png"
                 alt="logo hampers"
@@ -85,14 +99,32 @@ function ProductCategoryMobile() {
               <span className="text-sm">Hampers</span>
             </div>
           </Link>
+
           <Link href="/product">
-            <div className="flex flex-col items-center text-center cursor-pointer hover:translate-y-5 ">
+            <div
+              onClick={() => setCategoryId(6)}
+              className="flex flex-col items-center text-center cursor-pointer hover:translate-y-5 "
+            >
               <img
                 src="/assets/product-unggulan.png"
                 alt="logo apd"
                 className="w-16 mb-2 h-13"
               />
-              <span className="text-sm">Product Unggulan</span>
+              <span className="text-sm">Product Populer</span>
+            </div>
+          </Link>
+
+          <Link href="/product">
+            <div
+              onClick={() => setCategoryId(5)}
+              className="flex flex-col items-center text-center cursor-pointer hover:translate-y-5 "
+            >
+              <img
+                src="/assets/craft.png"
+                alt="logo hampers"
+                className="w-16 mb-2 h-13"
+              />
+              <span className="text-sm">Craft</span>
             </div>
           </Link>
         </div>

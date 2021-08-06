@@ -30,7 +30,7 @@ export default function Home({ data, data2 }) {
       <Head>
         <meta
           name="keywords"
-          content="ukm indonesia, umks indonesia, karya nusantara,jual,beli,ukm"
+          content="ukm indonesia, kerja sama ukm,umks indonesia, karya nusantara,jual,beli,ukm"
         />
       </Head>
       <NextSeo
