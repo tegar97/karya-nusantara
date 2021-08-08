@@ -7,17 +7,15 @@ import { NextSeo } from "next-seo";
 
 function about() {
   const [text, setText] = useState(
-    "program konsolidasi produk UKM terpilih hasil kurasi yang menyelaraskan permintaan dari konsumen (B2B, B2G, dan B2E) dengan produk/jasa yang disediakan oleh UKM melalui pendampingan untuk menyetarakan standarisasi. Program ini didukung oleh UKMindonesia.id dan Kementerian Koperasi dan UKM RI."
+    "Karya Nusantara merupakan salah satu agregator dan konsolidator produk K-UMKM yang menjalankan fungsi pendampingan kualitas produk yang secara spesifik dan terstandar. Dengan pola ini, Karya Nusantara memungkinkan terjadinya distribusi proses produksi produk ke banyak pelaku K-UMKM untuk memenuhi permintaan skala besar atas produk dengan standar kualitas yang sama dan dikemas dalam satu payung merek bersama.Kehadiran Karya Nusantara telah terbukti bisa meningkatkan standar mutu produk yang dihasilkan oleh K-UMKM dalam jaringannya, dan disisi lain, juga membuat pembeli besar, dipercaya baik oleh pemerintah, BUMN, dan perusahaan suasta menjadi percaya bahwa ternyata K-UMKM juga bisa menghasilkan produk dengan standar kualitas dan harga yang berdaya saing.Berkomitmen untuk ambil peran dalam proses kurasi, konsolidasi bahan baku, dan konsolidasi standar mutu produk, perlahan Karya Nusantara terus mengembangkan cakupan kategori produk pada katalognya, dengan misi untuk menunjukkan ke banyak pihak bahwa produk #UKMPUNYASTANDAR dan kita bisa #banggabuatanindonesia."
   );
-  const [text2, setText2] = useState(
-    "Karya Nusantara </span> berkomitmenuntuk selalu memberi produk dengan standar kualitas yang baik.Kehadiran kami diharapkan dapat membuka akses pasar untuk UKMsehingga dapat menjadi tuan rumah di negeri sendiri.#banggabuatanindonesia"
-  );
+
   return (
     <div className="px-10 py-5 lg:px-20 lg:py-36">
       <Head>
         <meta
           name="keywords"
-          content="ukm indonesia, umks indonesia, karya nusantara,jual,beli,ukm"
+          content="agregator dan konsolidator produk K-UMKM ,ukm indonesia, umks indonesia, karya nusantara,jual,beli,ukm"
         />
       </Head>
       <NextSeo
@@ -58,29 +56,52 @@ function about() {
             </div>
             <div>
               <p className="text-lg lg:text-2xl">
-                <span className="lg:ml-10 ">Karya Nusantara </span> adalah
-                program konsolidasi produk UKM terpilih hasil kurasi yang
-                menyelaraskan permintaan dari konsumen (B2B, B2G, dan B2E)
-                dengan produk/jasa yang disediakan oleh UKM melalui pendampingan
-                untuk menyetarakan standarisasi. Program ini didukung oleh
-                UKMindonesia.id dan Kementerian Koperasi dan UKM RI.
+                <span className="lg:ml-10 ">Karya Nusantara </span>
+                merupakan salah satu agregator dan konsolidator produk K-UMKM
+                yang menjalankan fungsi pendampingan kualitas produk yang secara
+                spesifik dan terstandar.
               </p>
-              <p className="mt-5 text-lg lg:mt-40 lg:text-2xl">
-                <span className="lg:ml-10">Karya Nusantara </span> berkomitmen
-                untuk selalu memberi produk dengan standar kualitas yang baik.
-                Kehadiran kami diharapkan dapat membuka akses pasar untuk UKM
-                sehingga dapat menjadi tuan rumah di negeri sendiri.
-                #banggabuatanindonesia
+              <p className="mt-5 text-lg lg:text-2xl">
+                <span className="lg:ml-10 ">
+                  Dengan pola ini, Karya Nusantara{" "}
+                </span>
+                memungkinkan terjadinya distribusi proses produksi produk ke
+                banyak pelaku K-UMKM untuk memenuhi permintaan skala besar atas
+                produk dengan standar kualitas yang sama dan dikemas dalam satu
+                payung merek bersama.
+              </p>
+              <p className="mt-5 text-lg lg:mt-20 lg:text-2xl">
+                <span className="lg:ml-10 ">Kehadiran Karya Nusantara</span>
+                telah terbukti bisa meningkatkan standar mutu produk yang
+                dihasilkan oleh K-UMKM dalam jaringannya, dan disisi lain, juga
+                membuat pembeli besar, dipercaya baik oleh pemerintah, BUMN, dan
+                perusahaan suasta menjadi percaya bahwa ternyata K-UMKM juga
+                bisa menghasilkan produk dengan standar kualitas dan harga yang
+                berdaya saing.
+              </p>
+              <p className="mt-5 text-lg lg:mt-5 lg:text-2xl">
+                <span className="lg:ml-10 ">
+                  {" "}
+                  Berkomitmen untuk ambil peran dalam proses kurasi
+                </span>
+                , konsolidasi bahan baku, dan konsolidasi standar mutu produk,
+                perlahan Karya Nusantara terus mengembangkan cakupan kategori
+                produk pada katalognya, dengan misi untuk menunjukkan ke banyak
+                pihak bahwa produk #UKMPUNYASTANDAR dan kita bisa
+                #banggabuatanindonesia.
               </p>
             </div>
           </div>
           <div className="mt-20">
-            <div className="text-center normal-case ">
+            <div>
+              <img src="/assets/about_image.png" />
+            </div>
+            {/* <div className="text-center normal-case ">
               <HeadingSecondary className="text-lg text-blue-100 lg:text-3xl ">
                 Keuntungan Memesan di Karya Nusantara
               </HeadingSecondary>
-            </div>
-            <ScrollAnimation animateIn="fadeIn">
+            </div> */}
+            {/* <ScrollAnimation animateIn="fadeIn">
               <div className="mt-10">
                 <div className="grid w-full lg:grid-cols-4 ">
                   <div className="mb-5 border-2 border-blue-100 lg:mb-0 lg:p-3">
@@ -144,7 +165,7 @@ function about() {
                   </div>
                 </div>
               </div>
-            </ScrollAnimation>
+            </ScrollAnimation> */}
           </div>
         </div>
       </div>
