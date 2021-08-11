@@ -68,7 +68,7 @@ function Slug({ mitra }) {
         </div>
         <div className="flex flex-col items-center px-5 lg:px-20 justify-items-center">
           <h1 className="text-xl font-bold lg:text-4xl text-grey-100">
-            {mitra.data[0].name}
+            {mitra.data[0].title}
           </h1>
           <div
             className="mt-10 text-md"
