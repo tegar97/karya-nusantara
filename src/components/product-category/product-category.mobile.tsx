@@ -57,7 +57,7 @@ function ProductCategoryMobile() {
   return (
     <div className="py-5">
       <div className="w-full px-2 py-10 ">
-        <div className="grid justify-center grid-cols-4 gap-5 ">
+        <div className="grid justify-center grid-cols-5 gap-5 ">
           <Link href="/product">
             <div
               onClick={() => setCategoryId(2)}
@@ -66,9 +66,9 @@ function ProductCategoryMobile() {
               <img
                 src="/assets/APD-ICON.png"
                 alt="logo apd"
-                className="w-16 mb-2 h-13"
+                className="w-12 h-12 mb-2"
               />
-              <span className="text-sm"> Alat Pelindung Diri</span>
+              <span style={{ fontSize: ".8rem" }}> Alat Pelindung Diri</span>
             </div>
           </Link>
 
@@ -80,9 +80,9 @@ function ProductCategoryMobile() {
               <img
                 src="/assets/Perkonveksiann.png"
                 alt="logo apd"
-                className="w-16 mb-2 h-13"
+                className="w-12 h-12 mb-2"
               />
-              <span className="text-sm">Perkonveksian</span>
+              <span style={{ fontSize: ".8rem" }}>Perkonveksian</span>
             </div>
           </Link>
 
@@ -94,9 +94,9 @@ function ProductCategoryMobile() {
               <img
                 src="/assets/hampers.png"
                 alt="logo hampers"
-                className="w-16 mb-2 h-13"
+                className="w-12 h-12 mb-2"
               />
-              <span className="text-sm">Hampers</span>
+              <span style={{ fontSize: ".8rem" }}>Hampers</span>
             </div>
           </Link>
 
@@ -108,9 +108,9 @@ function ProductCategoryMobile() {
               <img
                 src="/assets/product-unggulan.png"
                 alt="logo apd"
-                className="w-16 mb-2 h-13"
+                className="w-12 h-12 mb-2"
               />
-              <span className="text-sm">Product Populer</span>
+              <span style={{ fontSize: ".8rem" }}>Product Populer</span>
             </div>
           </Link>
 
@@ -122,9 +122,9 @@ function ProductCategoryMobile() {
               <img
                 src="/assets/craft.png"
                 alt="logo hampers"
-                className="w-16 mb-2 h-13"
+                className="w-12 h-12 mb-2"
               />
-              <span className="text-sm">Craft</span>
+              <span style={{ fontSize: ".8rem" }}>Craft</span>
             </div>
           </Link>
         </div>
