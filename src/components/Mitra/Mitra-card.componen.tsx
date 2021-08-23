@@ -8,7 +8,7 @@ function MitraCardComponent({ data }) {
       <Link href={`/mitra/${data.slug}`}>
         <div className="relative flex content-end w-full mb-5 cursor-pointer hover:border-4 hover:translate-y-20">
           <ImageContainer
-            className="w-full h-60 lg:h-80 group-hover:grayscale-0"
+            className="w-full h-full lg:h-80 group-hover:grayscale-0"
             src={`${process.env.API_LARAVEL}/storage/${data.photoMitra}`}
             alt="Mitra 1"
           />
