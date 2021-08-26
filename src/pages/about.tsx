@@ -55,23 +55,21 @@ function about() {
               />
             </div>
             <div>
-              <p className="text-lg lg:text-2xl">
-                <span className="lg:ml-10 ">Karya Nusantara </span>
+              <p className="text-lg lg:text-2xl text-le">
+                <span>Karya Nusantara </span>
                 merupakan salah satu agregator dan konsolidator produk K-UMKM
                 yang menjalankan fungsi pendampingan kualitas produk yang secara
                 spesifik dan terstandar.
               </p>
               <p className="mt-5 text-lg lg:text-2xl">
-                <span className="lg:ml-10 ">
-                  Dengan pola ini, Karya Nusantara{" "}
-                </span>
+                <span>Dengan pola ini, Karya Nusantara </span>
                 memungkinkan terjadinya distribusi proses produksi produk ke
                 banyak pelaku K-UMKM untuk memenuhi permintaan skala besar atas
                 produk dengan standar kualitas yang sama dan dikemas dalam satu
                 payung merek bersama.
               </p>
               <p className="mt-5 text-lg lg:mt-20 lg:text-2xl">
-                <span className="lg:ml-10 ">Kehadiran Karya Nusantara</span>
+                <span>Kehadiran Karya Nusantara</span>
                 telah terbukti bisa meningkatkan standar mutu produk yang
                 dihasilkan oleh K-UMKM dalam jaringannya, dan disisi lain, juga
                 membuat pembeli besar, dipercaya baik oleh pemerintah, BUMN, dan
@@ -80,11 +78,8 @@ function about() {
                 berdaya saing.
               </p>
               <p className="mt-5 text-lg lg:mt-5 lg:text-2xl">
-                <span className="lg:ml-10 ">
-                  {" "}
-                  Berkomitmen untuk ambil peran dalam proses kurasi
-                </span>
-                , konsolidasi bahan baku, dan konsolidasi standar mutu produk,
+                <span> Berkomitmen untuk ambil peran dalam proses kurasi</span>,
+                konsolidasi bahan baku, dan konsolidasi standar mutu produk,
                 perlahan Karya Nusantara terus mengembangkan cakupan kategori
                 produk pada katalognya, dengan misi untuk menunjukkan ke banyak
                 pihak bahwa produk #UKMPUNYASTANDAR dan kita bisa

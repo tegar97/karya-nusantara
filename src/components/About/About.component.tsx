@@ -18,9 +18,9 @@ function About({ image }) {
       className="px-10 pt-8 pb-20 lg:pt-10 lg:px-24 lg:pb-40"
       style={{ backgroundColor: "var(--color-background" }}
     >
-      <HeadingSecondary className="text-center text-black-100">
-        Tentang kita
-      </HeadingSecondary>
+      <h2 className="w-full text-3xl font-bold text-center cursor-pointer lg:text-4xl text-grey-100 hover:text-blue-100">
+        Tentang Kita
+      </h2>
 
       <div className="grid w-full grid-cols-1 mt-10 lg:mt-20 md:grid-cols-2 lg:grid-cols-2">
         <div>
