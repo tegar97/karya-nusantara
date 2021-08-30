@@ -54,7 +54,7 @@ function about() {
                 alt="logo karyanusantara"
               />
             </div>
-            <div>
+            <div style={{textAlign: 'justify'}}> 
               <p className="text-lg lg:text-2xl text-le">
                 <span>Karya Nusantara </span>
                 merupakan salah satu agregator dan konsolidator produk K-UMKM
