@@ -34,7 +34,7 @@ export default function Home({ data, data2 }) {
         />
       </Head>
       <NextSeo
-        title="Karya Nusantara - Ragam Solusi Berkualitas Hasil Karya UKM Lokal Indonesia"
+        title="Karya Nusantara2 - Ragam Solusi Berkualitas Hasil Karya UKM Lokal Indonesia"
         description={data[0].web_description}
         canonical="karyanusantara.co.id"
         openGraph={{
