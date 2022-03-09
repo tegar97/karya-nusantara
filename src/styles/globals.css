@@ -13,8 +13,13 @@
     margin: 0 auto;
     
   }
+  .container-box-product{
+     width: 1200px ;
+     max-width: 100%;
+    margin: 0 auto;
+  }
 
-
+.
 .ModalLogin {
   top: 50%;
   left: 50%;
@@ -276,4 +281,10 @@
 .slick-prev:before,
 .slick-next:before {
   color: #5996ab;
+}
+
+.product-image{
+  width: 600px;
+  height: 600px;
+  border-radius: 10px;
 }

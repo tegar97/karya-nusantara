@@ -44,7 +44,7 @@ function Navbar({ menuDrop, setMenuDrop }) {
       className={`top-0 left-0 fixed w-full   px-5 py-3   lg:px-14 c ${
         !bgActive && homeRouter
           ? "transparent text-white"
-          : "bg-white  shadow-md "
+          : "bg-white  shadow-sm "
       }`}
     >
       <div className=" items-center justify-between w-full flex container-box" >
