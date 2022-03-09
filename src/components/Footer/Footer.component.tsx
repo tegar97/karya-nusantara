@@ -4,18 +4,23 @@ import { Footer } from "./Footer.styled";
 
 function FooterComponent() {
   return (
-    <footer className="w-full px-1 py-10 bg-blue-100 border-2 border-t border-b border-gray-200 lg:p-20">
-      <div className="grid items-center grid-cols-2 justify-items-center lg:grid-cols-4">
+    <footer className="w-full px-1 py-10 bg-grey-300 border-2 border-t border-b border-gray-200 lg:p-20 ">
+      <div className="grid items-center grid-cols-2 justify-items-center lg:grid-cols-4 container-box">
         <div className="col-span-2 lg:col-span-1">
           <Link href="/">
             <img
               src="/assets/logo-putih.png"
               alt="Logo Karya Nusantara"
               width={200}
-              height={300}
+              height={200}
               className="z-30 cursor-pointer"
             />
           </Link>
+          <div>
+            <h2 className="font-bold lg:text-md text-white">PT. Solusi Karya Nusantara</h2>
+            <p className="text-white mt-2">Head Office Gedung office</p>
+
+          </div>
         </div>
         <div>
           <span

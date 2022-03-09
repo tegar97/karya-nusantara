@@ -13,7 +13,7 @@ function Katalog({ product, isCategory }) {
       }
     >
       <motion.div
-        className="bg-white rounded-md shadow-lg hover:translate-x-14 "
+        className="bg-white rounded-md shadow-lg hover:translate-x-14  "
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         whileHover={{ scale: 1.1 }}

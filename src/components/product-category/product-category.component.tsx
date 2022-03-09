@@ -15,16 +15,19 @@ function ProductCategory({ data2 }) {
   const [categoryId, setCategoryId] = useContext(CategoryProductContext);
 
   return (
+      <div className="container-box">
     <div className="grid grid-cols-4 lg:px-20 lg:py-10 gap-7 ">
+
+
       <LeftCategory
-        className="col-span-4 bg-white border-2 border-blue-100 lg:p-5 lg:col-span-1 "
+        className="col-span-4  border-2 bg-grey-200 lg:p-5 lg:col-span-1 "
         style={{ borderRadius: "7px" }}
       >
         <CategoryProductListContainer>
           <ScrollAnimation animateIn="fadeIn">
             <FadeInAnimation direction="left">
               <Link href="/product">
-                <span className="text-xl text-blue-100 cursor-pointer lg:text-2xl text-md">
+                <span className="text-xl text-white cursor-pointer lg:text-2xl text-md">
                   Katalog Product
                 </span>
               </Link>
@@ -161,6 +164,7 @@ function ProductCategory({ data2 }) {
         </ScrollAnimation>
       </div>
     </div>
+      </div>
   );
 }
 

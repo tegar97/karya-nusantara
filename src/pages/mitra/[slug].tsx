@@ -58,7 +58,7 @@ function Slug({ mitra }) {
         }}
       />
 
-      <div className="lg:py-20 ">
+      <div className="lg:py-20  container-box">
         <div className="relative">
           <img
             src={`${process.env.API_LARAVEL}/storage/${mitra.data[0].thumbnail}`}

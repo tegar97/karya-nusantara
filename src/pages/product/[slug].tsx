@@ -118,7 +118,7 @@ function Slug({ product, productReccomend }) {
         }}
       />
       <div style={{ backgroundColor: "#ffff", minHeight: "100vh" }}>
-        <div className="h-full px-0 py-0 lg:px-24 lg:p-32 ">
+        <div className="h-full px-0 py-0 lg:px-24 lg:p-32 container-box">
           <div className="grid grid-cols-1 gap-5 lg:grid-cols-5">
             <div className="grid grid-cols-1 col-span-2">
               <ProductDetailImage product={product} />

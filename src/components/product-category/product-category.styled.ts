@@ -17,7 +17,6 @@ export const CategoryProductListContainer = styled.div`
 `
 
 export const CategoryProductList = styled.li`
-    background-color: #a7cf54;
     color: #fff;
     border-radius: .5rem;
     padding : .5rem;

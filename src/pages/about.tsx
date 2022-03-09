@@ -11,7 +11,7 @@ function about() {
   );
 
   return (
-    <div className="px-10 py-5 lg:px-20 lg:py-36">
+    <div className="px-10 py-5 lg:px-20 lg:py-36  container-box">
       <Head>
         <meta
           name="keywords"
@@ -38,7 +38,7 @@ function about() {
         }}
       />
 
-      <div>
+      <div >
         <div className="text-center">
           <h2 className="w-full col-span-3 text-3xl font-bold text-center lg:col-span-1 lg:-col-span-1 lg:text-4xl text-grey-100 hover:text-blue-100">
             Tentang Kami
@@ -55,20 +55,20 @@ function about() {
               />
             </div>
             <div style={{ textAlign: "justify" }}>
-              <p className="text-lg lg:text-2xl text-le">
+              <p className="text-lg lg:text-xl ">
                 <span>Karya Nusantara </span>
                 merupakan salah satu agregator dan konsolidator produk K-UMKM
                 yang menjalankan fungsi pendampingan kualitas produk yang secara
                 spesifik dan terstandar.
               </p>
-              <p className="mt-5 text-lg lg:text-2xl">
+              <p className="mt-5 text-lg lg:text-xl">
                 <span>Dengan pola ini, Karya Nusantara </span>
                 memungkinkan terjadinya distribusi proses produksi produk ke
                 banyak pelaku K-UMKM untuk memenuhi permintaan skala besar atas
                 produk dengan standar kualitas yang sama dan dikemas dalam satu
                 payung merek bersama.
               </p>
-              <p className="mt-5 text-lg lg:mt-20 lg:text-2xl">
+              <p className="mt-5 text-lg lg:mt-10 lg:text-xl">
                 <span>Kehadiran Karya Nusantara</span>
                 telah terbukti bisa meningkatkan standar mutu produk yang
                 dihasilkan oleh K-UMKM dalam jaringannya, dan disisi lain, juga
@@ -77,7 +77,7 @@ function about() {
                 bisa menghasilkan produk dengan standar kualitas dan harga yang
                 berdaya saing.
               </p>
-              <p className="mt-5 text-lg lg:mt-5 lg:text-2xl">
+              <p className="mt-5 text-lg lg:mt-5 lg:text-xl">
                 <span> Berkomitmen untuk ambil peran dalam proses kurasi</span>,
                 konsolidasi bahan baku, dan konsolidasi standar mutu produk,
                 perlahan Karya Nusantara terus mengembangkan cakupan kategori

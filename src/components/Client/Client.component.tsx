@@ -4,7 +4,7 @@ import ClientCard from "./Client-Card.component";
 
 function Client() {
   return (
-    <div className="mt-4 p-9 lg:px-20">
+    <div className="mt-4 p-9 lg:px-20 container-box">
       <div className="grid items-center grid-cols-5 ">
         <div className="col-span-1 lg:col-span-2 lg:w-full">
           <div
@@ -15,7 +15,7 @@ function Client() {
             }}
           ></div>
         </div>
-        <h2 className="w-full col-span-3 text-3xl font-bold text-center lg:col-span-1 lg:-col-span-1 lg:text-4xl text-grey-100 hover:text-blue-100">
+        <h2 className="w-full col-span-3 text-3xl font-bold text-center lg:col-span-1 lg:-col-span-1 lg:text-4xl text-grey-100  hover:text-blue-100">
           Klien Kami
         </h2>
         <div className="flex justify-end col-span-1 lg:col-span-2 lg:w-full">

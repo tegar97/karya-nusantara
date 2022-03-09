@@ -7,10 +7,10 @@ function Hero() {
         className={`flex items-center justify-center h-full HeroTextContainer`}
       >
         {/* <img src="/assets/daun2.png" className={styles.daun} alt="hero" /> */}
-        <div className="text-center ">
+        <div className="text-center  ">
           <h1
             style={{ textShadow: "1px 1px 1px white" }}
-            className="mb-5 text-xl font-extrabold text-white md:text-3xl lg:text-5xl "
+            className="mb-5 text-xl font-extrabold text-white md:text-3xl lg:text-5xl xl:text-5xl "
           >
             Ragam Solusi Berkualitas Hasil <br />
             Karya UKM Lokal Indonesia

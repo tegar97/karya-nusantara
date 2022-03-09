@@ -49,7 +49,7 @@ function Mitra() {
           site_name: "Mitra Karya Nusantara",
         }}
       />
-      <div className="h-full px-10 py-20 lg:px-28 lg:py-40">
+      <div className="h-full px-10 py-20 lg:px-28 lg:py-40 container-box">
         <h1 className="text-lg font-bold text-center lg:text-3xl text-grey-100">
           Kumpulan Kisah Inspiratif dari para mitra Karya Nusantara{" "}
         </h1>

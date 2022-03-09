@@ -136,7 +136,7 @@ function Product({ category }) {
         style={{
           minHeight: "100vh",
         }}
-        className="w-full px-6 py-10 lg:py-20 lg:px-16 "
+        className="w-full px-6 py-10 lg:py-20 lg:px-16 container-box "
       >
         <div
           className={`flex flex-col justify-center w-full mt-10 lg:px-60  transition duration-700 ease-in group ${

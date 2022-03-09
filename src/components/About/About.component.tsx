@@ -16,17 +16,17 @@ function About({ image }) {
   return (
     <div
       className="px-10 pt-8 pb-20 lg:pt-10 lg:px-24 lg:pb-40"
-      style={{ backgroundColor: "var(--color-background" }}
-    >
-      <h2 className="w-full text-3xl font-bold text-center cursor-pointer lg:text-4xl text-grey-100 hover:text-blue-100">
+      style={{ backgroundColor: "var(--color-background" }}>
+     
+      <div style={{maxWidth: 1200,position: 'relative',margin: '0 auto'}}  > 
+         <h2 className="w-full text-3xl font-bold text-center cursor-pointer lg:text-4xl xl:text-5xl text-grey-100 hover:text-blue-100">
         Tentang Kita
       </h2>
-
-      <div className="grid w-full grid-cols-1 mt-10 lg:mt-20 md:grid-cols-2 lg:grid-cols-2">
+      <div className="grid w-full grid-cols-1 mt-10 lg:mt-20 md:grid-cols-1 lg:grid-cols-2 sm:grid-cols-1" >
         <div>
           <ScrollAnimation animateIn="fadeIn">
             <FadeInAnimation direction="left">
-              <p className="mt-4 text-md">
+              <p className="mt-4 ">
                 Karya Nusantara adalah program konsolidasi produk UKM terpilih
                 hasil kurasi yang menyelaraskan permintaan dari konsumen (B2B,
                 B2G, dan B2E) dengan produk/jasa yang disediakan oleh UKM
@@ -47,7 +47,7 @@ function About({ image }) {
           </ScrollAnimation>
         </div>
 
-        <div className="mt-20 md:mt-0">
+        <div className="mt-20 lg:mt-0">
           <ScrollAnimation animateIn="fadeIn">
             <Composition>
               <CompositionPhoto1
@@ -66,6 +66,7 @@ function About({ image }) {
           </ScrollAnimation>
         </div>
       </div>
+        </div>
     </div>
   );
 }

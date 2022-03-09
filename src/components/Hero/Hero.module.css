@@ -1,5 +1,6 @@
 .HeroContainer {
-  height: 100vh;
+  height: 80vh;
+  max-height: 900px;
   background: linear-gradient(
     90deg,
     rgba(89, 150, 171, 1) 50%,

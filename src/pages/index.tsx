@@ -32,9 +32,11 @@ export default function Home({ data, data2 }) {
           name="keywords"
           content="ukm indonesia, kerja sama ukm,umks indonesia, karya nusantara,jual,beli,ukm"
         />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
       </Head>
       <NextSeo
-        title="Karya Nusantara2 - Ragam Solusi Berkualitas Hasil Karya UKM Lokal Indonesia"
+        title="Karya Nusantara - Ragam Solusi Berkualitas Hasil Karya UKM Lokal Indonesia"
         description={data[0].web_description}
         canonical="karyanusantara.co.id"
         openGraph={{
@@ -56,10 +58,10 @@ export default function Home({ data, data2 }) {
 
       <Hero />
       <About image={data} />
-      <div className="hidden lg:block">
+      <div className="hidden lg:block md:hidden">
         <ProductCategory data2={data2} />
       </div>
-      <div className="block lg:hidden">
+      <div className="block lg:hidden md:block">
         <ProductCategoryMobile />
       </div>
       <ScrollAnimation animateIn="fadeIn">

@@ -7,7 +7,6 @@ import styled from "styled-components";
 import { NextSeo } from "next-seo";
 
 const BgContainer = styled.div`
-  background: url("/assets/bg-register2.jpg");
   min-height: 180vh;
   background-repeat: none;
 `;
@@ -64,7 +63,7 @@ function RegisterKonsumen() {
           site_name: "Karya Nusantara ",
         }}
       />
-      <BgContainer className="flex justify-center w-full bg-no-repeat bg-cover ">
+      <BgContainer className="flex justify-center w-full bg-no-repeat bg-cover container-box ">
         <Container
           maxWidth="xl"
           className="w-11/12 h-full px-5 py-5 mt-24 bg-white lg:mt-32 lg:w-1/2"

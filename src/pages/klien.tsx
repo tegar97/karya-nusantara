@@ -45,13 +45,13 @@ function klien({ data }) {
           site_name: "klien Karya Nusantara",
         }}
       />
-      <div className="px-10 lg:px-20 py-36">
+      <div className="px-10 lg:px-20 py-36 container-box">
         <div className="text-center">
           <HeadingSecondary className="text-center text-blue-100">
             Tentang kita
           </HeadingSecondary>
           <div className="mt-4">
-            <span className="text-md">
+            <span className="text-md ">
               Berikut adalah perusahaan yang telah kerja sama bersama kami
             </span>
           </div>
@@ -66,9 +66,7 @@ function klien({ data }) {
                 alt="Klient 1"
                 className="self-center mb-5 text-center"
               />
-              <div className="text-center">
-                <span>{data.description}</span>
-              </div>
+           
             </div>
           ))}
         </div>

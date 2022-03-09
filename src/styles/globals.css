@@ -8,6 +8,13 @@
   font-family: "Poppins", sans-serif;
 }
 
+  .container-box{
+    max-width: 1900px ;
+    margin: 0 auto;
+    
+  }
+
+
 .ModalLogin {
   top: 50%;
   left: 50%;
