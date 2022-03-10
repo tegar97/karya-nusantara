@@ -14,9 +14,7 @@ function Reviews() {
             <img src="/assets/icon/star-yellow.svg" className="lg:w-5 lg:h-5" />
             <span className="font-bold ml-1 text-sm">4/5</span>
           </div>
-          <div className="ml-2">
-            <span className="text-gray-200 text-xs">27/08/2021</span>
-          </div>
+            <span className="text-gray-400 text-xs ml-2">27/08/2021</span>
         </div>
         <div className="mt-2" >
           <p

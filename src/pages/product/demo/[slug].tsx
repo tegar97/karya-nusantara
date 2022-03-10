@@ -4,9 +4,31 @@ import DetailProductColumn from "../../../components/atom/details-product-column
 import { FacebookShareButton, FacebookIcon, WhatsappShareButton, WhatsappIcon, TwitterShareButton, TwitterIcon } from "next-share";
 import MarketInfoCard from "../../../components/market-info-card/market-info-card";
 import Reviews from "../../../components/Reviews/reviews";
+import SuccessCartModal from "../../../components/sucess-cart/succes-cart-moda";
+import ModalQuantityModal from "../../../components/modal-quantity/modal-quantity";
 function Slug() {
   return (
-    <>
+    <div className="relative">
+      <div
+        className="w-full fixed bottom-0 bg-white border-t border-gray-300  pl-4  pr-4 pt-6 pb-6 lg:hidden flex justify-between items-center"
+        style={{ zIndex: 999 }}
+      >
+        <span className="text-xl  text-blue-100 font-bold lg:text-xl">
+          Rp 25.000
+        </span>
+        <div className=" flex-row flex">
+          <div className="">
+            <button className="border border-white-200 text-grey-200 font-bold py-2 px-4 w-full rounded">
+              Chat
+            </button>
+          </div>
+          <div className="  ml-2  w-full  ">
+            <button className="bg-blue-100 hover:opacity-80 text-white font-bold py-2 px-10 w-full rounded outline-none">
+              Order
+            </button>
+          </div>
+        </div>
+      </div>
       <div
         className=" relative h-full  py-0 lg:px-20 lg:pt-28 container-box-product px-5  pt-20 lg:pb-20 pb-20"
         style={{
@@ -20,7 +42,7 @@ function Slug() {
               <div className="item">
                 <img
                   src="https://bs.moselo.com/images/product_s3/large/sv-8106-2-1594894656342.png"
-                  className="product-image " 
+                  className="product-image "
                 />
               </div>
             </div>
@@ -38,7 +60,7 @@ function Slug() {
             </div>
           </div>
           <div className="lg:border-gray-200 lg:border-l w-full  flex-1">
-            <div className="h-full flex-1  ml-3  lg:pl-6 pr-3 pl-3 lg:pr-6  pt-2lg:pt-6">
+            <div className="h-full flex-1  ml-3  lg:pl-6  pr-3 pl-3 lg:pr-6  pt-2 lg:pt-6">
               <div className="flex-col flex">
                 <h1 className="font-bold lg:text-2xl text-left">
                   Wellness Sticker Sheet
@@ -51,24 +73,36 @@ function Slug() {
                     </a>
                   </span>
                 </div>
-                <div className="mt-2">
+                {/* <div className="mt-2">
                   <span className="text-sm text-blue-100 font-bold lg:text-xl">
                     Rp 25.000
                   </span>
                 </div>
-                <div className="mt-2 flex flex-row lg:block hidden">
+                <div className="mt-2">
+                  <span className="font-semibold text-black-400">
+                    Jumlah
+                  </span>
+                  <div className="border border-gray-200 w-20 items-center py-1 px-1 rounded-md justify-between  flex flex-row">
+                    <button className="w-5 border-r border-gray-200">+</button>
+                    <span>1</span>
+                    <button className="w-5  border-l border-gray-200">-</button>
+                  </div>
+                </div> */}
+                <div className="mt-4 lg:flex flex-row hidden">
                   <div className="w-2/6">
                     <button className="border border-white-200 text-grey-200 font-bold py-2 px-4 w-full rounded">
                       Chat
                     </button>
                   </div>
                   <div className="w-full flex-1 ml-2 	">
-                    <button className="bg-blue-100 hover:opacity-80 text-white font-bold py-2 px-4 w-full rounded outline-none">
+                    {/* <button className="bg-blue-100 hover:opacity-80 text-white font-bold py-2 px-4 w-full rounded outline-none">
                       Order
-                    </button>
+                    </button> */}
+                    {/* <SuccessCartModal /> */}
+                    <ModalQuantityModal/>
                   </div>
                 </div>
-                <div className="mt-5">
+                <div className="mt-8">
                   <span className="font-semibold text-black-400">
                     Description
                   </span>
@@ -87,7 +121,7 @@ function Slug() {
                   <span className="font-semibold text-black-400">Details</span>
 
                   <div className="mt-2 ">
-                    <ul className="table w-full">
+                    <ul className="">
                       <DetailProductColumn
                         columnLeft={"Category"}
                         columnRight={"Alat Pelindung diri"}
@@ -115,12 +149,17 @@ function Slug() {
                         <span className="font-bold">Surabaya</span>
                       </span>
                     </div>
-                    <div className="flex flex-row justify-items-center mt-4 ">
+                    <div className="flex flex-row justify-items-center items-start mt-4 ">
                       <img src={"/assets/icon/truck.svg"} className="lg:w-5" />
-                      <span className="text-sm text-gray-700 ml-2">
-                        Estimasi Harga ongkir
-                        <span className="font-bold"> 11 ribu</span>
-                      </span>
+                      <div className="flex flex-col ml-2">
+                        <span className="text-sm text-gray-700 ">
+                          Estimasi Harga ongkir
+                          <span className="font-bold"> 11 ribu</span>
+                        </span>
+                        <span className="mt-1 text-xs text-gray-500">
+                          Ke Cileuny,bandung
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -165,7 +204,7 @@ function Slug() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

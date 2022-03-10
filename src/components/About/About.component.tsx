@@ -15,8 +15,8 @@ import ScrollAnimation from "react-animate-on-scroll";
 function About({ image }) {
   return (
     <div
-      className="px-10 pt-8 pb-20 lg:pt-10 lg:px-24 lg:pb-40"
-      style={{ backgroundColor: "var(--color-background" }}>
+      className="px-10 pt-8 pb-20 lg:pt-10 lg:px-24 lg:pb-40 bg-white"
+    >
      
       <div style={{maxWidth: 1200,position: 'relative',margin: '0 auto'}}  > 
          <h2 className="w-full text-3xl font-bold text-center cursor-pointer lg:text-4xl xl:text-5xl text-grey-100 hover:text-blue-100">
