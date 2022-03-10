@@ -5,7 +5,7 @@ function BreadCrumbs() {
           <li className="inline-flex items-center">
             <a
               href="#"
-              className="text-gray-400 hover:text-gray-900 inline-flex items-center text-sm"
+              className="text-gray-400 hover:text-gray-900 inline-flex items-center text-xs lg:text-sm"
             >
               Home
             </a>
@@ -26,7 +26,7 @@ function BreadCrumbs() {
               </svg>
               <a
                 href="#"
-                className="text-gray-400 hover:text-gray-900 ml-1 md:ml-2 text-sm font-medium "
+                className="text-gray-400 hover:text-gray-900 ml-1 md:ml-2 text-xs lg:text-smfont-medium "
               >
                 Product
               </a>
@@ -48,14 +48,14 @@ function BreadCrumbs() {
               </svg>
               <a
                 href="#"
-                className="text-gray-400 hover:text-gray-900 ml-1 md:ml-2 text-sm font-medium "
+                className="text-gray-400 hover:text-gray-900 ml-1 md:ml-2 text-xs lg:text-sm font-medium w-full "
               >
                 Alat Pelindung diri
               </a>
             </div>
           </li>
           <li aria-current="page">
-            <div className="flex items-center text-sm">
+            <div className="flex items-center text-xs lg:text-sm">
               <svg
                 className="w-6 h-6 text-gray-700 text-sm"
                 fill="currentColor"

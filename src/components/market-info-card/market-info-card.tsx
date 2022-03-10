@@ -7,7 +7,7 @@ function MarketInfoCard() {
       style={{ borderRadius: 10, minHeight: 50 }}
     >
       <div className=" flex-1 flex-row flex justify-between pl-5 pr-5 pt-4 pb-4 ">
-        <div className="flex-row flex justify-start w-11/12">
+        <div className="flex-row flex justify-start w-11/12 location.svg">
           <div>
             <img
               alt="Logo Illo Factory"
@@ -30,12 +30,14 @@ function MarketInfoCard() {
         </div>
       </div>
       <div className="border-t border-gray-200 flex flex-row ">
-        <div className="w-1/2 pl-5 pr-5 pt-4 pb-4 text-center table">
-          <span className='' >21</span>
-          <span className="text-md "> Transaksi Sukses</span>
+        <div className="w-1/2 pl-5 pr-5 pt-4 pb-4 text-center  flex flex-row items-center">
+          <img src={"/assets/icon/success.svg"} className="lg:w-5" />
+          <span className="text-md  "> Transaksi Sukses</span>
         </div>
-        <div className="w-1/2 border-l border-gray-200 pl-5 pr-5 pt-4 pb-4">
-          <h1>21 success</h1>
+        <div className="w-1/2 border-l border-gray-200 pl-5 pr-5 pt-4 pb-4  justify-around justify-items-center items-center flex text-center">
+          <img src={"/assets/icon/star.svg"} className="lg:w-5" />
+
+          <span className="text-md">4.9 Rating</span>
         </div>
       </div>
     </div>

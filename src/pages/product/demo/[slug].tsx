@@ -3,30 +3,42 @@ import CostumeButton from "../../../components/atom/button/button";
 import DetailProductColumn from "../../../components/atom/details-product-column/detail-product-column";
 import { FacebookShareButton, FacebookIcon, WhatsappShareButton, WhatsappIcon, TwitterShareButton, TwitterIcon } from "next-share";
 import MarketInfoCard from "../../../components/market-info-card/market-info-card";
+import Reviews from "../../../components/Reviews/reviews";
 function Slug() {
   return (
     <>
       <div
-        className=" relative h-full px-0 py-0 lg:px-20 lg:pt-28 container-box-product"
+        className=" relative h-full  py-0 lg:px-20 lg:pt-28 container-box-product px-5  pt-20 lg:pb-20 pb-20"
         style={{
           minHeight: "100vh",
         }}
       >
         <BreadCrumbs />
-        <div className=" h-full w-full relative border-gray-200 flex-1 border  mt-5 flex flex-col lg:flex-row rounded-lg">
-          <div className="flex flex-col  w-3/5  pl-6 pr-6  pt-6">
-            <div className="flex flex-col">
+        <div className=" h-full w-full relative border-gray-200 flex-1 border  mt-5 flex flex-col lg:flex-row rounded-lg ">
+          <div className="flex flex-col  w-full lg:w-3/5  ">
+            <div className="flex flex-col pl-3 lg:pl-6 pr-3 lg:pr-6  pt-3 lg:pt-6  pb-10 lg:pb-40">
               <div className="item">
                 <img
                   src="https://bs.moselo.com/images/product_s3/large/sv-8106-2-1594894656342.png"
-                  className="product-image"
+                  className="product-image " 
                 />
               </div>
             </div>
-            <div>section-2</div>
+            <div className=" border-t border-gray-200 w-full hidden lg:block">
+              <div className=" pr-6 pl-6 mt-5">
+                <span className="font-bold text-gray-700 lg:text-xl ">
+                  Ulasan
+                </span>
+                <div className="mt-5 ">
+                  <Reviews />
+                  <Reviews />
+                  <Reviews />
+                </div>
+              </div>
+            </div>
           </div>
           <div className="lg:border-gray-200 lg:border-l w-full  flex-1">
-            <div className="h-full flex-1  ml-3  pl-6 pr-6  pt-6">
+            <div className="h-full flex-1  ml-3  lg:pl-6 pr-3 pl-3 lg:pr-6  pt-2lg:pt-6">
               <div className="flex-col flex">
                 <h1 className="font-bold lg:text-2xl text-left">
                   Wellness Sticker Sheet
@@ -44,7 +56,7 @@ function Slug() {
                     Rp 25.000
                   </span>
                 </div>
-                <div className="mt-2 flex flex-row ">
+                <div className="mt-2 flex flex-row lg:block hidden">
                   <div className="w-2/6">
                     <button className="border border-white-200 text-grey-200 font-bold py-2 px-4 w-full rounded">
                       Chat
@@ -87,10 +99,35 @@ function Slug() {
                     </ul>
                   </div>
                 </div>
+                <div className="mt-5">
+                  <span className="font-semibold text-black-400">
+                    Pengiriman
+                  </span>
+
+                  <div className="mt-4 ">
+                    <div className="flex flex-row justify-items-center ">
+                      <img
+                        src={"/assets/icon/location.svg"}
+                        className="lg:w-5"
+                      />
+                      <span className="text-sm text-gray-700 ml-2">
+                        Pengiriman dari{" "}
+                        <span className="font-bold">Surabaya</span>
+                      </span>
+                    </div>
+                    <div className="flex flex-row justify-items-center mt-4 ">
+                      <img src={"/assets/icon/truck.svg"} className="lg:w-5" />
+                      <span className="text-sm text-gray-700 ml-2">
+                        Estimasi Harga ongkir
+                        <span className="font-bold"> 11 ribu</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
                 <div className="mt-5 w-10/12">
                   <span className="font-semibold text-black-400">Share</span>
 
-                  <div className="grid lg:grid-cols-8 gap-3 mt-3">
+                  <div className="grid lg:grid-cols-8 grid-cols-8 gap-3 mt-3">
                     <FacebookShareButton
                       url={"https://github.com/next-share"}
                       quote={
@@ -116,16 +153,13 @@ function Slug() {
                         "next-share is a social share buttons for your next React apps."
                       }
                     >
-                      <TwitterIcon
-                       size={32} round />
+                      <TwitterIcon size={32} round />
                     </TwitterShareButton>
                   </div>
-                  
-                              </div>
-                              <div className="mt-5">
-                                    <MarketInfoCard/>
-
-                              </div>
+                </div>
+                <div className="mt-10">
+                  <MarketInfoCard />
+                </div>
               </div>
             </div>
           </div>
