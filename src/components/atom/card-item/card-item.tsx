@@ -16,7 +16,7 @@ function CardItem() {
         </div>
       </div>
       <button
-        className="bg-blue-100 hover:opacity-80 text-white font-bold  px-5 rounded outline-none"
+        className="bg-blue-100 hover:opacity-80 text-white font-bold  px-5  rounded outline-none"
       >
         Lihat  Keranjang
       </button>

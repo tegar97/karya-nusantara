@@ -17,7 +17,7 @@ export const Input = styled.input`
     }
 
     &::placeholder {
-  color:  ${props => props.defaultPlaceHolder ? '#000' : '#5996ab'};
+  color:  ${props => props.defaultPlaceHolder ? '#c4c4c4' : '#5996ab'};
   font-weight: 'bold';
   opacity: 1; /* Firefox */
 }

@@ -6,6 +6,7 @@ import MarketInfoCard from "../../../components/market-info-card/market-info-car
 import Reviews from "../../../components/Reviews/reviews";
 import SuccessCartModal from "../../../components/sucess-cart/succes-cart-moda";
 import ModalQuantityModal from "../../../components/modal-quantity/modal-quantity";
+import ModalQuantityMobileModal from "../../../components/modal-quantity/modal-quantity-mobile";
 function Slug() {
   return (
     <div className="relative">
@@ -23,9 +24,7 @@ function Slug() {
             </button>
           </div>
           <div className="  ml-2  w-full  ">
-            <button className="bg-blue-100 hover:opacity-80 text-white font-bold py-2 px-10 w-full rounded outline-none">
-              Order
-            </button>
+            <ModalQuantityMobileModal />
           </div>
         </div>
       </div>
@@ -65,12 +64,18 @@ function Slug() {
                 <h1 className="font-bold lg:text-2xl text-left">
                   Wellness Sticker Sheet
                 </h1>
+
                 <div className="mt-1">
                   <span className="text-sm">
                     By{" "}
                     <a className="text-blue-100 font-bold cursor-pointer">
                       illo factory
                     </a>
+                  </span>
+                </div>
+                <div className="mt-1">
+                  <span className="text-xl  text-blue-100 font-bold lg:text-xl">
+                    Rp 25.000
                   </span>
                 </div>
                 {/* <div className="mt-2">
@@ -99,7 +104,7 @@ function Slug() {
                       Order
                     </button> */}
                     {/* <SuccessCartModal /> */}
-                    <ModalQuantityModal/>
+                    <ModalQuantityModal />
                   </div>
                 </div>
                 <div className="mt-8">

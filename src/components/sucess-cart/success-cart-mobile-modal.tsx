@@ -1,5 +1,4 @@
-
-import React, { FormEvent, useState, useEffect } from "react";
+import React, { FormEvent, useState } from "react";
 import "react-responsive-modal/styles.css";
 import Modal from "react-modal";
 
@@ -13,17 +12,18 @@ import OtherProduct from "../other-product/other-product";
 
 const customStyles = {
   content: {
-    top: "50%",
+    top: "70%",
     left: "50%",
     right: "auto",
-        bottom: "auto",
-        width: "60%",
-        height: "80%",
-        maxWidth: 1200,
+    bottom: "auto",
+    width: "100%",
+    height: "100%",
+    maxWidth: 1200,
     maxHeight: 1200,
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
-    border: "1px solid #ffff",
+        border: "1px solid #ffff",
+        borderRadius : '0 0 10px 10px'
   },
   overlay: {
     background: "rgba(0, 0, 0, 0.6)",
@@ -31,8 +31,7 @@ const customStyles = {
   },
 };
 
-
-const SuccessCartModal = ({
+const SuccessCartModalMobile = ({
   bgActive = null,
   homeRouter = null,
   loginRequire = null,
@@ -62,18 +61,8 @@ const SuccessCartModal = ({
   function closeModal() {
     setIsOpen(false);
   }
-  
-  useEffect(() => {
-    if (modalIsOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
-  }, [modalIsOpen]);
   const submitForm = async (event: FormEvent) => {
     event.preventDefault();
-
-   
   };
   Modal.setAppElement("#root");
 
@@ -89,8 +78,7 @@ const SuccessCartModal = ({
       <Modal
         isOpen={modalIsOpen}
         style={customStyles}
-        onCloseRequest={closeModal}
-        contentLabel="Login Modal"
+        contentLabel="Success Cart Modal"
       >
         <div className="relative w-full">
           <div className="absolute flex justify-end w-full">
@@ -111,14 +99,14 @@ const SuccessCartModal = ({
               <h3 className="font-bold text-lg">
                 Product Lainya dari toko Illu factory
               </h3>
-                          <div className="grid grid-cols-5 gap-3 mt-5">
-                              <OtherProduct/>
-                              <OtherProduct/>
-                              <OtherProduct/>
-                              <OtherProduct/>
-                              <OtherProduct/>
-                              <OtherProduct/>
-                              <OtherProduct/>
+              <div className="grid grid-cols-5 gap-3 mt-5">
+                <OtherProduct />
+                <OtherProduct />
+                <OtherProduct />
+                <OtherProduct />
+                <OtherProduct />
+                <OtherProduct />
+                <OtherProduct />
               </div>
             </div>
           </div>
@@ -128,5 +116,4 @@ const SuccessCartModal = ({
   );
 };
 
-export default SuccessCartModal;
-
+export default SuccessCartModalMobile;

@@ -6,114 +6,89 @@ import { Carousel } from "react-responsive-carousel";
 import Slider from "react-slick";
 import { useContext } from "react";
 import { CategoryProductContext } from "../../context/productCategory";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/swiper-bundle.min.css";
 
 function ProductCategoryMobile() {
-  var settings = {
-    dots: false,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 4,
-    initialSlide: 0,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
 
-          infinite: false,
-          dots: false,
-          centerMode: true,
-          centerPadding: "50px",
-          rtl: true,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          dots: false,
-
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          centerMode: true,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          dots: false,
-
-          slidesToShow: 3,
-          slidesToScroll: 1,
-          centerMode: true,
-        },
-      },
-    ],
-  };
 
   const [categoryId, setCategoryId] = useContext(CategoryProductContext);
 
   return (
     <div className="py-5">
       <div className="w-full px-2 py-10 ">
-        <div className="grid justify-center grid-cols-5 gap-5 ">
-          <Link href="/product">
-            <div
-              onClick={() => setCategoryId(2)}
-              className="flex flex-col items-center py-2 text-center cursor-pointer hover:translate-y-5"
-            >
-              <img
-                src="/assets/APD-ICON.png"
-                alt="logo apd"
-                className="w-12 h-12 mb-2"
-              />
-              <span style={{ fontSize: ".8rem" }}> Alat Pelindung Diri</span>
-            </div>
-          </Link>
+  <Swiper
+      spaceBetween={40}
+      slidesPerView={4}
+      onSlideChange={() => console.log('slide change')}
+      onSwiper={(swiper) => console.log(swiper)}
+        >
+          <SwiperSlide>
 
-          <Link href="/product">
-            <div
-              onClick={() => setCategoryId(3)}
-              className="flex flex-col items-center py-2 text-center cursor-pointer hover:translate-y-5"
-            >
-              <img
-                src="/assets/Perkonveksiann.png"
-                alt="logo apd"
-                className="w-12 h-12 mb-2"
-              />
-              <span style={{ fontSize: ".8rem" }}>Perkonveksian</span>
-            </div>
-          </Link>
+            <Link href="/product">
+              <div
+                onClick={() => setCategoryId(2)}
+                className="flex flex-col items-center py-2 text-center cursor-pointer hover:translate-y-5"
+              >
+                <img
+                  src="/assets/APD-ICON.png"
+                  alt="logo apd"
+                  className="w-12 h-12 mb-2"
+                />
+                <span className="" style={{ fontSize: ".8rem" }}> Alat Pelindung  Diri</span>
+              </div>
+            </Link>
+          </SwiperSlide>
+          <SwiperSlide>
+            <Link href="/product">
+              <div
+                onClick={() => setCategoryId(3)}
+                className="flex flex-col items-center py-2 text-center cursor-pointer hover:translate-y-5"
+              >
+                <img
+                  src="/assets/Perkonveksiann.png"
+                  alt="logo apd"
+                  className="w-12 h-12 mb-2"
+                />
+                <span style={{ fontSize: ".8rem" }}>Perkonveksian</span>
+              </div>
+            </Link>
 
-          <Link href="/product">
-            <div
-              onClick={() => setCategoryId(4)}
-              className="flex flex-col items-center py-2 text-center cursor-pointer hover:translate-y-5"
-            >
-              <img
-                src="/assets/hampers.png"
-                alt="logo hampers"
-                className="w-12 h-12 mb-2"
-              />
-              <span style={{ fontSize: ".8rem" }}>Hampers</span>
-            </div>
-          </Link>
+          </SwiperSlide>
 
-          <Link href="/product">
-            <div
-              onClick={() => setCategoryId(6)}
-              className="flex flex-col items-center text-center cursor-pointer hover:translate-y-5 "
-            >
-              <img
-                src="/assets/product-unggulan.png"
-                alt="logo apd"
-                className="w-12 h-12 mb-2"
-              />
-              <span style={{ fontSize: ".8rem" }}>Product Populer</span>
-            </div>
-          </Link>
+          <SwiperSlide>
 
+            <Link href="/product">
+              <div
+                onClick={() => setCategoryId(4)}
+                className="flex flex-col items-center py-2 text-center cursor-pointer hover:translate-y-5"
+              >
+                <img
+                  src="/assets/hampers.png"
+                  alt="logo hampers"
+                  className="w-12 h-12 mb-2"
+                />
+                <span style={{ fontSize: ".8rem" }}>Hampers</span>
+              </div>
+            </Link>
+          </SwiperSlide>
+          <SwiperSlide>
+
+            <Link href="/product">
+              <div
+                onClick={() => setCategoryId(6)}
+                className="flex flex-col items-center text-center cursor-pointer hover:translate-y-5 "
+              >
+                <img
+                  src="/assets/product-unggulan.png"
+                  alt="logo apd"
+                  className="w-12 h-12 mb-2"
+                />
+                <span style={{ fontSize: ".8rem" }}>Product Populer</span>
+              </div>
+            </Link>
+          </SwiperSlide>
+          <SwiperSlide>
           <Link href="/product">
             <div
               onClick={() => setCategoryId(5)}
@@ -127,8 +102,9 @@ function ProductCategoryMobile() {
               <span style={{ fontSize: ".8rem" }}>Craft</span>
             </div>
           </Link>
+          </SwiperSlide>
+    </Swiper>
         </div>
-      </div>
 
       <div className="mt-5 ">
         {/* <Slider {...settings}>

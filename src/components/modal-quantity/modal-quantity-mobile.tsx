@@ -1,5 +1,3 @@
-
-
 import React, { FormEvent, useEffect, useState } from "react";
 import "react-responsive-modal/styles.css";
 import Modal from "react-modal";
@@ -14,21 +12,21 @@ import OtherProduct from "../other-product/other-product";
 import SuccessCartModal from "../sucess-cart/succes-cart-moda";
 import convertToRupiah from "../../util/converRupiah";
 import QuantityCard from "../atom/quantity/quantity-card";
+import SuccessCartModalMobile from "../sucess-cart/success-cart-mobile-modal";
 
 const customStyles = {
   content: {
-    top: "50%",
+    top: "70%",
     left: "50%",
     right: "auto",
-    bottom: "auto",
-    width: "30%",
-    height: "50%",
+    width: "100%",
+    height: "80%",
     maxWidth: 800,
     maxHeight: 400,
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
-    border: "1px solid #ffff",
-    
+        border: "1px solid #ffff",
+    borderRadius: "20px 20px 0 0"
   },
   overlay: {
     background: "rgba(0, 0, 0, 0.6)",
@@ -36,7 +34,7 @@ const customStyles = {
   },
 };
 
-const ModalQuantityModal = ({
+const ModalQuantityMobileModal = ({
   bgActive = null,
   homeRouter = null,
   loginRequire = null,
@@ -45,8 +43,8 @@ const ModalQuantityModal = ({
 
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [quantity, setQuantity] = useState(1);
-  const [isAddNote, setIsAddNote] = useState(false)
-  const [subTotal, setSubtotal] = useState(100000)
+  const [isAddNote, setIsAddNote] = useState(false);
+  const [subTotal, setSubtotal] = useState(100000);
 
   const [error, setError] = useState("");
   const [email, setEmail] = useState("");
@@ -65,34 +63,16 @@ const ModalQuantityModal = ({
   function openModal() {
     setIsOpen(true);
   }
-    
+
   useEffect(() => {
     if (quantity < 0) {
-      setQuantity(0)
+      setQuantity(0);
     }
-      
-  }, [quantity])
-  useEffect(() => {
-    if (modalIsOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
-  }, [modalIsOpen]);
+  }, [quantity]);
 
-  
- 
   function closeModal() {
     setIsOpen(false);
   }
-
-    const addQuantity = () => {
-      setQuantity(quantity + 1);
-    };
-
-    const lessQuantity = () => {
-      setQuantity(quantity - 1);
-    };
   const submitForm = async (event: FormEvent) => {
     event.preventDefault();
   };
@@ -110,8 +90,7 @@ const ModalQuantityModal = ({
       <Modal
         isOpen={modalIsOpen}
         style={customStyles}
-        onRequestClose={closeModal}
-        contentLabel="Quantity Modal"
+        contentLabel="Login Modal"
       >
         <div className="relative w-full  ">
           <div className="absolute flex justify-end w-full">
@@ -128,46 +107,10 @@ const ModalQuantityModal = ({
             <div className="flex flex-col mt-10">
               {/* <h3>Beli berapa ?</h3> */}
               <span className=" text-black-400">Jumlah</span>
-              {/* <QuantityCard quantityValue={quantity}  setQuantityValue={() => setQuantity}/> */}
-
-              <div className="border w-full border-gray-300 mt-2 items-center py-1 px-1 rounded-md justify-between  flex flex-row">
-                {quantity > 0 ? (
-                  <button
-                    className="  border-l border-gray-300  w-1/3"
-                    onClick={() => lessQuantity()}
-                  >
-                    -
-                  </button>
-                ) : (
-                  <button className="  border-l border-gray-300  w-1/3">
-                    -
-                  </button>
-                )}
-
-                <input
-                  placeholder="1"
-                  className="pr-5 px-5 text-center border"
-                  value={quantity}
-                  defaultValue="0"
-                  onChange={(value) => {
-                    if (
-                      value.target.value == "" ||
-                      value.target.value == null
-                    ) {
-                      setQuantity(null);
-                    } else {
-                      setQuantity(parseInt(value.target.value));
-                    }
-                  }}
-                  type="number"
-                />
-                <button
-                  className="border-r border-gray-300 w-1/3"
-                  onClick={() => addQuantity()}
-                >
-                  +
-                </button>
-              </div>
+              <QuantityCard
+                quantityValue={quantity}
+                setQuantityValue={() => setQuantity}
+              />
               <span className="text-xs text-red-500 mt-2">
                 Maximal pembelian 100
               </span>
@@ -195,7 +138,7 @@ const ModalQuantityModal = ({
                 className="mt-5 flex flex-row items-center cursor-pointer"
               >
                 <span className="font-semibold text-sm text-black-400 text-blue-100 ml-3">
-                  Selesai
+                  Batalkan catatan
                 </span>
               </button>
             )}
@@ -207,7 +150,7 @@ const ModalQuantityModal = ({
             </div>
             <div className="mt-5">
               {subTotal > 0 && quantity > 0 ? (
-                <SuccessCartModal />
+                <SuccessCartModalMobile/>
               ) : (
                 <button
                   onClick={openModal}
@@ -224,5 +167,4 @@ const ModalQuantityModal = ({
   );
 };
 
-export default ModalQuantityModal;
-
+export default ModalQuantityMobileModal;

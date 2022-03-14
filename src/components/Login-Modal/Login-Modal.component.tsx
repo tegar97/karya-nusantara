@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import "react-responsive-modal/styles.css";
 import Modal from "react-modal";
@@ -40,6 +40,13 @@ const LoginModal = ({
   const [loading, setLoading] = useState(false);
   const [isUkm, setUkm] = useState(false);
   const [forgotPassword, setForgotPassword] = useState();
+  useEffect(() => {
+    if (modalIsOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+  }, [modalIsOpen]);
 
   const router = useRouter();
   const dispatch = useAuthDispatch();
@@ -127,6 +134,7 @@ const LoginModal = ({
       <Modal
         isOpen={modalIsOpen}
         style={customStyles}
+        onRequestClose={closeModal}
         contentLabel="Login Modal"
       >
         <div className="relative w-full">
