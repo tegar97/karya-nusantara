@@ -1,12 +1,13 @@
 import Link from "next/link";
+import ReactPlayer from "react-player";
 import styles from "./Hero.module.css";
 function Hero() {
   return (
     <div className={styles.HeroContainer}>
       <div
-        className={`flex items-center justify-center h-full HeroTextContainer`}
+        className={`flex items-center justify-center h-full HeroTextContainer relative`}
       >
-        {/* <img src="/assets/daun2.png" className={styles.daun} alt="hero" /> */}
+        <img src="/assets/daun2.png" className={styles.daun} alt="hero" />
         <div className="text-center  ">
           <h1
             style={{ textShadow: "1px 1px 1px white" }}
@@ -24,6 +25,7 @@ function Hero() {
             </button>
           </Link>
         </div>
+      
       </div>
     </div>
   );
