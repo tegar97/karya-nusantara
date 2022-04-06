@@ -10,6 +10,7 @@ import ScrollAnimation from "react-animate-on-scroll";
 import { NextSeo } from "next-seo";
 import { Html } from "next/document";
 import ProductCategoryMobile from "../components/product-category/product-category.mobile";
+import BestProduct from "../components/bestProduct/bestProduct";
 
 export async function getStaticProps(context) {
   const res = await fetch(`${process.env.API_LARAVEL}/api/settings`);
@@ -32,8 +33,7 @@ export default function Home({ data, data2 }) {
           name="keywords"
           content="ukm indonesia, kerja sama ukm,umks indonesia, karya nusantara,jual,beli,ukm"
         />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
       <NextSeo
         title="Karya Nusantara - Ragam Solusi Berkualitas Hasil Karya UKM Lokal Indonesia"
@@ -63,6 +63,9 @@ export default function Home({ data, data2 }) {
       </div>
       <div className="block lg:hidden md:block">
         <ProductCategoryMobile />
+      </div>
+      <div className="block lg:lock md:hidden">
+        <BestProduct />
       </div>
       <ScrollAnimation animateIn="fadeIn">
         <Rfq />

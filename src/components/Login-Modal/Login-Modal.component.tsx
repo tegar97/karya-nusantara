@@ -8,6 +8,10 @@ import { useAuthDispatch } from "./../../context/auth";
 import { route } from "next/dist/next-server/server/router";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import Cookie from "js-cookie";
+import { setLogin } from "../../constant/api/auth";
+import {toast } from "react-toastify";
+import jwt_decode from "jwt-decode";
 
 const customStyles = {
   content: {
@@ -21,7 +25,7 @@ const customStyles = {
   },
   overlay: {
     background: "rgba(0, 0, 0, 0.6)",
-    zIndex: 1000000000000,
+    zIndex: 31,
   },
 };
 
@@ -63,39 +67,36 @@ const LoginModal = ({
     setIsOpen(false);
   }
   const submitForm = async (event: FormEvent) => {
+    const data = {
+      email,
+      password
+
+    }
     event.preventDefault();
 
     setLoading(true);
     if (email.length == 0 || password.length == 0) {
-      setError("Email Dan Password Wajib di isi");
+      toast.error('Silahkan masukan email dan password')
       setLoading(false);
     } else {
       try {
-        await axios
-          .post(
-            "/v1/users/login",
-            {
-              email,
-              password,
-              Role: isUkm ? "ukm" : "users",
-            },
-            { withCredentials: true }
-          )
-          .then(async (res) => {
-            await axios
-              .get(`${process.env.API_LARAVEL}/api/updateKey/${res.data.ID}`, {
-                withCredentials: false,
-              })
-              .catch((err) => {
-                console.log(err);
-              });
-            dispatch("LOGIN_REGISTER", res.data);
-          });
 
-        setIsOpen(false);
-        router.push("/");
+        const response = await setLogin(data);
+        if (response.error) {
+          toast.error(response.message)
+        } else {
+          const { access_token } = response.data;
+          const user = jwt_decode(access_token);
+          toast.success('Berhasil login ')
+          router.push('/')
+          setIsOpen(false)
+          Cookie.set('token', access_token, { expires: 1 });
+          router.reload()
+          
+        } 
       } catch (err) {
-        setError(err.response.data.general);
+        console.log(err)
+        // setError(err.response.data.general);
       } finally {
         dispatch("STOP_LOADING");
         setLoading(false);
@@ -105,6 +106,7 @@ const LoginModal = ({
   Modal.setAppElement("#root");
 
   return (
+    <>
     <div className="inline-block ">
       <div
         className={`lg:px-5 lg:py-1    ${
@@ -228,6 +230,7 @@ const LoginModal = ({
         </div>
       </Modal>
     </div>
+    </>
   );
 };
 

@@ -10,7 +10,11 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import CardItem from "../atom/card-item/card-item";
 import OtherProduct from "../other-product/other-product";
-
+import { connect } from "react-redux";
+import { addProductToCart } from "../../redux/cart/action/cart";
+import { Store } from "@material-ui/icons";
+import { addToCart } from "../../constant/api/cart";
+import Cookie from 'js-cookie'
 const customStyles = {
   content: {
     top: "50%",
@@ -32,11 +36,8 @@ const customStyles = {
 };
 
 
-const SuccessCartModal = ({
-  bgActive = null,
-  homeRouter = null,
-  loginRequire = null,
-}) => {
+const SuccessCartModal = (props
+  ) => {
   let subtitle;
 
   const [modalIsOpen, setIsOpen] = React.useState(false);
@@ -47,6 +48,7 @@ const SuccessCartModal = ({
   const [loading, setLoading] = useState(false);
   const [isUkm, setUkm] = useState(false);
   const [forgotPassword, setForgotPassword] = useState();
+  const { item,quantity } = props;
 
   const router = useRouter();
   const dispatch = useAuthDispatch();
@@ -56,6 +58,8 @@ const SuccessCartModal = ({
   };
 
   function openModal() {
+        props.addProduct(item);
+
     setIsOpen(true);
   }
 
@@ -76,11 +80,24 @@ const SuccessCartModal = ({
    
   };
   Modal.setAppElement("#root");
+  const submit = async () => {
+    console.log(item.id)
+    const data = {
+      products_id: item.id,
+      quantity: quantity,
+    };
+    const token = Cookie.get('token');
+    const bearer = `Bearer ${token}`
+    const response = await addToCart(data, bearer);
 
+    if (response.error === false) {
+      setIsOpen(true)
+    } console.log(response);
+  }
   return (
     <div>
       <button
-        onClick={openModal}
+        onClick={() => submit()}
         className="bg-blue-100 hover:opacity-80 text-white font-bold py-2 px-4 w-full rounded outline-none"
       >
         Order
@@ -111,14 +128,14 @@ const SuccessCartModal = ({
               <h3 className="font-bold text-lg">
                 Product Lainya dari toko Illu factory
               </h3>
-                          <div className="grid grid-cols-5 gap-3 mt-5">
-                              <OtherProduct/>
-                              <OtherProduct/>
-                              <OtherProduct/>
-                              <OtherProduct/>
-                              <OtherProduct/>
-                              <OtherProduct/>
-                              <OtherProduct/>
+              <div className="grid grid-cols-5 gap-3 mt-5">
+                <OtherProduct />
+                <OtherProduct />
+                <OtherProduct />
+                <OtherProduct />
+                <OtherProduct />
+                <OtherProduct />
+                <OtherProduct />
               </div>
             </div>
           </div>
@@ -128,5 +145,17 @@ const SuccessCartModal = ({
   );
 };
 
-export default SuccessCartModal;
+const mapStateToProps = (state) => {
+  return {
+    products: state.products,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addProduct: (product) => dispatch(addProductToCart(product)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SuccessCartModal);
 

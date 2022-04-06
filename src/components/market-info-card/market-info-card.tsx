@@ -1,6 +1,8 @@
+import { Avatar } from '@material-ui/core';
+import Link from 'next/link';
 import React from 'react'
 
-function MarketInfoCard() {
+function MarketInfoCard({ ukmData }) {
   return (
     <div
       className="flex flex-col border border-gray-200  	"
@@ -9,24 +11,32 @@ function MarketInfoCard() {
       <div className=" flex-1 flex-row flex justify-between pl-5 pr-5 pt-4 pb-4 ">
         <div className="flex-row flex justify-start w-11/12 location.svg">
           <div>
-            <img
-              alt="Logo Illo Factory"
-              src="https://bs.moselo.com/images/users/small/user20688-1553606060"
-              className="object-cover  rounded-full"
-              style={{ width: 50, height: 50 }}
-            />
+            {ukmData.profile ? (
+              <img
+                alt="Logo Illo Factory"
+                src=""
+                className="object-cover  rounded-full"
+                style={{ width: 50, height: 50 }}
+              />
+            ) : (
+              <Avatar style={{ backgroundColor: "#5996ab" }}>
+                {ukmData.ukmName.charAt(0)}{" "}
+              </Avatar>
+            )}
           </div>
           <div className="flex flex-col ml-2 ">
-            <span className="text-md font-bold">Illo Factory</span>
+            <span className="text-md font-bold">{ukmData.ukmName}</span>
             <span className="" style={{ fontSize: 11 }}>
-              Jakarta Barat, DKI Jakarta
+              {ukmData.city_name}, {ukmData.province_name}
             </span>
           </div>
         </div>
         <div className="w-full flex-1">
-          <button className="border border-gray-200 text-gray-600 font-bold p-1 pl-4 pr-4  w-full rounded text-xs">
-            View Profile
-          </button>
+          <Link href={`/mitra/profile/${ukmData.slug}`}>
+            <button className="border border-gray-200 text-gray-600 font-bold p-1 pl-4 pr-4  w-full rounded text-xs">
+              View Profile
+            </button>
+          </Link>
         </div>
       </div>
       <div className="border-t border-gray-200 flex flex-row ">

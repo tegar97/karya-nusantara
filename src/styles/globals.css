@@ -29,7 +29,10 @@
 .ReactModal__Overlay--before-close{
     opacity: 0;
 }
-
+.Toastify {
+    position: absolute;
+    z-index: 999999;
+}
 .ModalLogin {
   top: 50%;
   left: 50%;
@@ -316,4 +319,43 @@
     transform: translate(-50%,-50%);
   width: 50%;
   height: 50%; /* Need a specific value to work */
+}
+
+
+.swiper-button-next,
+.swiper-button-prev {
+    background-color: white;
+    border-radius: 100%;
+   width: 20px !important;
+   height: 20px !important;
+    padding: 10px;
+    color: #000 !important;
+    fill: black !important;
+    stroke: black !important;
+    top: 50% !important;
+}
+.swiper-button-next {
+  right: 0 !important;
+}
+.swiper-button-prev {
+  left: 0 !important;
+}
+.swiper-button-next::after{
+    font-size: 13px !important;
+    text-transform: none!important;
+    letter-spacing: 0;
+        font-weight: bold;
+
+    text-transform: none;
+    font-variant: initial;
+    line-height: 1;
+}
+.swiper-button-prev::after{
+    font-size: 13px !important;
+    font-weight: bold;
+    text-transform: none!important;
+    letter-spacing: 0;
+    text-transform: none;
+    font-variant: initial;
+    line-height: 1;
 }

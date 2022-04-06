@@ -7,7 +7,7 @@ import { useAuthDispatch } from "./../../context/auth";
 import { route } from "next/dist/next-server/server/router";
 import { useRouter } from "next/router";
 
-import { Button, Input, TextField } from "@material-ui/core";
+import { Button, Input, MenuItem, Select, TextField } from "@material-ui/core";
 import FormInput from "../input-container/input-container";
 
 const customStyles = {
@@ -39,7 +39,7 @@ const PopAddressBox = (props,{
   let subtitle;
 
   const [modalIsOpen, setIsOpen] = React.useState(false);
-
+  const [province, setProvince] = React.useState([]);
   const styles = {
     textAlign: "center",
     padding: 0,
@@ -55,6 +55,21 @@ const PopAddressBox = (props,{
     setIsOpen(false);
   }
 
+  useEffect(() => {
+    // Get province data
+    const getProvince = async () => {
+ const province = await axios
+   .get(
+     "https://api.rajaongkir.com/starter/province?key=6ff13d6f98bc4ca4390a7332bb2e12bb"
+   )
+   .then((res) => {
+     console.log(res)
+     setProvince(res.data.provinsi);
+   });
+    }
+   getProvince()
+  },[])
+  console.log(province)
 
   const submitForm = async (event: FormEvent) => {
     event.preventDefault();
@@ -113,6 +128,16 @@ const PopAddressBox = (props,{
                   label="Nomor Telepon"
                 />
               </div>
+              <select className="w-full">
+                {province.map(res => {
+             
+                  return (
+                    <option value={res.province_id}>{res.province}</option>
+                  );
+
+                })}
+  
+              </select>
               <div className="grid grid-cols-4 gap-3">
                 <div className="col-span-3">
                   <FormInput

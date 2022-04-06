@@ -1,4 +1,4 @@
-function BreadCrumbs() {
+function BreadCrumbs({data}) {
     return (
       <nav className="flex" aria-label="Breadcrumb">
         <ol className="inline-flex items-center space-x-1 md:space-x-3">
@@ -50,7 +50,7 @@ function BreadCrumbs() {
                 href="#"
                 className="text-gray-400 hover:text-gray-900 ml-1 md:ml-2 text-xs lg:text-sm font-medium w-full "
               >
-                Alat Pelindung diri
+                { data.category.categoryName}
               </a>
             </div>
           </li>
@@ -69,7 +69,7 @@ function BreadCrumbs() {
                 ></path>
               </svg>
               <span className="text-gray-400 ml-1 md:ml-2 text-sm font-medium">
-                Masker
+                {data.name}
               </span>
             </div>
           </li>

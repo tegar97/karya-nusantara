@@ -14,6 +14,9 @@ import OtherProduct from "../other-product/other-product";
 import SuccessCartModal from "../sucess-cart/succes-cart-moda";
 import convertToRupiah from "../../util/converRupiah";
 import QuantityCard from "../atom/quantity/quantity-card";
+import { min } from "moment";
+import { connect } from "react-redux";
+import { addToCart } from "../../constant/api/cart";
 
 const customStyles = {
   content: {
@@ -21,8 +24,8 @@ const customStyles = {
     left: "50%",
     right: "auto",
     bottom: "auto",
-    width: "30%",
-    height: "50%",
+    width: "40%",
+    height: "60%",
     maxWidth: 800,
     maxHeight: 400,
     marginRight: "-50%",
@@ -40,13 +43,17 @@ const ModalQuantityModal = ({
   bgActive = null,
   homeRouter = null,
   loginRequire = null,
+  stock,
+  minimumBuy,
+  price,
+  item
 }) => {
   let subtitle;
 
   const [modalIsOpen, setIsOpen] = React.useState(false);
-  const [quantity, setQuantity] = useState(1);
-  const [isAddNote, setIsAddNote] = useState(false)
-  const [subTotal, setSubtotal] = useState(100000)
+  const [quantity, setQuantity] = useState(parseInt(minimumBuy));
+  const [isAddNote, setIsAddNote] = useState(false);
+  const [subTotal, setSubtotal] = useState(parseInt(price));
 
   const [error, setError] = useState("");
   const [email, setEmail] = useState("");
@@ -63,15 +70,15 @@ const ModalQuantityModal = ({
   };
 
   function openModal() {
+    
     setIsOpen(true);
   }
-    
+
   useEffect(() => {
     if (quantity < 0) {
-      setQuantity(0)
+      setQuantity(0);
     }
-      
-  }, [quantity])
+  }, [quantity]);
   useEffect(() => {
     if (modalIsOpen) {
       document.body.style.overflow = "hidden";
@@ -80,21 +87,37 @@ const ModalQuantityModal = ({
     }
   }, [modalIsOpen]);
 
-  
- 
   function closeModal() {
     setIsOpen(false);
   }
 
-    const addQuantity = () => {
-      setQuantity(quantity + 1);
-    };
+  useEffect(() => {
+    if (quantity > stock) {
+      setError(`Maximal pembelian ${quantity} `);
+    } else {
+      setError("");
+    }
+    if (quantity < minimumBuy) {
+      setError(`minimum pembelian adalah ${minimumBuy} `);
+    } else {
+            setError("");
 
-    const lessQuantity = () => {
-      setQuantity(quantity - 1);
-    };
+    }
+  }, [quantity]);
+
+  const addQuantity = () => {
+    if (stock >= stock) {
+      setQuantity(quantity + 1);
+    }
+  };
+
+  const lessQuantity = () => {
+    if (minimumBuy < quantity) setQuantity(quantity - 1);
+  };
   const submitForm = async (event: FormEvent) => {
     event.preventDefault();
+    console.log(`from here`,item.id)
+   
   };
   Modal.setAppElement("#root");
 
@@ -131,7 +154,7 @@ const ModalQuantityModal = ({
               {/* <QuantityCard quantityValue={quantity}  setQuantityValue={() => setQuantity}/> */}
 
               <div className="border w-full border-gray-300 mt-2 items-center py-1 px-1 rounded-md justify-between  flex flex-row">
-                {quantity > 0 ? (
+                {quantity > 1 ? (
                   <button
                     className="  border-l border-gray-300  w-1/3"
                     onClick={() => lessQuantity()}
@@ -139,7 +162,7 @@ const ModalQuantityModal = ({
                     -
                   </button>
                 ) : (
-                  <button className="  border-l border-gray-300  w-1/3">
+                  <button className="  border-l border-gray-300  w-1/3 text-gray-400">
                     -
                   </button>
                 )}
@@ -148,7 +171,6 @@ const ModalQuantityModal = ({
                   placeholder="1"
                   className="pr-5 px-5 text-center border"
                   value={quantity}
-                  defaultValue="0"
                   onChange={(value) => {
                     if (
                       value.target.value == "" ||
@@ -161,18 +183,28 @@ const ModalQuantityModal = ({
                   }}
                   type="number"
                 />
-                <button
-                  className="border-r border-gray-300 w-1/3"
-                  onClick={() => addQuantity()}
-                >
-                  +
-                </button>
+                {stock > quantity ? (
+                  <button
+                    className="border-r border-gray-300 w-1/3"
+                    onClick={() => addQuantity()}
+                  >
+                    +
+                  </button>
+                ) : (
+                  <button
+                    disabled
+                    className="border-r border-gray-300 w-1/3  text-gray-400"
+                  >
+                    +
+                  </button>
+                )}
               </div>
+           
               <span className="text-xs text-red-500 mt-2">
-                Maximal pembelian 100
+                {error ? error : ""}
               </span>
             </div>
-            {!isAddNote && (
+            {/* {!isAddNote && (
               <button
                 onClick={() => setIsAddNote(true)}
                 className="mt-5 flex flex-row items-center cursor-pointer"
@@ -182,7 +214,7 @@ const ModalQuantityModal = ({
                   Tambah catatan
                 </span>
               </button>
-            )}
+            )} */}
             {isAddNote && (
               <input
                 className="w-full border  rounded-md px-2 py-2  mt-5 border-blue-100"
@@ -202,17 +234,16 @@ const ModalQuantityModal = ({
             <div className="mt-5">
               <span>
                 Sub total :{" "}
-                {quantity < 0 ? 0 : convertToRupiah(subTotal * quantity)}{" "}
+                {quantity < 0 ? 0 : convertToRupiah(price * quantity)}{" "}
               </span>
             </div>
             <div className="mt-5">
-              {subTotal > 0 && quantity > 0 ? (
-                <SuccessCartModal />
+              {error === "" && subTotal > 0 && quantity > 0 ? (
+                <>
+                  <SuccessCartModal item={item} quantity={quantity} />
+                </>
               ) : (
-                <button
-                  onClick={openModal}
-                  className="bg-blue-100 opacity-40  text-white font-bold py-2 px-4 w-full rounded outline-none"
-                >
+                <button className="bg-blue-100 opacity-40  text-white font-bold py-2 px-4 w-full rounded outline-none">
                   Order
                 </button>
               )}
@@ -224,5 +255,5 @@ const ModalQuantityModal = ({
   );
 };
 
-export default ModalQuantityModal;
 
+export default ModalQuantityModal

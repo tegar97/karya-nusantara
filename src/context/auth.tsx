@@ -1,4 +1,5 @@
 import axios from "axios";
+import router from "next/router";
 import React, { createContext, useReducer, useContext, useEffect } from "react";
 
 interface User {
@@ -68,9 +69,28 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     async function loadUser() {
       try {
-        const res = await axios.get("v1/users/me", { withCredentials: true });
 
-        dispatch("LOGIN_REGISTER", res.data);
+          const token = localStorage.getItem("token");
+
+        // const res = await axios.get("v1/users/me", { withCredentials: true });
+
+        // dispatch("LOGIN_REGISTER", res.data);
+     
+
+        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+        await axios
+          .post("/auth/me")
+          .then((response) => {
+            console.log('hi from context',response);
+
+            //set response user to state
+           dispatch("LOGIN_REGISTER", response.data);
+          })
+          .catch((e) => {
+            console.log(e);
+            localStorage.removeItem("token");
+          });
+
       } catch (err) {
       } finally {
         dispatch("STOP_LOADING");

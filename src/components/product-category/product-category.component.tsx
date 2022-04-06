@@ -35,11 +35,9 @@ function ProductCategory({ data2 }) {
           </ScrollAnimation>
           <ScrollAnimation animateIn="fadeIn">
             <FadeInAnimation direction="up">
-              <ul className="mt-3">
-                <Link href="/product">
+              <ul className="mt-3 relative">
                   <CategoryProductList
                     className="shadow-lg"
-                    onClick={() => setCategoryId(2)}
                   >
                     <Image
                       src="/assets/icon-mask.png"
@@ -51,7 +49,6 @@ function ProductCategory({ data2 }) {
                       Alat Pelindung Diri
                     </span>
                   </CategoryProductList>
-                </Link>
 
                 <Link href="/product">
                   <CategoryProductList

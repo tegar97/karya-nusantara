@@ -7,7 +7,36 @@ import Reviews from "../../../components/Reviews/reviews";
 import SuccessCartModal from "../../../components/sucess-cart/succes-cart-moda";
 import ModalQuantityModal from "../../../components/modal-quantity/modal-quantity";
 import ModalQuantityMobileModal from "../../../components/modal-quantity/modal-quantity-mobile";
-function Slug() {
+
+// export async function getStaticPaths() {
+//   // Call an external API endpoint to get posts
+//   const res = await fetch(`${process.env.API_V2}/api/umkm/product`);
+//   const posts = await res.json();
+
+//   // Get the paths we want to pre-render based on posts
+//   const paths = posts.data.data.map((post) => ({
+//     params: { slug: post.slug },
+//   }));
+
+//   // We'll pre-render only these paths at build time.
+//   // { fallback: false } means other routes should 404.
+//   return { paths, fallback: true };
+// }
+
+// // This also gets called at build time
+// export async function getStaticProps({ params }) {
+//   // params contains the post `id`.
+//   // If the route is like /posts/1, then params.id is 1
+//   const res = await fetch(
+//     `${process.env.API_V2}/api/umkm/product/${params}`
+//   );
+ 
+//   const product = await res.json();
+
+//   // Pass post data to the page via props
+//   return { props: { product }, revalidate: 1 };
+// }
+function Slug({ }) {
   return (
     <div className="relative">
       <div

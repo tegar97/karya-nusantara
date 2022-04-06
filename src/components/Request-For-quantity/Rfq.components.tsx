@@ -21,6 +21,7 @@ function Rfq() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   const ImageChangeHandler = (event) => {
+    console.log(event.target.files[0])
     setSelectedFile(event.target.files[0]);
   };
   const onSubmit = async (e) => {
@@ -75,6 +76,7 @@ function Rfq() {
       console.log(error);
     }
   };
+  console.log(file)
   return (
     <div className="py-3 mt-5 lg:px-20  container-box">
       <RfqBackground>

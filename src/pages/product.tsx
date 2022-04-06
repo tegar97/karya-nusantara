@@ -14,23 +14,25 @@ import {
 } from "../components/category-items/category-items.styled";
 import { NextSeo } from "next-seo";
 import { CategoryProductContext } from "../context/productCategory";
+import { Checkbox } from "@material-ui/core";
+import { getProduct } from "../constant/api/product";
 
-export async function getStaticProps() {
-  const res = await fetch(`${process.env.API_LARAVEL}/api/categoryProduct`);
-  const category = await res.json();
+// export async function getStaticProps() {
+//   const res = await fetch(`${process.env.API_LARAVEL}/api/categoryProduct`);
+//   const category = await res.json();
 
-  if (!category) {
-    return {
-      notFound: true,
-    };
-  }
+//   if (!category) {
+//     return {
+//       notFound: true,
+//     };
+//   }
 
-  return {
-    props: { category },
-    revalidate: 1,
-    // will be passed to the page component as props
-  };
-}
+//   return {
+//     props: { category },
+//     revalidate: 1,
+//     // will be passed to the page component as props
+//   };
+// }
 
 function Product({ category }) {
   const itemContainerRef = useRef();
@@ -38,39 +40,45 @@ function Product({ category }) {
   const [categoryData, setCategoryData]: any = useState([]);
   const [loading, setLoading] = useState(false);
   const [search, setSearch]: any = useState("");
+  const [product, setProduct] = useState([]);
   const [search2, setSearch2] = useState("");
+  const [city, setCity] = useState('');
+  const [listCity, setListCity] = useState([]);
 
   const [categoryId, setCategoryId] = useContext(CategoryProductContext);
-  console.log(categoryId);
   const onSearch = (e) => {
     setSearch(e.target.value.toLowerCase());
   };
   useEffect(() => {
     const getProductByCategory = async () => {
-      if (categoryId > 0) {
-        await axios
-          .get(
-            `${process.env.API_LARAVEL}/api/getProductCategory/${categoryId}`,
-            {
-              withCredentials: false,
-            }
-          )
-          .then((res) => {
-            setLoading(true);
-
-            setCategoryData(res.data.data);
-            setLoading(false);
-          });
+      console.log('useEffect city',city)
+      setLoading(true);
+      if (city === '') {
+        const response = await getProduct('');
+        
+      if (response) {
+        setProduct(response.data);
       }
+        
+      } else {
+        const response = await getProduct(city);
+        
+      if (response) {
+        setProduct(response.data);
+      }
+      }        
+
+      setLoading(false);
+
     };
     getProductByCategory();
-  }, [categoryId]);
+  }, [city]);
 
-  useEffect(() => {
-    setLoading(true);
-    setCategoryData(category.data);
-    setLoading(false);
-  }, []);
+  // useEffect(() => {
+  //   setLoading(true);
+  //   setCategoryData(category.data);
+  //   setLoading(false);
+  // }, []);
 
   useEffect(() => {
     AOS.init();
@@ -103,6 +111,37 @@ function Product({ category }) {
         setCategoryData(res.data.data);
       });
   };
+
+  useEffect(() => {
+    console.log(city);
+
+  },[city])
+  const changeLocation = (val) => {
+    console.log(val.target.checked)
+
+    if (val.target.checked) {
+       if (city === "") {
+         setCity(`${val.target.name}`);
+       } else {
+         setCity((prev) => `${prev},${val.target.name}`);
+       }
+    } 
+
+    if (val.target.checked === false) {
+      if (city === val.target.name) {
+        setCity(city.replace(val.target.name, ""));
+      } else {
+        setCity(city.replace(`,${val.target.name}`, ""));
+      }        
+
+    }
+    
+     
+ 
+    // cityNull.concat(val.target.name);
+    // setCity();
+
+  }
 
   const settings = {
     dots: true,
@@ -138,35 +177,70 @@ function Product({ category }) {
         }}
         className="w-full px-6 py-10 lg:py-20 lg:px-16 container-box "
       >
-        <div
-          className={`flex flex-col justify-center w-full mt-10 lg:px-60  transition duration-700 ease-in group ${
-            fixPosition &&
-            "  border-2  border-blue-100 z-10 bg-white lg:py-10 top-10  "
-          }`}
-        >
-          <CategoryContainer className="grid justify-center grid-cols-4 gap-x-5 lg:gap-x-10 gap-y-5 lg:grid-cols-5 ">
-            {category.data.map((data) => (
-              <CategoryItems data={data} setCategoryId={setCategoryId} />
-            ))}
-          </CategoryContainer>
-          <SearchContainer className="z-0 mt-3 group-hover:z-1">
-            <form onSubmit={onSearchSubmit} method="GET">
-              <ProductSearch onSearch={onSearch} />
-            </form>
-          </SearchContainer>
+        <div className="grid grid-cols-5">
+          <div className="flex flex-col">
+            <div className="box shadow-md w-full max-h-44 px-2 py-2">
+              <span>Kategori</span>
+            </div>
+            <div className="box shadow-md w-full max-h-44 px-2 py-4 mt-2 flex flex-col rounded-md">
+              <span>Lokasi</span>
+              <div className="mt-2 flex-col">
+                <div className="city ">
+                  <Checkbox
+                    className="py-1 px-1"
+                    style={{
+                      color: "#5996ab",
+                    }}
+                    name="Bandung"
+                    onChange={(val) => changeLocation(val)}
+                  />
+                  <span className="text-sm text-gray-600">Bandung</span>
+                </div>
+                <div className="city ">
+                  <Checkbox
+                    className="py-1 px-1"
+                    style={{
+                      color: "#5996ab",
+                    }}
+                    name="jakarata"
+                    onChange={(val) => changeLocation(val)}
+                  />
+                  <span className="text-sm text-gray-600">Jakarta</span>
+                </div>
+                <div className="city ">
+                  <Checkbox
+                    className="py-1 px-1"
+                    style={{
+                      color: "#5996ab",
+                    }}
+                    name="Kabupaten Batang"
+                    onChange={(val) => changeLocation(val)}
+                  />
+                  <span className="text-sm text-gray-600">
+                    Kabupaten Batang
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="col-span-4 lg:px-10">
+            <SearchContainer className="z-0 mt-3 group-hover:z-1">
+              <form onSubmit={onSearchSubmit} method="GET">
+                <ProductSearch onSearch={onSearch} />
+              </form>
+            </SearchContainer>
+            {product?.length > 0 ? (
+              product?.map((data) => (
+                <ProductItems data={data} loading={loading} />
+              ))
+            ) : (
+              <div className="text-center mt-10">
+                <h1>Tidak ada produk yang sesuai</h1>
+              </div>
+            )}
+            {}
+          </div>
         </div>
-
-        {loading ? (
-          <SkeletonTheme color="#fffff" highlightColor="#ffff">
-            <p>
-              <Skeleton count={3} />
-            </p>
-          </SkeletonTheme>
-        ) : categoryData.length == 0 ? (
-          ""
-        ) : (
-          categoryData.map((data) => <ProductItems data={data} />)
-        )}
       </div>
     </>
   );

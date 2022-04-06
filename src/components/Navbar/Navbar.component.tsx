@@ -1,32 +1,89 @@
 import React, { useRef, useState, useEffect } from "react";
 import LoginModal from "./../Login-Modal/Login-Modal.component";
-import NavbarToggle from "./Navbar-toggle";
 import { motion, useCycle } from "framer-motion";
-import { useDimensions } from "./use-dimensions";
+
 import Link from "next/link";
-import { useAuthState, useAuthDispatch } from "../../context/auth";
-import axios from "axios";
-import NavProfile from "../nav-profile/nav-profile.component";
-import NavbarProfile from "../nav-profile/nav-profile.component";
-import { Link as SmoothScroll, animateScroll as scroll } from "react-scroll";
+
 import MenuIcon from "@material-ui/icons/Menu";
 import CloseIcon from "@material-ui/icons/Close";
 import { useRouter } from "next/router";
 import { NavbarSupport } from "../../navbar/navbar.styled";
-import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
+
+import Cookie from 'js-cookie'
+import { getProfile, refresh } from "../../constant/api/auth";
+import { Button, Menu, MenuItem } from "@material-ui/core";
+import profileDropdown from "./profileDropdown";
+import ProfileDropdown from "./profileDropdown";
 function Navbar({ menuDrop, setMenuDrop }) {
-  const { authenticated, loading, user } = useAuthState();
+  const [userDataState, setUserData] = useState()
   const [isOpen, toggleOpen] = useCycle(false, true);
   const containerRef = useRef(null);
   const [active, setActive] = useState(false);
   const [bgActive, setBgActive] = useState(false);
   const [registerSelection, setRegisterSelection] = useState(false);
   const router = useRouter();
+
+  /// Material ui dropdown
+   const [anchorEl, setAnchorEl] = useState(null);
+   const open = Boolean(anchorEl);
+   const handleClick = (event) => {
+     setAnchorEl(event.currentTarget);
+  };
+  
+    const handleClose = () => {
+      setAnchorEl(null);
+  };
+  //---------------------------------------
+  const [user, setUser] = useState({
+    name: '',
+    email: '',
+    id: '',
+
+  });
+  const [loading, setLoading] = useState(false);
   const [dropDown, setDropDown] = useState(false);
 
   useEffect(() => {
     window.addEventListener("scroll", changeBackground);
+
+    // if (token) {
+    //   const userData = Cookie.get('userData');
+    //     setUserData(userData); 
+    // }
+
+    // console.log(userDataState);
   }, []);
+
+  useEffect(() => {
+    const token = Cookie.get('token');
+    const bearerToken = `Bearer ${token}`
+    if (token) {
+      const load = async () => {
+        setLoading(true)
+
+        try {
+         
+          const response = await getProfile(bearerToken);
+          setUser(response.data.data);
+        console.log(response);
+
+        } catch (error) { 
+          const newToken = await refresh(bearerToken)
+          Cookie.set("token", newToken.data.access_token,{expires: 1});
+          router.reload();
+          console.log(error)
+          
+        }
+        
+        setLoading(false);
+
+      }
+      load()
+    } else {
+      setUser(null)
+    }
+  },[])
+
   const homeRouter = router.pathname === "/";
 
   const changeBackground = () => {
@@ -36,6 +93,7 @@ function Navbar({ menuDrop, setMenuDrop }) {
       setBgActive(false);
     }
   };
+
   return (
     <NavbarSupport
       style={{
@@ -47,8 +105,7 @@ function Navbar({ menuDrop, setMenuDrop }) {
           : "bg-white  shadow-sm "
       }`}
     >
-      <div className=" items-center justify-between w-full flex container-box" >
-
+      <div className=" items-center justify-between w-full flex container-box">
         <div>
           <Link href="/">
             {!bgActive && homeRouter ? (
@@ -115,9 +172,10 @@ function Navbar({ menuDrop, setMenuDrop }) {
               <Link href="/mitra"> UKM Mitra</Link>
             </li>
 
-            {!loading && authenticated ? (
+            {user ? (
               <div className=" lg:block">
-                <NavbarProfile />
+                {/* <NavbarProfile /> */}
+                <span>holaaa</span>
                 {/* <button className="p-2 ml-4 text-white bg-blue-100 " onClick={logout}>
               Logout
             </button>
@@ -192,13 +250,15 @@ function Navbar({ menuDrop, setMenuDrop }) {
             </li>
           </ul>
         </div>
-        {!loading && authenticated ? (
+        {user ? (
           <div className="hidden lg:block">
-            <NavbarProfile />
-            {/* <button className="p-2 ml-4 text-white bg-blue-100 " onClick={logout}>
+            {/* <NavbarProfile /> */}
+            {/* <span>{ user?.name}</span> */}
+            {/* <button className="p-2 ml-4 text-white bg-blue-100 rouned-md">
               Logout
-            </button>
-            <span>{user.Name}</span> */}
+            </button> */}
+      
+            <ProfileDropdown loading={loading} name={user.name} />
           </div>
         ) : (
           <div className="relative hidden lg:block ">

@@ -22,7 +22,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "sitemap-mitra.js", "src/components/Hero/Hero.component.js"  ],
+, "sitemap-mitra.js", "src/components/Hero/Hero.component.js", "src/context/cart/index.js"  ],
   "exclude": [
     "node_modules"
   ]

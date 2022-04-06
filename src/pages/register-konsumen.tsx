@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container } from "@material-ui/core";
 import FormInput from "../components/input-container/input-container";
 import router from "next/router";
@@ -7,13 +7,19 @@ import styled from "styled-components";
 import { NextSeo } from "next-seo";
 
 const BgContainer = styled.div`
-  min-height: 180vh;
+  min-height: 100vh;
   background-repeat: none;
 `;
 function RegisterKonsumen() {
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({
+    email: '',
+    phoneNumber: '',
+    password: '',
+    name : '',
+  });
   const [loading, setLoading] = useState(false);
   const [error, setError]: any = useState({});
+
 
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -24,23 +30,26 @@ function RegisterKonsumen() {
     setLoading(true);
 
     try {
-      const res = await axios.post("/v1/users/register", formData);
+      const res = await axios.post("/auth/register", formData);
       router.push("/success");
-      await axios.post(
-        `${process.env.API_LARAVEL}/api/sendEmail`,
-        {
-          email: res.data.email,
-          name: res.data.name,
-          token: res.data.VerifyToken,
-        },
-        { withCredentials: false }
-      );
+      // await axios.post(
+      //   `${process.env.API_LARAVEL}/api/sendEmail`,
+      //   {
+      //     email: res.data.email,
+      //     name: res.data.name,
+      //     token: res.data.VerifyToken,
+      //   },
+      //   { withCredentials: false }
+      // );
     } catch (err) {
-      setError(err.response.data);
+      console.log(err.response.data)
+      setError(err.response.data.meta);
     }
 
     setLoading(false);
   };
+
+  console.log(formData.name.length)
   return (
     <>
       <NextSeo
@@ -66,120 +75,54 @@ function RegisterKonsumen() {
       <BgContainer className="flex justify-center w-full bg-no-repeat bg-cover container-box ">
         <Container
           maxWidth="xl"
-          className="w-11/12 h-full px-5 py-5 mt-24 bg-white lg:mt-32 lg:w-1/2"
-          style={{ boxShadow: "2px 2px #5996ab", borderRadius: "10px" }}
+          className="w-11/12 h-full px-5 py-5 mt-24 bg-white lg:mt-32 lg:w-1/2 shadow-xl rounded-lg"
+          style={{ borderRadius: "10px" }}
         >
           <div className="flex justify-center w-full ">
             <img
-              width="200"
-              height="200"
+              width="300"
+              height="300"
               className="object-cover "
               src="/assets/logo-nav-min.png"
             />
           </div>
           <form onSubmit={onSubmit} method="post">
             <FormInput
-              name="email"
-              id="email"
-              type="email"
-              placeholder="Email anda"
-              onChange={(e) => onChange(e)}
-              className=""
-              error={error.email}
-            />
-
-            <FormInput
-              name="password"
-              id="password"
-              placeholder="Password anda"
-              type="password"
-              onChange={(e) => onChange(e)}
-              className=""
-              error={error.password}
-            />
-
-            <FormInput
               name="name"
               id="name"
               type="text"
               placeholder="Nama anda"
               onChange={(e) => onChange(e)}
-              className=""
-              error={error.name}
+              className="py-3 rounded-lg mb-2"
             />
 
             <FormInput
-              name="address"
-              id="address"
-              placeholder="Alamat Lengkap "
-              type="text"
+              name="email"
+              id="email"
+              type="email"
+              placeholder="Email "
               onChange={(e) => onChange(e)}
-              className=""
-              error={error.address}
+              className="py-3 rounded-lg mb-2"
+            />
+            <FormInput
+              name="phoneNumber"
+              id="phoneNumber"
+              type="number"
+              placeholder="Nomer Telepon "
+              onChange={(e) => onChange(e)}
+              className="py-3 rounded-lg mb-2"
             />
 
             <FormInput
-              name="CompanyName"
-              id="CompanyName"
-              placeholder="Nama Instansi / Perusahaan "
-              type="text"
+              name="password"
+              id="password"
+              placeholder="Kata sandi "
+              type="password"
               onChange={(e) => onChange(e)}
-              className=""
-              error={error.CompanyName}
+              className="py-3 rounded-lg mb-2"
             />
 
-            <div className="grid grid-cols-3 gap-x-5">
-              <FormInput
-                name="city"
-                id="city"
-                placeholder="Kota"
-                type="text"
-                onChange={(e) => onChange(e)}
-                className=""
-                error={error.city}
-              />
-
-              <FormInput
-                name="districts"
-                id="districts"
-                placeholder="Kecamatan anda"
-                type="text"
-                onChange={(e) => onChange(e)}
-                className=""
-                error={error.districts}
-              />
-
-              <FormInput
-                name="village"
-                id="village"
-                placeholder="Keluruhan"
-                type="text"
-                onChange={(e) => onChange(e)}
-                className=""
-                error={error.village}
-              />
-
-              <FormInput
-                name="postCode"
-                id="postCode"
-                placeholder="Postal Code"
-                type="text"
-                onChange={(e) => onChange(e)}
-                className=""
-                error={error.postCode}
-              />
-            </div>
-            <FormInput
-              name="PhoneNumber"
-              id="phone"
-              placeholder="No Tlp"
-              type="text"
-              onChange={(e) => onChange(e)}
-              className=""
-              error={error.PhoneNumber}
-            />
-
-            <div className="flex flex-col items-center mt-2">
+            <div className="flex flex-col items-center mt-5">
               <span>
                 Dapatkan produk ukm berkualitas dengan penawaran terbaik
               </span>
@@ -187,16 +130,26 @@ function RegisterKonsumen() {
                 <button
                   type="submit"
                   disabled
-                  className="p-1 px-10 mt-4 text-lg text-white bg-blue-100 opacity-50"
+                  className="p-1 px-10 mt-2 text-lg text-white bg-blue-100 opacity-50"
                 >
                   Loading
+                </button>
+              ) : formData?.name.length < 1 ||
+                formData.email.length < 5 ||
+                formData.password.length < 5 ||
+                formData.phoneNumber.length < 8 ? (
+                    <button
+                      disabled
+                  className="py-3 px-10 mt-4 text-lg  rounded-lg text-gray-400 bg-gray-300"
+                >
+                  Daftar
                 </button>
               ) : (
                 <button
                   type="submit"
-                  className="p-1 px-10 mt-4 text-lg text-white bg-blue-100"
+                  className="py-3 px-10 mt-4 text-lg  rounded-lg text-white bg-blue-100"
                 >
-                  Daftar Sebagai Konsumen
+                  Daftar
                 </button>
               )}
             </div>
