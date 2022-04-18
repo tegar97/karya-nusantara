@@ -55,3 +55,11 @@ export async function changePassword(data, bearerToken) {
     });
 
 }
+
+export async function authlkpp(token) {
+      const url = `/auth/checklkpp/${token}`;
+      return callApi({
+        url,
+        method: "POST",
+      });
+}

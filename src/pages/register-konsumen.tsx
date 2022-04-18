@@ -5,6 +5,7 @@ import router from "next/router";
 import axios from "axios";
 import styled from "styled-components";
 import { NextSeo } from "next-seo";
+import { toast } from "react-toastify";
 
 const BgContainer = styled.div`
   min-height: 100vh;
@@ -31,6 +32,8 @@ function RegisterKonsumen() {
 
     try {
       const res = await axios.post("/auth/register", formData);
+
+
       router.push("/success");
       // await axios.post(
       //   `${process.env.API_LARAVEL}/api/sendEmail`,
@@ -42,14 +45,13 @@ function RegisterKonsumen() {
       //   { withCredentials: false }
       // );
     } catch (err) {
-      console.log(err.response.data)
+      toast.error(err.response.data.meta.message)
       setError(err.response.data.meta);
     }
 
     setLoading(false);
   };
 
-  console.log(formData.name.length)
   return (
     <>
       <NextSeo

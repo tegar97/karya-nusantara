@@ -11,6 +11,8 @@ import { NextSeo } from "next-seo";
 import { Html } from "next/document";
 import ProductCategoryMobile from "../components/product-category/product-category.mobile";
 import BestProduct from "../components/bestProduct/bestProduct";
+import Feature from "../components/feature/feature";
+import RfqMobile from "../components/Request-For-quantity/rfq-mobile.component";
 
 export async function getStaticProps(context) {
   const res = await fetch(`${process.env.API_LARAVEL}/api/settings`);
@@ -56,19 +58,30 @@ export default function Home({ data, data2 }) {
         }}
       />
 
-      <Hero />
-      <About image={data} />
-      <div className="hidden lg:block md:hidden">
+      {/* <Hero />
+      <About image={data} /> */}
+      <div className="hidden lg:block md:hidden mt-10">
         <ProductCategory data2={data2} />
       </div>
       <div className="block lg:hidden md:block">
         <ProductCategoryMobile />
       </div>
-      <div className="block lg:lock md:hidden">
+      <div className="block lg:lock ">
         <BestProduct />
       </div>
+      <div className="hidden lg:block md:hidden">
+        <ScrollAnimation animateIn="fadeIn">
+          <Rfq />
+        </ScrollAnimation>
+      </div>
+      <div className="block lg:hidden md:block">
+        <ScrollAnimation animateIn="fadeIn">
+          <RfqMobile />
+        </ScrollAnimation>
+      </div>
+
       <ScrollAnimation animateIn="fadeIn">
-        <Rfq />
+        <Feature />
       </ScrollAnimation>
       <ScrollAnimation animateIn="fadeIn">
         <Client />

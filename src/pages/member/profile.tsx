@@ -64,6 +64,30 @@ function Profile({ user }) {
               value={name}
               variant="outlined"
             />
+            {user?.namaInstansi && (
+              <TextField
+                className="w-full rounded-md mb-6 border border-gray-400"
+                id="outlined-basic"
+                color="primary"
+                label="Nama Instansi"
+                value={user?.namaInstansi}
+                disabled
+                variant="outlined"
+              />
+            )}
+            {user?.lkppRole && (
+              <TextField
+                className="w-full rounded-md mb-6 border border-gray-400"
+                id="outlined-basic"
+                color="primary"
+                label="Role lkpp"
+                value={user?.lkppRole}
+                disabled
+                variant="outlined"
+              />
+            )}
+          
+
             <TextField
               className="w-full rounded-md mb-6 "
               id="outlined-basic"
@@ -136,7 +160,6 @@ export async function getServerSideProps({ req }) {
   const response = await getProfile(bearerToken);
   const user= response.data.data;
 
-  console.log(token);
 
   return {
     props: {

@@ -6,7 +6,6 @@ import convertToRupiah from "../../util/converRupiah";
 import AddBid from "../bid-modal/bid-modal";
 import DetailProduct from "../detail-product-bid/detail-product-bid";
 function TableBody({ data, setSuccessMessage }) {
-  console.log(data);
   return (
     <TableRow key="1" className="group">
       <td className="px-6 py-4">

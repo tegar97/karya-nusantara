@@ -81,13 +81,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         await axios
           .post("/auth/me")
           .then((response) => {
-            console.log('hi from context',response);
 
             //set response user to state
            dispatch("LOGIN_REGISTER", response.data);
           })
           .catch((e) => {
-            console.log(e);
             localStorage.removeItem("token");
           });
 

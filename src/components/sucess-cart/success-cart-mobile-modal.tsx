@@ -9,7 +9,9 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import CardItem from "../atom/card-item/card-item";
 import OtherProduct from "../other-product/other-product";
-
+import Cookie from "js-cookie";
+import { addToCart } from "../../constant/api/cart";
+import { toast } from "react-toastify";
 const customStyles = {
   content: {
     top: "70%",
@@ -22,8 +24,8 @@ const customStyles = {
     maxHeight: 1200,
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
-        border: "1px solid #ffff",
-        borderRadius : '0 0 10px 10px'
+    border: "1px solid #ffff",
+    borderRadius: "20px 20px 0 0",
   },
   overlay: {
     background: "rgba(0, 0, 0, 0.6)",
@@ -31,21 +33,10 @@ const customStyles = {
   },
 };
 
-const SuccessCartModalMobile = ({
-  bgActive = null,
-  homeRouter = null,
-  loginRequire = null,
-}) => {
+const SuccessCartModalMobile = ({ item, quantity }) => {
   let subtitle;
 
   const [modalIsOpen, setIsOpen] = React.useState(false);
-
-  const [error, setError] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [isUkm, setUkm] = useState(false);
-  const [forgotPassword, setForgotPassword] = useState();
 
   const router = useRouter();
   const dispatch = useAuthDispatch();
@@ -61,15 +52,36 @@ const SuccessCartModalMobile = ({
   function closeModal() {
     setIsOpen(false);
   }
-  const submitForm = async (event: FormEvent) => {
-    event.preventDefault();
+  const submit = async () => {
+    const data = {
+      products_id: item.id,
+      quantity: quantity,
+    };
+    const token = Cookie.get("token");
+        console.log(token);
+
+      if (!token) {
+        toast.error("Silahkan login terlebih dahulu untuk melanjutkan");
+      }
+    const bearer = `Bearer ${token}`;
+
+  
+    if (quantity < item.stock) {
+      const response = await addToCart(data, bearer);
+      if (response.error === false) {
+        setIsOpen(true);
+      }
+    } else {
+            toast.error(`Maximal pembelian ${item.stock}`);
+
+    }
   };
   Modal.setAppElement("#root");
 
   return (
     <div>
       <button
-        onClick={openModal}
+        onClick={submit}
         className="bg-blue-100 hover:opacity-80 text-white font-bold py-2 px-4 w-full rounded outline-none"
       >
         Order
@@ -80,7 +92,7 @@ const SuccessCartModalMobile = ({
         style={customStyles}
         contentLabel="Success Cart Modal"
       >
-        <div className="relative w-full">
+        <div className="relative w-full mt-3">
           <div className="absolute flex justify-end w-full">
             <button onClick={closeModal} className="text-blue-100 ">
               <img src={"/assets/icon/exit.svg"} className="lg:w-4 " />
@@ -93,22 +105,9 @@ const SuccessCartModalMobile = ({
               </h2>
             </div>
             <div className="mt-6">
-              <CardItem />
+              <CardItem item={item} quantity={quantity} />
             </div>
-            <div className="mt-6">
-              <h3 className="font-bold text-lg">
-                Product Lainya dari toko Illu factory
-              </h3>
-              <div className="grid grid-cols-5 gap-3 mt-5">
-                <OtherProduct />
-                <OtherProduct />
-                <OtherProduct />
-                <OtherProduct />
-                <OtherProduct />
-                <OtherProduct />
-                <OtherProduct />
-              </div>
-            </div>
+          
           </div>
         </div>
       </Modal>

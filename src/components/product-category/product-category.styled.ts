@@ -27,14 +27,14 @@ export const CategoryProductList = styled.li`
     margin-bottom: 1rem;
     transition: .5s all;
     
-    &:hover{
-        transform: translateY(-4px);
-        box-shadow: 9px 10px 16px -9px rgba(0,0,0,0.61);
--webkit-box-shadow: 9px 10px 16px -9px rgba(0,0,0,0.61);
--moz-box-shadow: 9px 10px 16px -9px rgba(0,0,0,0.61);
-background-color:  #5996ab;
-color: #fff
-    }
+//     &:hover{
+//         transform: translateY(-4px);
+//         box-shadow: 9px 10px 16px -9px rgba(0,0,0,0.61);
+// -webkit-box-shadow: 9px 10px 16px -9px rgba(0,0,0,0.61);
+// -moz-box-shadow: 9px 10px 16px -9px rgba(0,0,0,0.61);
+// background-color:  #5996ab;
+// color: #fff
+//     }
 
 `
 

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -11,10 +11,12 @@ import { PersonAdd, Settings } from '@material-ui/icons';
 import { Box } from '@material-ui/core';
 import Cookies from "js-cookie";
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 function ProfileDropdown({ name,loading }) {
    const router = useRouter()
-      const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [showMenu, setShowMenu] = useState(false);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -26,85 +28,97 @@ function ProfileDropdown({ name,loading }) {
     const logout = () => {
         Cookies.remove("token");
         router.push('/')
-        router.reload()
+      router.reload()
+      setShowMenu(false)
     }
   return (
-    <React.Fragment>
-      <Box className='flex'>
-        <Tooltip title="Account settings">
-          <IconButton
-            onClick={handleClick}
-            size="small"
-            sx={{ ml: 2 }}
-            aria-controls={open ? "account-menu" : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? "true" : undefined}
-          >
-            {loading ? (
-              <span>Loading ...</span>
-            ) : (
-              <>
-                <Avatar sx={{ width: 32, height: 32 }}>{name.charAt(0)}</Avatar>
-              </>
-            )}
-          </IconButton>
-        </Tooltip>
-      </Box>
-      <Menu
-        anchorEl={anchorEl}
-        id="account-menu"
-        open={open}
-        onClose={handleClose}
-        onClick={handleClose}
-        PaperProps={{
-          elevation: 0,
-          sx: {
-            overflow: "visible",
-            filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
-            mt: 1.5,
-            "& .MuiAvatar-root": {
-              width: 32,
-              height: 32,
-              ml: -0.5,
-              mr: 1,
-            },
-            "&:before": {
-              content: '""',
-              display: "block",
-              position: "absolute",
-              top: 0,
-              right: 14,
-              width: 10,
-              height: 10,
-              bgcolor: "background.paper",
-              transform: "translateY(-50%) rotate(45deg)",
-              zIndex: 0,
-            },
-          },
-        }}
-        transformOrigin={{ horizontal: "right", vertical: "top" }}
-        anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+    <div className="">
+      <div
+        className="flex flex-row items-center cursor-pointer"
+        onClick={() => setShowMenu(!showMenu)}
       >
-        <MenuItem>
-          <Avatar /> Profile
-        </MenuItem>
-        <MenuItem>
-          <Avatar /> My account
-        </MenuItem>
-        <Divider />
+        <img
+          src={"/assets/icon/health_icon.svg"}
+          alt="store icon"
+          className="lg:w-5 mr-2"
+        />
+        <span className="">{name.split(' ').length > 2 ? name.split(' ').slice(0, -1).join(' ') : name}</span>
+      </div>
+      {showMenu && (
+        <div
+          className="absolute bg-white  border shadow-sm border-gray-300 "
+          style={{ left: 10, top: 40, minWidth: 200 }}
+        >
+          <div className="border-b border-gray-300 px-2 py-2 flex flex-row items-center cursor-pointer">
+            <img
+              src={"/assets/icon/profile.svg"}
+              alt="store icon"
+              className="lg:w-5"
+            />
+            <span className="text-sm ml-2 text-gray-900">{name}</span>
+          </div>
+          <div className=" px-2 py-2 mt-1">
+            <ul>
+              <Link href="/member/profile">
+                <li
+                  className="flex flex-row items-center mb-3 cursor-pointer"
+                  onClick={() => setShowMenu(false)}
+                >
+                  <img
+                    src={"/assets/icon/health_icon.svg"}
+                    alt="store icon"
+                    className="lg:w-5"
+                  />
+                  <span className="text-sm ml-2">Akun Saya</span>
+                </li>
+              </Link>
 
-        <MenuItem>
-          <ListItemIcon>
-            <Settings fontSize="small" />
-          </ListItemIcon>
-          Settings
-        </MenuItem>
-        <MenuItem onClick={() => logout()}>
-          <ListItemIcon></ListItemIcon>
-          Logout
-        </MenuItem>
-      </Menu>
-    </React.Fragment>
+              <Link href="/member/order/ongoing">
+                <li
+                  className="flex flex-row items-center mb-3 cursor-pointer"
+                  onClick={() => setShowMenu(false)}
+                >
+                  <img
+                    src={"/assets/icon/order-list.svg"}
+                    alt="store icon"
+                    className="lg:w-5"
+                  />
+                  <span className="text-sm ml-2">Pesanan Saya</span>
+                </li>
+              </Link>
+
+              <Link href="/payment/payment-list">
+                <li
+                  className="flex flex-row items-center mb-3 cursor-pointer"
+                  onClick={() => setShowMenu(false)}
+                >
+                  <img
+                    src={"/assets/icon/pending-payment.svg"}
+                    alt="store icon"
+                    className="lg:w-5"
+                  />
+                  <span className="text-sm ml-2 overwrap text-left">
+                    Menunggu Pembayaran
+                  </span>
+                </li>
+              </Link>
+
+              <li
+                className="flex flex-row items-center mb-3 cursor-pointer"
+                onClick={logout}
+              >
+                <img
+                  src={"/assets/icon/logout.svg"}
+                  alt="store icon"
+                  className="lg:w-5"
+                />
+                <span className="text-sm ml-2 overwrap text-left">Keluar</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      )}
+    </div>
   );
 }
 

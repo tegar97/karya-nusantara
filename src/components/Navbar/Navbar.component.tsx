@@ -14,12 +14,16 @@ import { getProfile, refresh } from "../../constant/api/auth";
 import { Button, Menu, MenuItem } from "@material-ui/core";
 import profileDropdown from "./profileDropdown";
 import ProfileDropdown from "./profileDropdown";
+import useSWR from "swr";
+import fetcher from "../../util/useSwrFetcher";
+import { getMyCart } from "../../constant/api/cart";
 function Navbar({ menuDrop, setMenuDrop }) {
   const [userDataState, setUserData] = useState()
   const [isOpen, toggleOpen] = useCycle(false, true);
   const containerRef = useRef(null);
   const [active, setActive] = useState(false);
   const [bgActive, setBgActive] = useState(false);
+  const [cart, setCart] :any= useState([]);
   const [registerSelection, setRegisterSelection] = useState(false);
   const router = useRouter();
 
@@ -43,6 +47,11 @@ function Navbar({ menuDrop, setMenuDrop }) {
   const [loading, setLoading] = useState(false);
   const [dropDown, setDropDown] = useState(false);
 
+  
+  // const { data, error } = useSWR([`${process.env.API_V2}/api/cart`, bearerToken], fetcher);
+  
+  // console.log(data)
+
   useEffect(() => {
     window.addEventListener("scroll", changeBackground);
 
@@ -64,13 +73,14 @@ function Navbar({ menuDrop, setMenuDrop }) {
         try {
          
           const response = await getProfile(bearerToken);
+          const getCart = await  getMyCart(bearerToken)
           setUser(response.data.data);
-        console.log(response);
+          setCart(getCart.data);
+          console.log(getCart)
 
         } catch (error) { 
           const newToken = await refresh(bearerToken)
           Cookie.set("token", newToken.data.access_token,{expires: 1});
-          router.reload();
           console.log(error)
           
         }
@@ -83,7 +93,7 @@ function Navbar({ menuDrop, setMenuDrop }) {
       setUser(null)
     }
   },[])
-
+  console.log(cart);
   const homeRouter = router.pathname === "/";
 
   const changeBackground = () => {
@@ -93,7 +103,12 @@ function Navbar({ menuDrop, setMenuDrop }) {
       setBgActive(false);
     }
   };
-
+  const logout = () => {
+   setActive(!active)
+   Cookie.remove("token");
+   router.push("/");
+   router.reload();
+ };
   return (
     <NavbarSupport
       style={{
@@ -101,8 +116,8 @@ function Navbar({ menuDrop, setMenuDrop }) {
       }}
       className={`top-0 left-0 fixed w-full   px-5 py-3   lg:px-14 c ${
         !bgActive && homeRouter
-          ? "transparent text-white"
-          : "bg-white  shadow-sm "
+          ? "bg-white   shadow-md"
+          : "bg-white  shadow-md "
       }`}
     >
       <div className=" items-center justify-between w-full flex container-box">
@@ -110,11 +125,11 @@ function Navbar({ menuDrop, setMenuDrop }) {
           <Link href="/">
             {!bgActive && homeRouter ? (
               <img
-                src="/assets/logo-putih.png"
+                src="/assets/logo-nav-min.png"
                 alt="Logo Karya Nusantara"
                 width={150}
                 height={50}
-                className="z-30 cursor-pointer "
+                className="z-30 cursor-pointer object-cover "
               />
             ) : (
               <img
@@ -122,7 +137,7 @@ function Navbar({ menuDrop, setMenuDrop }) {
                 alt="Logo Karya Nusantara"
                 width={150}
                 height={50}
-                className="z-30 cursor-pointer "
+                className="z-30 cursor-pointer object-cover"
               />
             )}
           </Link>
@@ -173,14 +188,26 @@ function Navbar({ menuDrop, setMenuDrop }) {
             </li>
 
             {user ? (
-              <div className=" lg:block">
-                {/* <NavbarProfile /> */}
-                <span>holaaa</span>
-                {/* <button className="p-2 ml-4 text-white bg-blue-100 " onClick={logout}>
-              Logout
-            </button>
-            <span>{user.Name}</span> */}
-              </div>
+              <>
+                <li
+                  onClick={() => setActive(!active)}
+                  className="w-full p-1 ml-4 cursor-pointer mt-7 text-grey-100 hover:text-blue-100"
+                >
+                  <Link href="/cart"> Keranjang saya</Link>
+                </li>
+                <li
+                  onClick={() => setActive(!active)}
+                  className="w-full p-1 ml-4 cursor-pointer mt-7 text-grey-100 hover:text-blue-100"
+                >
+                  <Link href="/member/profile"> Dasboard</Link>
+                </li>
+                <li
+                  onClick={logout}
+                  className="w-full p-1 ml-4 cursor-pointer mt-7 text-grey-100 hover:text-blue-100"
+                >
+                  <span> Logout</span>
+                </li>
+              </>
             ) : (
               <>
                 <li className="w-full p-1 ml-4 cursor-pointer mt-7 ">
@@ -251,13 +278,28 @@ function Navbar({ menuDrop, setMenuDrop }) {
           </ul>
         </div>
         {user ? (
-          <div className="hidden lg:block">
+          <div className="hidden lg:flex flex-row items-center relative">
             {/* <NavbarProfile /> */}
             {/* <span>{ user?.name}</span> */}
             {/* <button className="p-2 ml-4 text-white bg-blue-100 rouned-md">
               Logout
             </button> */}
-      
+            <Link href={"/cart"}>
+              <div className="flex flex-row">
+                <div className="relative">
+                  <img
+                    src={"/assets/icon/cart.svg"}
+                    alt="store icon"
+                    className="lg:w-5 mr-1"
+                  />
+                  {cart && cart?.item_cart?.length >= 1 && (
+                    <div className="absolute  top-0 right-0 lg:w-2 lg:h-2 bg-red-600 rounded-full"></div>
+                  )}
+                </div>
+
+                <span className="cursor-pointer mr-5">Keranjang</span>
+              </div>
+            </Link>
             <ProfileDropdown loading={loading} name={user.name} />
           </div>
         ) : (
@@ -266,7 +308,7 @@ function Navbar({ menuDrop, setMenuDrop }) {
             <div
               className={`   px-5 py-1 ml-4 inline-block ${
                 !bgActive && homeRouter
-                  ? "text-blue-100 bg-white "
+                  ? "text-white bg-blue-100 "
                   : "text-white bg-blue-100 "
               } `}
             >
@@ -314,6 +356,28 @@ function Navbar({ menuDrop, setMenuDrop }) {
       </div>
     </NavbarSupport>
   );
+}
+
+export async function getServerSideProps({ req }) {
+  const { token } = req.cookies;
+  const bearerToken = `Bearer ${token}`;
+
+  if (!token) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+  const response = await getProfile(bearerToken);
+  const user = response.data.data;
+
+  return {
+    props: {
+      user: user,
+    },
+  };
 }
 
 export default Navbar;

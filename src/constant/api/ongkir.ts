@@ -11,3 +11,14 @@ export async function getOngkirPrice(data) {
     data,
   });
 }
+
+
+export async function track(data) {
+  const url = "/track";
+
+  return callApi({
+    url,
+    method: "POST",
+    data,
+  });
+}

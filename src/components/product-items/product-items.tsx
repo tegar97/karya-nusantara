@@ -13,9 +13,13 @@ function ProductItems({ data, loading }) {
           </span>
           <BorderBottom />
         </div>
-        <div className="grid gap-5 mt-10 lg:grid-cols-4 gap-y-11 ">
+        <div className="grid grid-cols-2 gap-5 mt-10 lg:grid-cols-4 gap-y-11 ">
           {data.product.map((data, i) => (
-            <KatalogItems key={i} data={data} loading={loading} />
+            <KatalogItems
+              key={i}
+              data={data}
+              loading={loading}
+            />
           ))}
         </div>
       </div>

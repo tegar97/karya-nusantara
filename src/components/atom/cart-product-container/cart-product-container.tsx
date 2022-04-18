@@ -9,18 +9,11 @@ function CartProduct({
   setUpdateNotifier,
   groupBySeller
 ,getTotal}) {
-  console.log(ukmName);
   const [addNote, setAddNote] = useState(false);
 
   return (
-    <div className="w-full mt-5 border border-gray-200 shadow-sm px-4 py-4 rounded-lg flex flex-col">
+    <div className="w-full  mt-5 border border-gray-200 shadow-sm px-4 py-4 rounded-lg flex flex-col">
       <div className="flex flex-row w-full pb-3 border-b border-gray-200 items-center">
-        <Checkbox
-          style={{
-            color: "#5996ab",
-          }}
-          onChange={(val) => console.log(val)}
-        />
         <img
           src={"assets/icon/store.svg"}
           alt="store icon"
@@ -31,9 +24,11 @@ function CartProduct({
       <ul>
         <li className="mb-3">
           {" "}
-          {groupBySeller[ukmName].map((data) => {
+          {groupBySeller[ukmName].map((data, idx) => {
             return (
               <CartProductChild
+                idx={idx}
+                key={idx}
                 setUpdateNotifier={setUpdateNotifier}
                 data={data}
                 setTotal={setTotal}

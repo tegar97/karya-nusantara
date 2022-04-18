@@ -9,7 +9,7 @@ function DasboardSkeleton({ children ,user}) {
         minHeight: "100vh",
       }}
     >
-      <div className="grid grid-cols-6 ">
+      <div className=" flex flex-col lg:grid lg:grid-cols-6 ">
         <SideBarMember name={user.name} created_at={user.created_at} />
         {children}
       </div>

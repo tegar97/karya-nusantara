@@ -17,18 +17,21 @@ function FooterComponent() {
             />
           </Link>
           <div>
-            <h2 className="font-bold lg:text-md text-white">PT. Solusi Karya Nusantara</h2>
-            <p className="text-white mt-2">Head Office Gedung office</p>
-
+            <h2 className="font-bold lg:text-md text-white">
+              PT. Solusi Karya Nusantara
+            </h2>
+            <p className="text-white mt-2">
+              Head Office Gedung office 18 park lt.10
+            </p>
+            <span className="text-white mt-2">
+              {" "}
+              Jl Tb simatupang no 18 Rt 002/Rw 001
+            </span>
+            <span className="text-white mt-2">+62 812-8171-2428</span>
           </div>
         </div>
         <div>
-          <span
-            className="text-xl font-bold text-black"
-            style={{ color: "rgba(167, 207, 84, 1)" }}
-          >
-            Fitur{" "}
-          </span>
+          <span className="text-xl font-bold text-white">Fitur </span>
           <ul className="mt-3 text-white">
             <Link href="/feature">
               <li className="text-lg cursor-pointer">Cara Belanja</li>
@@ -39,12 +42,7 @@ function FooterComponent() {
           </ul>
         </div>
         <div>
-          <span
-            className="text-xl font-bold text-black"
-            style={{ color: "rgba(167, 207, 84, 1)" }}
-          >
-            Kerja Sama{" "}
-          </span>
+          <span className="text-xl font-bold text-white">Kerja Sama </span>
           <ul className="mt-3 text-white">
             <Link href="/cooperation">
               <li className="text-lg cursor-pointer">Mitra</li>
@@ -55,12 +53,7 @@ function FooterComponent() {
           </ul>
         </div>
         <div className="col-span-2 mt-5 text-center lg:col-span-1 lg:text-left lg:mt-5">
-          <span
-            className="text-xl font-bold text-black "
-            style={{ color: "rgba(167, 207, 84, 1)" }}
-          >
-            Kontak Kami{" "}
-          </span>
+          <span className="text-xl font-bold text-white">Kontak Kami </span>
           <ul className="mt-3 text-white">
             <li className="text-lg">Telpon : 0812 8171 2428 (Nisa)</li>
             <li className="text-lg">Email : info@karyanusantara.co.id</li>

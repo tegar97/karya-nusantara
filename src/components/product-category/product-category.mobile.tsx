@@ -17,7 +17,7 @@ function ProductCategoryMobile() {
   return (
     <div className="py-5">
       <div className="w-full px-2 py-10 ">
-  <Swiper
+        {/* <Swiper
       spaceBetween={40}
       slidesPerView={4}
       onSlideChange={() => console.log('slide change')}
@@ -103,10 +103,10 @@ function ProductCategoryMobile() {
             </div>
           </Link>
           </SwiperSlide>
-    </Swiper>
-        </div>
+    </Swiper> */}
+      </div>
 
-      <div className="mt-5 ">
+      <div className="">
         {/* <Slider {...settings}>
           <div className="w-full p-2">
             <img
@@ -128,6 +128,7 @@ function ProductCategoryMobile() {
           showThumbs={false}
           infiniteLoop={true}
           showArrows={false}
+          className="px-2"
         >
           <Link href="/product?category=3&all=true">
             <div>

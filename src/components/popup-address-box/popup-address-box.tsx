@@ -55,21 +55,6 @@ const PopAddressBox = (props,{
     setIsOpen(false);
   }
 
-  useEffect(() => {
-    // Get province data
-    const getProvince = async () => {
- const province = await axios
-   .get(
-     "https://api.rajaongkir.com/starter/province?key=6ff13d6f98bc4ca4390a7332bb2e12bb"
-   )
-   .then((res) => {
-     console.log(res)
-     setProvince(res.data.provinsi);
-   });
-    }
-   getProvince()
-  },[])
-  console.log(province)
 
   const submitForm = async (event: FormEvent) => {
     event.preventDefault();

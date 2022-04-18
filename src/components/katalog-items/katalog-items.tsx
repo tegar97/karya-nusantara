@@ -7,12 +7,11 @@ import Link from "next/link";
 import Skeleton from "@mui/material/Skeleton";
 import Stack from "@mui/material/Stack";
 
-function KatalogItems({ key, data, loading }) {
+function KatalogItems({  data, loading=false,isTextcenter= false }) {
   useEffect(() => {
     AOS.init();
     AOS.refresh();
   }, []);
-  console.log(data.images);
 
   if (loading) {
     return (
@@ -25,29 +24,29 @@ function KatalogItems({ key, data, loading }) {
   }
     return (
       <div data-aos="fade-up">
-        <Link href={`/product/${data.slug}`}>
+        <Link href={`/product/${data?.slug}`}>
           <div
-            key={key}
             id="ui"
-            className=" flex flex-col w-full duration-300 transform cursor-pointer hover:scale-110 transation group border  rounded-md pb-4  border-gray-300  shadow-md"
+            className={`bg-white flex flex-col w-full duration-300 transform cursor-pointer hover:scale-110 transation group border  rounded-md pb-4  border-gray-300  shadow-md ${isTextcenter == true && 'text-center'}`}
           >
             <div className="max-h-60">
               <img
                 src={`${process.env.API_V2}/storage/images/product/${data.images[0]?.imageName}`}
-                className="object-cover w-full lg:max-h-56"
-                 
-                alt={'Photo produk dari '+data.name}
+                className="object-cover w-full lg:max-h-56 lg:h-60"
+                alt={"Photo produk dari " + data?.name}
               />
             </div>
             <div className="flex flex-col  px-2 mt-2">
               <h2 className="font-bold text-blue-100  group-hover:font-bold">
-                {data.name}
+                {data?.name.length > 40
+                  ? data?.name.substring(0, 40) + "..."
+                  : data?.name}
               </h2>
               <span className="text-gray-800 text-sm ">
                 By {data?.umkm?.ukmName}
               </span>
               <span className="text-gray-800 text-sm mt-1 ">
-                {data.umkm?.city_name}
+                {data?.umkm?.city_name}
               </span>
               <span className=" mt-1 text-gray-900  font-bold text-lg">
                 {convertToRupiah(data?.price)}

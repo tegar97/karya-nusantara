@@ -11,32 +11,17 @@ import KatalogItems from '../../../components/katalog-items/katalog-items';
 
 export async function getServerSideProps({ req, params }) {
   // Fetch data from external API
-  const res = await fetch(
-    `http://karyanusantara.test/api/umkm/${params.slug}`
-  );
+  const res = await fetch(`${process.env.API_V2}/api/umkm/${params.slug}`);
   const data = await res.json();
 
   //Get user address
   const { token } = req.cookies;
   const bearerToken = `Bearer ${token}`;
-  if (!token) {
-    return { props: { data, user: null, token: null } };
-  }
-  try {
-    const response = await getProfile(bearerToken);
-    const user = response?.data;
-    return { props: { data, user, token } };
-  } catch (error) {
-    const newToken = await refresh(bearerToken);
-    Cookie.set("token", newToken.data.access_token, { expires: 1 });
-    const redirect = true;
-    return { props: { data, redirect } };
-  }
+  
+    return { props: { data } };
 
-  // Pass data to the page via props
 }
 function MitraShop({ data }) {
-  console.log(data)
   return (
     <div className="relative">
       <div
@@ -48,9 +33,10 @@ function MitraShop({ data }) {
         <div className="flex flex-col lg:grid  lg:grid-cols-7">
           <div className="shadow-md flex  flex-col rounded-lg col-span-2 lg:h-80 ">
             <div className="flex flex-row  py-5 px-5">
-              {data.data[0].profile_photo ? (
+              {data.data?.profile_photo ? (
                 <img
                   alt="mitra photos"
+                  src={`${process.env.API_V2}/storage/images/avatar/${data.data?.profile_photo}`}
                   className="lg:w-20 h-20 w-20 lg:h-20 rounded-full"
                 />
               ) : (
@@ -62,16 +48,16 @@ function MitraShop({ data }) {
                     fontSize: 30,
                   }}
                 >
-                  {data.data[0].ukmName.charAt(0)}
+                  {data.data?.ukmName.charAt(0)}
                 </Avatar>
               )}
 
               <div className="flex flex-col ml-3">
                 <span className="text-lg text-gray-700 font-bold">
-                  {data.data[0].ukmName}
+                  {data.data?.ukmName}
                 </span>
                 <span className="text-sm text-gray-500 mt-1">
-                  {data.data[0].city_name} , {data.data[0].province_name}
+                  {data.data?.city_name} , {data.data?.province_name}
                 </span>
               </div>
             </div>
@@ -86,7 +72,7 @@ function MitraShop({ data }) {
               </div>
             </div>
             <div className=" py-5 px-5">
-              <p className="text-sm  text-gray-800"></p>
+              <p className="text-sm  text-gray-800">{ data.data.description}</p>
             </div>
           </div>
 
@@ -147,15 +133,20 @@ function MitraShop({ data }) {
             </Swiper> */}
             <div className="mt-10">
               <span className="font-bold lg:text-2xl text-gray-700">
-                Product dari {data.data[0].ukmName}
+                Product dari {data.data?.ukmName}
               </span>
 
               <div className="mt-2">
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-5">
-                  {data.data[0].product.map(product => {
-                    return <KatalogItems data={product} key={product.id} loading={false}  />
+                  {data.data?.product.map((product) => {
+                    return (
+                      <KatalogItems
+                        data={product}
+                        key={product.id}
+                        loading={false}
+                      />
+                    );
                   })}
-              
                 </div>
               </div>
             </div>

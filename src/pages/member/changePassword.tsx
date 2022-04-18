@@ -16,7 +16,6 @@ function Profile({ user }) {
   const updateData = async () => {
     const token = Cookie.get("token");
     const Bearer = `Bearer ${token}`;
-    console.log(token);
 
     const data = {
       old_password,
@@ -27,7 +26,6 @@ function Profile({ user }) {
       } else {
        
           const response = await changePassword(data, Bearer);
-          console.log(response)
           
           if (response?.error) {
               toast.error('Password lama salah')
@@ -126,7 +124,6 @@ export async function getServerSideProps({ req }) {
   const response = await getProfile(bearerToken);
   const user = response.data.data;
 
-  console.log(token);
 
   return {
     props: {

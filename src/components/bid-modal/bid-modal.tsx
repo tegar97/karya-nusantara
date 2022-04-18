@@ -42,7 +42,6 @@ const AddBid = ({ data, setSuccessMessage }) => {
     setPrice(prefix == undefined ? rupiah : rupiah ? "Rp. " + rupiah : "");
   };
   const onSubmit = async (e) => {
-    console.log(parseInt(DatabasePrice));
     try {
       e.preventDefault();
       setLoading(true);
@@ -61,7 +60,6 @@ const AddBid = ({ data, setSuccessMessage }) => {
       setOpen(false);
       setSuccessMessage(true);
     } catch (error) {
-      console.log(error);
       setLoading(false);
       setSuccessMessage(false);
     }

@@ -34,24 +34,14 @@ const customStyles = {
   },
 };
 
-const ModalQuantityMobileModal = ({
-  bgActive = null,
-  homeRouter = null,
-  loginRequire = null,
-}) => {
+const ModalQuantityMobileModal = ({ stock, minimumBuy, price, item }) => {
   let subtitle;
 
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [quantity, setQuantity] = useState(1);
   const [isAddNote, setIsAddNote] = useState(false);
   const [subTotal, setSubtotal] = useState(100000);
-
-  const [error, setError] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [isUkm, setUkm] = useState(false);
-  const [forgotPassword, setForgotPassword] = useState();
+  const [error, setError] = useState('');
 
   const router = useRouter();
   const dispatch = useAuthDispatch();
@@ -73,6 +63,28 @@ const ModalQuantityMobileModal = ({
   function closeModal() {
     setIsOpen(false);
   }
+   useEffect(() => {
+     if (quantity > stock) {
+       setError(`Maximal pembelian ${quantity} `);
+     } else {
+       setError("");
+     }
+     if (quantity < minimumBuy) {
+       setError(`minimum pembelian adalah ${minimumBuy} `);
+     } else {
+       setError("");
+     }
+   }, [quantity]);
+
+   const addQuantity = () => {
+     if (stock >= stock) {
+       setQuantity(quantity + 1);
+     }
+   };
+
+   const lessQuantity = () => {
+     if (minimumBuy < quantity) setQuantity(quantity - 1);
+   };
   const submitForm = async (event: FormEvent) => {
     event.preventDefault();
   };
@@ -107,31 +119,58 @@ const ModalQuantityMobileModal = ({
             <div className="flex flex-col mt-10">
               {/* <h3>Beli berapa ?</h3> */}
               <span className=" text-black-400">Jumlah</span>
-              <QuantityCard
-                quantityValue={quantity}
-                setQuantityValue={() => setQuantity}
-              />
+              <div className="border w-full border-gray-300 mt-2 items-center py-1 px-1 rounded-md justify-between  flex flex-row">
+                {quantity > 1 ? (
+                  <button
+                    className="  border-l border-gray-300  w-1/3"
+                    onClick={() => lessQuantity()}
+                  >
+                    -
+                  </button>
+                ) : (
+                  <button className="  border-l border-gray-300  w-1/3 text-gray-400">
+                    -
+                  </button>
+                )}
+
+                <input
+                  placeholder="1"
+                  className="pr-5 px-5 text-center border"
+                  value={quantity}
+                  maxLength={2}
+                  onChange={(value) => {
+                    if (
+                      value.target.value == "" ||
+                      value.target.value == null
+                    ) {
+                      setQuantity(null);
+                    } else {
+                      setQuantity(parseInt(value.target.value));
+                    }
+                  }}
+                  type="number"
+                />
+                {stock > quantity ? (
+                  <button
+                    className="border-r border-gray-300 w-1/3"
+                    onClick={() => addQuantity()}
+                  >
+                    +
+                  </button>
+                ) : (
+                  <button
+                    disabled
+                    className="border-r border-gray-300 w-1/3  text-gray-400"
+                  >
+                    +
+                  </button>
+                )}
+              </div>
               <span className="text-xs text-red-500 mt-2">
-                Maximal pembelian 100
+                Maximal pembelian { stock}
               </span>
             </div>
-            {!isAddNote && (
-              <button
-                onClick={() => setIsAddNote(true)}
-                className="mt-5 flex flex-row items-center cursor-pointer"
-              >
-                <img src={"/assets/icon/pencil.svg"} className="lg-w-3" />
-                <span className="font-semibold text-sm text-black-400 text-blue-100 ml-3">
-                  Tambah catatan
-                </span>
-              </button>
-            )}
-            {isAddNote && (
-              <input
-                className="w-full border  rounded-md px-2 py-2  mt-5 border-blue-100"
-                placeholder="Bajunya ukuran L semua yahh"
-              />
-            )}
+
             {isAddNote && (
               <button
                 onClick={() => setIsAddNote(false)}
@@ -150,10 +189,9 @@ const ModalQuantityMobileModal = ({
             </div>
             <div className="mt-5">
               {subTotal > 0 && quantity > 0 ? (
-                <SuccessCartModalMobile/>
+                <SuccessCartModalMobile item={item} quantity={quantity}/>
               ) : (
                 <button
-                  onClick={openModal}
                   className="bg-blue-100 opacity-40  text-white font-bold py-2 px-4 w-full rounded outline-none"
                 >
                   Order

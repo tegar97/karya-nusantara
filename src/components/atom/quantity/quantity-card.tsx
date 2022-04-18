@@ -1,10 +1,8 @@
 import React from 'react'
 
 function QuantityCard({ quantityValue, setQuantityValue }) {
-  console.log(quantityValue)
   const addQuantity = () => {
     setQuantityValue(quantityValue + 1);
-    console.log(quantityValue);
   };
 
   const lessQuantity = () => {

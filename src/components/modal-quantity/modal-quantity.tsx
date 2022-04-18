@@ -17,6 +17,7 @@ import QuantityCard from "../atom/quantity/quantity-card";
 import { min } from "moment";
 import { connect } from "react-redux";
 import { addToCart } from "../../constant/api/cart";
+import { toast } from "react-toastify";
 
 const customStyles = {
   content: {
@@ -35,7 +36,7 @@ const customStyles = {
   },
   overlay: {
     background: "rgba(0, 0, 0, 0.6)",
-    zIndex: 1000000000000,
+    zIndex: 999,
   },
 };
 
@@ -46,6 +47,7 @@ const ModalQuantityModal = ({
   stock,
   minimumBuy,
   price,
+  user,
   item
 }) => {
   let subtitle;
@@ -68,7 +70,9 @@ const ModalQuantityModal = ({
     textAlign: "center",
     padding: 0,
   };
-
+  const errorLogin = () => {
+    toast.error('Silahkan login terlebih dahulu untuk melanjutkan')
+  }
   function openModal() {
     
     setIsOpen(true);
@@ -116,7 +120,6 @@ const ModalQuantityModal = ({
   };
   const submitForm = async (event: FormEvent) => {
     event.preventDefault();
-    console.log(`from here`,item.id)
    
   };
   Modal.setAppElement("#root");
@@ -145,7 +148,7 @@ const ModalQuantityModal = ({
           <div className="w-full px-5  ">
             <div className="flex justify-center">
               <h2 className="text-xl font-bold text-gray-700">
-                Atur jumlah beli dan catatan
+                Atur jumlah beli
               </h2>
             </div>
             <div className="flex flex-col mt-10">
@@ -171,6 +174,7 @@ const ModalQuantityModal = ({
                   placeholder="1"
                   className="pr-5 px-5 text-center border"
                   value={quantity}
+                  maxLength={2}
                   onChange={(value) => {
                     if (
                       value.target.value == "" ||
@@ -199,7 +203,7 @@ const ModalQuantityModal = ({
                   </button>
                 )}
               </div>
-           
+
               <span className="text-xs text-red-500 mt-2">
                 {error ? error : ""}
               </span>
@@ -238,9 +242,18 @@ const ModalQuantityModal = ({
               </span>
             </div>
             <div className="mt-5">
-              {error === "" && subTotal > 0 && quantity > 0 ? (
+              {stock >= quantity ? (
                 <>
-                  <SuccessCartModal item={item} quantity={quantity} />
+                  {user ? (
+                    <SuccessCartModal item={item} quantity={quantity} />
+                  ) : (
+                    <button
+                      onClick={errorLogin}
+                      className="bg-blue-100 hover:opacity-80 text-white font-bold py-2 px-4 w-full rounded outline-none"
+                    >
+                      Order
+                    </button>
+                  )}
                 </>
               ) : (
                 <button className="bg-blue-100 opacity-40  text-white font-bold py-2 px-4 w-full rounded outline-none">

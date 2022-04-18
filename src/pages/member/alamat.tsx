@@ -52,7 +52,6 @@ function Address({ user }) {
     data: [],
   }));
 
-  console.log(user?.address[0]);
 
 
   /// Handle search kecamatan

@@ -15,6 +15,8 @@ import { addProductToCart } from "../../redux/cart/action/cart";
 import { Store } from "@material-ui/icons";
 import { addToCart } from "../../constant/api/cart";
 import Cookie from 'js-cookie'
+import useSWR from "swr";
+import fetcher from "../../util/useSwrFetcher";
 const customStyles = {
   content: {
     top: "50%",
@@ -36,26 +38,22 @@ const customStyles = {
 };
 
 
+
+
 const SuccessCartModal = (props
-  ) => {
+) => {
+  const { item, quantity } = props;
+
   let subtitle;
+  const { data, error } = useSWR(
+    `${process.env.API_V2}/api/umkm/${item.umkm.slug}`,
+    fetcher
+  );
+
 
   const [modalIsOpen, setIsOpen] = React.useState(false);
 
-  const [error, setError] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [isUkm, setUkm] = useState(false);
-  const [forgotPassword, setForgotPassword] = useState();
-  const { item,quantity } = props;
 
-  const router = useRouter();
-  const dispatch = useAuthDispatch();
-  const styles = {
-    textAlign: "center",
-    padding: 0,
-  };
 
   function openModal() {
         props.addProduct(item);
@@ -81,7 +79,6 @@ const SuccessCartModal = (props
   };
   Modal.setAppElement("#root");
   const submit = async () => {
-    console.log(item.id)
     const data = {
       products_id: item.id,
       quantity: quantity,
@@ -92,7 +89,7 @@ const SuccessCartModal = (props
 
     if (response.error === false) {
       setIsOpen(true)
-    } console.log(response);
+    }
   }
   return (
     <div>
@@ -122,20 +119,17 @@ const SuccessCartModal = (props
               </h2>
             </div>
             <div className="mt-6">
-              <CardItem />
+              <CardItem item={item} quantity={quantity} />
             </div>
             <div className="mt-6">
               <h3 className="font-bold text-lg">
-                Product Lainya dari toko Illu factory
+                Product Lainya dari toko {item.umkm.ukmName}
               </h3>
               <div className="grid grid-cols-5 gap-3 mt-5">
-                <OtherProduct />
-                <OtherProduct />
-                <OtherProduct />
-                <OtherProduct />
-                <OtherProduct />
-                <OtherProduct />
-                <OtherProduct />
+                {!data && <span> Loading ...</span>}
+                {data?.data?.product.map((data) => {
+                  return <OtherProduct data={data} />;
+                })}
               </div>
             </div>
           </div>

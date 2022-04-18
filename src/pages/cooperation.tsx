@@ -5,7 +5,6 @@ import React, { useState } from "react";
 function cooperation() {
   const router = useRouter();
   const [role, setRole] = useState("mitra");
-  console.log();
   return (
     <div className="px-10 py-5 lg:px-20 lg:py-36">
       <div className="flex w-full">

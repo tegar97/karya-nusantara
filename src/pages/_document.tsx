@@ -1,3 +1,5 @@
+ // @ts-ignore */}
+
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import Navbar from "../components/Navbar/Navbar.component";
 import { ServerStyleSheet } from "styled-components";
@@ -32,7 +34,6 @@ class MyDocument extends Document {
 
   render() {
     return (
-
       <Html>
         <Head>
           <link
@@ -59,8 +60,9 @@ class MyDocument extends Document {
     );
   }
 }
+ // @ts-ignore */}
 
-MyDocument.getInitialProps = async (ctx) => {
+MyDocument.getInitialProps = async (ctx)  => {
   // Resolution order
   //
   // On the server:

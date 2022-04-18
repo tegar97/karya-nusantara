@@ -8,7 +8,7 @@ function SideBarMember({name='',created_at=''}) {
 
     const router = useRouter();
   return (
-    <div className="sidebar flex flex-col">
+    <div className="sidebar flex flex-col hadow-md rounded-md py-2 ">
       {/* <img
         alt="members profile"
         className="lg:w-40 lg:h-40"
@@ -68,13 +68,41 @@ function SideBarMember({name='',created_at=''}) {
               borderLeft:
                 router.pathname.split("/member")[1] == "/order/ongoing" ||
                 router.pathname.split("/member")[1] == "/order/completed" ||
-                router.pathname.split("/member")[1] == "/order/canceled"
+                router.pathname.split("/member")[1] == "/order/canceled" ||
+                router.pathname.split("/member")[1] == "/order/ordersent"
                   ? "4px solid #5996ab"
                   : "",
             }}
           >
             <Link href="/member/order/ongoing">
               <span>Pesanan</span>
+            </Link>
+          </li>
+          <li
+            className="border-b border-gray-200  pb-1 pl-2 cursor-pointer mb-3"
+            style={{
+              borderLeft:
+                router.pathname  == "/payment/payment-list"
+                  ? "4px solid #5996ab"
+                  : "",
+            }}
+          >
+            <Link href="/payment/payment-list">
+              <span>Menunggu Pembayaran</span>
+            </Link>
+          </li>
+          <li
+            className="border-b border-gray-200  pb-1 pl-2 cursor-pointer mb-3"
+            style={{
+              borderLeft:
+                router.pathname ==
+                "/payment/payment-list/success"
+                  ? "4px solid #5996ab"
+                  : "",
+            }}
+          >
+            <Link href="/payment/payment-list/success">
+              <span>Riwayat Pembayaran</span>
             </Link>
           </li>
         </ul>

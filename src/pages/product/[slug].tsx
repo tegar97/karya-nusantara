@@ -1,5 +1,3 @@
-
-
 // export async function getStaticPaths() {
 //   // Call an external API endpoint to get posts
 //   const res = await fetch(`${process.env.API_V2}/api/umkm/product`);
@@ -9,14 +7,21 @@ import DetailProductColumn from "../../components/atom/details-product-column/de
 import ModalQuantityModal from "../../components/modal-quantity/modal-quantity";
 import ModalQuantityMobileModal from "../../components/modal-quantity/modal-quantity-mobile";
 import Reviews from "../../components/Reviews/reviews";
-import { FacebookShareButton, FacebookIcon, WhatsappShareButton, WhatsappIcon, TwitterShareButton, TwitterIcon } from "next-share";
+import {
+  FacebookShareButton,
+  FacebookIcon,
+  WhatsappShareButton,
+  WhatsappIcon,
+  TwitterShareButton,
+  TwitterIcon,
+} from "next-share";
 import MarketInfoCard from "../../components/market-info-card/market-info-card";
 import convertToRupiah from "../../util/converRupiah";
 import { getProfile, refresh } from "../../constant/api/auth";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { getOngkirPrice } from "../../constant/api/ongkir";
-import Cookie from 'js-cookie'
+import Cookie from "js-cookie";
 import router, { useRouter } from "next/router";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Scrollbar, A11y } from "swiper";
@@ -35,30 +40,35 @@ import "swiper/components/pagination/pagination.min.css";
 import BreadCrumbs from "../../components/atom/breadcrumbs/breadcrumbs";
 import { CircularProgress } from "@material-ui/core";
 import NumberFormat from "react-number-format";
-
+import convertToKg from "../../util/convertToKg";
+import Image from "next/image";
 
 export async function getServerSideProps({ req, params }) {
   // Fetch data from external API
-  const res = await fetch(`http://karyanusantara.test/api/umkm/product/${params.slug}`);
+  const res = await fetch(
+    `${process.env.API_V2}/api/umkm/product/${params.slug}`
+  );
   const data = await res.json();
 
+  //Get other store product
+
   //Get user address
-  const { token } = req.cookies
+  const { token } = req.cookies;
   const bearerToken = `Bearer ${token}`;
   if (!token) {
-    return {props : {data ,user : null,token : null}}
+    return { props: { data, user: null, token: null } };
   }
   try {
-      const response = await getProfile(bearerToken);
-      const user = response?.data;
-  return { props: { data, user, token } };
-
+    const response = await getProfile(bearerToken);
+    const user = response?.data;
+    return { props: { data, user, token } };
   } catch (error) {
-      const newToken = await refresh(bearerToken);
+    const newToken = await refresh(bearerToken);
     Cookie.set("token", newToken.data.access_token, { expires: 1 });
     const redirect = true;
-      return { props: { data, redirect } };
-
+    return {
+      props: { data, redirect },
+    };
   }
 
   // Pass data to the page via props
@@ -69,34 +79,33 @@ function Slug({ data, user, token, redirect }) {
   const [selectImage, setSelectImage] = useState(
     data?.data[0]?.images[0]?.imageName
   );
-  const router = useRouter()
+  const router = useRouter();
   const [shipment, setShipment] = useState([]);
-  const [lowerPriceShipment, setLowerPriceShipment] = useState('');
+  const [lowerPriceShipment, setLowerPriceShipment] = useState("");
   const [showAllShipment, setShowAllShipment] = useState(false);
   const [showMore, setShowMore] = useState(false);
+  const [errorOngkir, setErrorOngkir] = useState(false);
   const myAbortController = new AbortController();
 
   useEffect(() => {
     if (redirect == true) {
-      router.reload()
-      
+      router.reload();
     }
   }, [redirect]);
 
   useEffect(() => {
-    const umkmCityId = data.data[0]?.umkm?.city_id
+    const umkmCityId = data.data[0]?.umkm?.city_id;
     if (user)
       if (user.address.length > 0) {
         const getStoreAvaiableShipmment =
           data.data[0]?.umkm?.courier.length >= 2
             ? data.data[0]?.umkm?.courier.reduce(
-              (accumulator, each, currentIndex) => {
-                return currentIndex >= 2
-                  ? accumulator + "," + each.courier?.code
-                  : accumulator?.courier?.code + "," + each.courier?.code;
-                
-              }
-            )
+                (accumulator, each, currentIndex) => {
+                  return currentIndex >= 2
+                    ? accumulator + "," + each.courier?.code
+                    : accumulator?.courier?.code + "," + each.courier?.code;
+                }
+              )
             : data.data[0]?.umkm?.courier[0].courier?.code;
         console.log(getStoreAvaiableShipmment);
         const loadOngkir = async () => {
@@ -104,28 +113,46 @@ function Slug({ data, user, token, redirect }) {
 
           const dataOngkir = {
             origin: umkmCityId,
-            destination: parseInt(user.address[0].city_id),
+            destination: parseInt(user.address[0].subdistrict_id),
             weight: data.data[0]?.weight,
             key: process.env.KEY_RAJA_ONGKIR,
             courier: getStoreAvaiableShipmment,
+            length: data.data[0].length,
+            width: data.data[0].width,
+            height: data.data[0].height,
+            diameter : data.data[0].diamter
           };
           const response = await getOngkirPrice(dataOngkir);
           setShipment(response.data);
           /// Get Lower Price
           const listPrice = [];
 
-          if (response)
+          if (response.error) {
+            setErrorOngkir(true)
+          }
+
+         
+          if (response.error == false)
             response?.data?.map((data) => {
               const getShipData = data[Object?.keys(data)?.toString()];
               getShipData[0]?.costs?.map((costData) => {
                 listPrice.push(costData.cost[0].value);
               });
+              setErrorOngkir(false)
+
             });
+          
+         
 
           setLowerPriceShipment(listPrice.sort()[0]);
           setLoading(false);
         };
+        
         loadOngkir();
+        if (errorOngkir == true) {
+              loadOngkir();
+
+        }
       } else {
         setLoading(false);
       }
@@ -134,8 +161,7 @@ function Slug({ data, user, token, redirect }) {
     };
   }, []);
 
-
-  if (loading  && token) {
+  if (loading && token) {
     return (
       <>
         <Head>
@@ -184,6 +210,10 @@ function Slug({ data, user, token, redirect }) {
             name="keywords"
             content={`Jual ${data.data[0].name}, ${data.data[0].name},ukm indonesia, umks indonesia, karya nusantara,jual,beli,ukm`}
           />
+          <meta
+            name="description"
+            content={`Jual ${data.data[0].name},harga ${data.data[0].price},deskripsi ${data.data[0].description}`}
+          />
         </Head>
         <NextSeo
           title={data.data[0].name}
@@ -225,7 +255,21 @@ function Slug({ data, user, token, redirect }) {
                 </button>
               </div>
               <div className="  ml-2  w-full  ">
-                <ModalQuantityMobileModal />
+                {data.data[0].stock == 0 ? (
+                  <button
+                    disabled
+                    className="bg-blue-100 opacity-50 hover:opacity-80 text-white font-bold py-2 px-4 w-full rounded outline-none"
+                  >
+                    out of stock
+                  </button>
+                ) : (
+                  <ModalQuantityMobileModal
+                    stock={data.data[0]?.stock}
+                    minimumBuy={data?.data[0]?.minimumOrder}
+                    price={data?.data[0].price}
+                    item={data.data[0]}
+                  />
+                )}
               </div>
             </div>
           </div>
@@ -254,7 +298,6 @@ function Slug({ data, user, token, redirect }) {
                   </div>
                   <Swiper
                     // install Swiper modules
-                    modules={[Navigation, Pagination, Scrollbar, A11y]}
                     spaceBetween={20}
                     className="lg:w-80 mt-5"
                     slidesPerView={4}
@@ -293,8 +336,8 @@ function Slug({ data, user, token, redirect }) {
                           : "Belum ada ulasan"}
                       </span>
                       <div className="mt-5  overflow-auto max-h-80">
-                        {data.data[0].review.map((review) => {
-                          return <Reviews review={review} />;
+                        {data.data[0].review.map((review, idx) => {
+                          return <Reviews key={idx} review={review} />;
                         })}
                       </div>
                     </div>
@@ -353,12 +396,22 @@ function Slug({ data, user, token, redirect }) {
                       Order
                     </button> */}
                         {/* <SuccessCartModal /> */}
-                        <ModalQuantityModal
-                          stock={data.data[0]?.stock}
-                          minimumBuy={data?.data[0]?.minimumOrder}
-                          price={data?.data[0].price}
-                          item={data.data[0]}
-                        />
+                        {data.data[0].stock == 0 ? (
+                          <button
+                            disabled
+                            className="bg-blue-100 opacity-50 hover:opacity-50 text-white font-bold py-2 px-4 w-full rounded outline-none"
+                          >
+                            out of stock
+                          </button>
+                        ) : (
+                          <ModalQuantityModal
+                            stock={data.data[0]?.stock}
+                            minimumBuy={data?.data[0]?.minimumOrder}
+                            price={data?.data[0].price}
+                            user={user}
+                            item={data.data[0]}
+                          />
+                        )}
                       </div>
                     </div>
                     <div className="mt-8">
@@ -412,14 +465,24 @@ function Slug({ data, user, token, redirect }) {
                             columnLeft={"Category"}
                             columnRight={data.data[0]?.category?.categoryName}
                           />
+
                           <DetailProductColumn
                             columnLeft={"Stock"}
                             columnRight={data.data[0]?.stock}
                           />
                           <DetailProductColumn
                             columnLeft={"Berat"}
-                            columnRight={data.data[0]?.weight + " Gram"}
+                            columnRight={convertToKg(data.data[0]?.weight)}
                           />
+
+                          {data.data[0]?.isPreorder == 1 && (
+                            <DetailProductColumn
+                              columnLeft={"Pre order"}
+                              columnRight={
+                                parseInt(data.data[0]?.isPreOrderTime) + "Hari"
+                              }
+                            />
+                          )}
                         </ul>
                       </div>
                     </div>
@@ -433,6 +496,7 @@ function Slug({ data, user, token, redirect }) {
                           <img
                             src={"/assets/icon/location.svg"}
                             className="lg:w-5"
+                            alt="location ico"
                           />
                           <span className="text-sm text-gray-700 ml-2">
                             Pengiriman dari{" "}
@@ -446,6 +510,7 @@ function Slug({ data, user, token, redirect }) {
                             <img
                               src={"/assets/icon/truck.svg"}
                               className="lg:w-5"
+                              alt="truck icon"
                             />
                             <div className="flex flex-col ml-2">
                               <span className="text-sm text-gray-700 ">
@@ -459,6 +524,7 @@ function Slug({ data, user, token, redirect }) {
                             <img
                               src={"/assets/icon/truck.svg"}
                               className="lg:w-5"
+                              alt="truck icon"
                             />
                             <div className="flex flex-col ml-2">
                               <span className="text-sm text-gray-700 ">
@@ -528,7 +594,9 @@ function Slug({ data, user, token, redirect }) {
                             <img
                               src={"/assets/icon/truck.svg"}
                               className="lg:w-5"
+                              alt="truck icon"
                             />
+
                             <div className="flex flex-col ml-2">
                               <span className="text-sm text-gray-700 ">
                                 Tambahkan alamat{" "}
@@ -569,9 +637,7 @@ function Slug({ data, user, token, redirect }) {
                         </WhatsappShareButton>
                         <TwitterShareButton
                           url={"https://github.com/next-share"}
-                          title={
-                            "next-share is a social share buttons for your next React apps."
-                          }
+                          title={`Beli di ${data?.data[0]?.name} `}
                         >
                           <TwitterIcon size={32} round />
                         </TwitterShareButton>
@@ -589,7 +655,6 @@ function Slug({ data, user, token, redirect }) {
       </>
     );
   }
-
 }
 
 export default Slug;

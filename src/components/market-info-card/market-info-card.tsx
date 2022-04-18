@@ -47,7 +47,7 @@ function MarketInfoCard({ ukmData }) {
         <div className="w-1/2 border-l border-gray-200 pl-5 pr-5 pt-4 pb-4  justify-around justify-items-center items-center flex text-center">
           <img src={"/assets/icon/star.svg"} className="lg:w-5" />
 
-          <span className="text-md">4.9 Rating</span>
+          <span className="text-md">- Rating</span>
         </div>
       </div>
     </div>
