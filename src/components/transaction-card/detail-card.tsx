@@ -1,10 +1,12 @@
-import React, { FormEvent, useEffect, useState } from "react";
+import React, { FormEvent, useEffect, useState, useRef } from "react";
 import "react-responsive-modal/styles.css";
 import Modal from "react-modal";
 import { useRouter } from "next/router";
 import DetailCardItem from "./detail-card-item";
 import moment from "moment";
 import NumberFormat from "react-number-format";
+import ReactToPrint from "react-to-print";
+import Invoice from "../invoice/invoice";
 
 
 
@@ -32,6 +34,7 @@ const customStyles = {
 const DetailModal = ({data}) => {
   let subtitle;
   const router = useRouter();
+  const invoiceRef = useRef();
 
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [loading, setLoading] = useState(false);
@@ -41,6 +44,7 @@ const DetailModal = ({data}) => {
   const [codeGateway, setCodeGateway] = useState("");
   const [istrack, setIsTrack] = useState(false);
   const [trackingData, setIsTrackingData] = useState({});
+  const [hide, setHide] = useState(true);
 
   function openModal() {
     setIsOpen(true);
@@ -144,6 +148,13 @@ const DetailModal = ({data}) => {
                 <span className="font-semibold">Detail Produk</span>
                 <span>{data.umkm.ukmName}</span>
               </div>
+
+              <div style={{ display: "none" }}>
+                <FunctionalComponentToPrint
+                  data={data}
+                  ref={invoiceRef}
+                />
+              </div>
               <div className="mt-5">
                 {data.transaction_item.map((data) => {
                   return <DetailCardItem key={data.id} data={data} />;
@@ -151,10 +162,23 @@ const DetailModal = ({data}) => {
               </div>
             </div>
           </div>
+          <div className="flex justify-end px-2">
+            <ReactToPrint
+              trigger={() => (
+                <button className="bg-blue-100 rounded-md text-white px-2 py-2">
+                  Cetak invoice
+                </button>
+              )}
+              content={() => invoiceRef.current}
+            />
+          </div>
         </div>
       </Modal>
     </div>
   );
 };
-
+export const FunctionalComponentToPrint = React.forwardRef((props, ref) => {
+  // eslint-disable-line max-len
+  return <Invoice data={props.data} ref={ref} />;
+});
 export default DetailModal;

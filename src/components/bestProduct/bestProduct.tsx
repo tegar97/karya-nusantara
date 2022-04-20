@@ -12,7 +12,10 @@ function BestProduct() {
 
   console.log(data);
   return (
-    <div className="px-10 pt-8 pb-20 lg:pt-10 lg:px-20 lg:pb-40 bg-gray-100 ">
+    <div
+      className="px-10 pt-8 pb-20 lg:py-10 lg:px-20  "
+      style={{ backgroundColor: "#f7f7f7" }}
+    >
       <h2 className="text-blue-100  text-lg lg:text-2xl font-bold">
         Product Unggulan Karya Nusantara
       </h2>

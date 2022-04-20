@@ -2,7 +2,10 @@ import React from 'react'
 
 function Feature() {
   return (
-    <div className="px-10 pt-8 pb-20 lg:pt-10 lg:px-24 lg:pb-40 bg-gray-100 flex justify-center flex-col items-center">
+    <div
+      className="px-10 pt-8 pb-20 lg:py-10 mt-10 lg:px-24  flex justify-center flex-col items-center"
+      style={{ backgroundColor: "#f7f7f7" }}
+    >
       <h2 className="text-blue-100 text-3xl font-bold ">
         Kenapa Belanja di Karya Nusantara
       </h2>

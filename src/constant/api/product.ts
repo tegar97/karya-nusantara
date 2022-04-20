@@ -20,3 +20,8 @@ export async function getProduct(city, category) {
     method: "GET",
   });
 }
+
+
+export async function getProductV2(province, category,subCategory) {
+  
+}

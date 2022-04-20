@@ -92,7 +92,8 @@ const PaymentModal = ({isMobile =false, orderList, grandTotal }) => {
       amount: grandTotal,
 
     };
-
+  
+    console.log(data)
     const token = Cookie.get('token');
     const bearer = `Bearer ${token} `
 

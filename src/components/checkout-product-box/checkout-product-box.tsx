@@ -6,7 +6,7 @@ import useSWR from 'swr';
 import { getOngkirPrice } from '../../constant/api/ongkir';
 import fetcher from '../../util/useSwrFetcher';
 import CheckoutItem from './checkout-item';
-
+import Cookie from 'js-cookie'
 function CheckoutPageProduct({
   ukmName,
   groupBySeller,
@@ -101,24 +101,28 @@ function CheckoutPageProduct({
     // tempValue[index] = e.cost[0].value
 
     // getTempOngkir.push(e.cost[0].value);
+    
+    const lkpp_token = Cookie.get("lkkp_token");
 
-    const data = {
-      id: groupBySeller[ukmName][0].id,
-      courier_total: e.cost[0].value,
-      estimasi: e.cost[0].etd,
-      product_id: groupBySeller[ukmName][0].product.id,
-      quantity: groupBySeller[ukmName][0].quantity,
-      courier: e.service,
-      price: parseInt(groupBySeller[ukmName][0].product.price),
-    };
+      const data = {
+        id: groupBySeller[ukmName][0].id,
+        courier_total: e.cost[0].value,
+        estimasi: e.cost[0].etd,
+        product_id: groupBySeller[ukmName][0].product.id,
+        quantity: groupBySeller[ukmName][0].quantity,
+        courier: e.service,
+        price: parseInt(groupBySeller[ukmName][0].product.price),
+      };
     const orderListTemp = {
       store_id: groupBySeller[ukmName][0].umkm_id,
+      merchent_name: ukmName,
       shipping_amount: e.cost[0].value,
       amount: AllProductPrice,
       logistic_type: e.service,
       logistic_name: detaildata[0].name,
       logistic_code: detaildata[0].code,
       item_list: groupBySeller[ukmName],
+      token: lkpp_token ? lkpp_token : "",
     };
     if (getOngkirprice[index]?.id !== groupBySeller[ukmName][0].id) {
      

@@ -60,7 +60,7 @@ export default function Home({ data, data2 }) {
 
       {/* <Hero />
       <About image={data} /> */}
-      <div className="hidden lg:block md:hidden mt-10">
+      <div className="hidden lg:block md:hidden mt-20">
         <ProductCategory data2={data2} />
       </div>
       <div className="block lg:hidden md:block">
@@ -69,7 +69,7 @@ export default function Home({ data, data2 }) {
       <div className="block lg:lock ">
         <BestProduct />
       </div>
-      <div className="hidden lg:block md:hidden">
+      <div className="hidden lg:block md:hidden mt-10">
         <ScrollAnimation animateIn="fadeIn">
           <Rfq />
         </ScrollAnimation>
@@ -80,7 +80,7 @@ export default function Home({ data, data2 }) {
         </ScrollAnimation>
       </div>
 
-      <ScrollAnimation animateIn="fadeIn">
+      <ScrollAnimation animateIn="fadeIn" >
         <Feature />
       </ScrollAnimation>
       <ScrollAnimation animateIn="fadeIn">

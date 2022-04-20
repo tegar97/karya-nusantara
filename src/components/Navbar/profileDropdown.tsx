@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -13,7 +13,9 @@ import Cookies from "js-cookie";
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
-function ProfileDropdown({ name,loading }) {
+function ProfileDropdown({ name, loading }) {
+  
+  const dropdownRef  :any= useRef("");
    const router = useRouter()
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [showMenu, setShowMenu] = useState(false);
@@ -30,24 +32,53 @@ function ProfileDropdown({ name,loading }) {
         router.push('/')
       router.reload()
       setShowMenu(false)
+  }
+  
+  const showDropdown = (e) => {
+    // if (!dropdownRef.current.contains(e.taget)) {
+    //   console.log('yo')
+    // }
+
+    if (!dropdownRef.current.contains(e.target)) {
+      console.log('click outside')
+      setShowMenu(false)
+    } 
+          setShowMenu(true);
+
+  }
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowMenu(false)
+      } else {
+        setShowMenu(true)
+      }
     }
+        document.addEventListener("click", handleClickOutside, true);
+  return () => {
+    document.removeEventListener("click", handleClickOutside, true);
+  };
+  },[showMenu])
   return (
-    <div className="">
+    <div className="" ref={dropdownRef}>
       <div
         className="flex flex-row items-center cursor-pointer"
-        onClick={() => setShowMenu(!showMenu)}
       >
         <img
           src={"/assets/icon/health_icon.svg"}
           alt="store icon"
           className="lg:w-5 mr-2"
         />
-        <span className="">{name.split(' ').length > 2 ? name.split(' ').slice(0, -1).join(' ') : name}</span>
+        <span className="">
+          {name.split(" ").length > 2
+            ? name.split(" ").slice(0, -1).join(" ")
+            : name}
+        </span>
       </div>
       {showMenu && (
         <div
           className="absolute bg-white  border shadow-sm border-gray-300 "
-          style={{ left: 10, top: 40, minWidth: 200 }}
+          style={{ right: 0, top: 40 }}
         >
           <div className="border-b border-gray-300 px-2 py-2 flex flex-row items-center cursor-pointer">
             <img

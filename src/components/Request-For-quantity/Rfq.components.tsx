@@ -75,7 +75,7 @@ function Rfq() {
     }
   };
   return (
-    <div className="py-3 mt-5 lg:px-20  container-box">
+    <div className="py-3 mt-20 lg:px-20  container-box">
       <RfqBackground>
         {/* <HeadingSecondary className="text-center ">
         Request For Quotation

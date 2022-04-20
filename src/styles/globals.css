@@ -7,7 +7,9 @@
   --color-background: #f7f7f7;
   font-family: "Poppins", sans-serif;
 }
-
+body{
+  background-color:  #ffff;
+}
   .container-box{
     max-width: 1900px ;
     margin: 0 auto;
@@ -359,5 +361,18 @@
     font-variant: initial;
     line-height: 1;
 }
+dt {
+  display: block;
+  float: left;
+  text-align: right;
+}
 
+dt:after {
+  content: ':';
+  margin: 10px;
+}
+
+dd {
+  display: block;
+}
 

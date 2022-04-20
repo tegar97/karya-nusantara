@@ -1,9 +1,12 @@
 import { Checkbox } from "@material-ui/core";
 import React, { useState } from "react";
 
-function CategoryItem({ data, setSubCategory, subCategoryFilter }) {
-  const [expanded, setExpanded] = useState(false);
+function CategoryItem({ data, setSubCategory, subCategoryFilter, category }) {
+  const [expanded, setExpanded] = useState(
+    category?.toLowerCase() == data.code?.toLowerCase() ? true : false
+  );
   return (
+    
     <li className="cursor-pointer mb-2">
       <div className="flex flex-row" onClick={() => setExpanded(!expanded)}>
         <span className="text-sm text-gray-500">{data.categoryName}</span>
@@ -35,7 +38,6 @@ function CategoryItem({ data, setSubCategory, subCategoryFilter }) {
                 />
                 <span
                   className="text-sm text-gray-500 ml-1"
-                  onClick={() => setSubCategory(subCategory.id)}
                 >
                   {subCategory.subCategoryName}
                 </span>

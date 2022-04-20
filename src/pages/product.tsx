@@ -44,29 +44,12 @@ import jwt_decode from "jwt-decode";
 export async function getServerSideProps(context) {
   const { query, res } = context;
 
-  // Fetch data from external API
-  // if (query.nonce ) {
-  //    const ressponse :any = await fetch(
-  //      `${process.env.API_V2}/api/auth/checklkpp/${query.nonce}`, {
-  //        method: 'POST'
-  //      }
-  //   );
 
-  //   if (ressponse.ok) {
-  //         const lkppauth = await ressponse.json();
-
-  //     res.setHeader("set-cookie", [
-  //       `lkkp_token=${lkppauth.data.lkkp_token}`,
-  //       `token=${lkppauth.data.access_token}`]);
-
-  //   }
-  let token_lkpp :any;
+  let token_lkpp: any;
   if (query.nonce) {
-
     try {
-      
       token_lkpp = await jwt_decode(query?.nonce);
-      
+
       const bearerToken = `Bearer ${query.nonce}`;
       const response = await getProfile(bearerToken);
 
@@ -78,18 +61,11 @@ export async function getServerSideProps(context) {
           `token=${query.nonce}`,
         ]);
       }
-    } catch {
-      
-    }
-    
-
-    
-    
- 
+    } catch {}
   }
 
   // Pass data to the page via props
-  return { props: { } };
+  return { props: {} };
 }
 
 function Product() {
@@ -101,56 +77,55 @@ function Product() {
   const [product, setProduct] = useState([]);
   const [subCategory, setSubCategory] = useState("");
   const [search2, setSearch2] = useState("");
-  const [city, setCity] = useState("");
+  const [groupByCategory, setGroupByCategory] = useState('');
+  const [province, setProvince] = useState("");
+  const [showAllProvince, setShowAllProvince] = useState(false);
   const [listCity, setListCity] = useState([]);
+  const [delayChangeLocation,setDelayChangeLocation] = useState(false)
   const router = useRouter();
   const { nonce } = router.query;
   const [categoryId, setCategoryId] = useContext(CategoryProductContext);
- const { category } = router.query;
+  const { category } = router.query;
+  const { data: productData, error: erroProductData } = useSWR(
+    `${process.env.API_V2}/api/products?category=${
+      category ? category : ""
+    }&province=${province ? province : ""}&subcategory=${subCategory ? subCategory : ""}`,
+    fetcher
+  );
+
+  const { data: ProvinceData, error: ProvinceDataError } = useSWR(
+    `${process.env.API_V2}/api/province`,
+    fetcher
+  );
+
+  useEffect(() => {
+    console.log(productData);
+      const groupByCategory = productData?.data?.reduce((acc, curr) => {
+        (acc[curr.category.categoryName] =
+          acc[curr.category.categoryName] || []).push(curr);
+
+        return acc;
+      }, {});
+
+      console.log(groupByCategory)
+      setGroupByCategory(groupByCategory);
+
+      console.log(groupByCategory);
+
+
+    // console.log(groupByCategory);
+  }, [productData,subCategory,province]);
   const onSearch = (e) => {
     setSearch(e.target.value.toLowerCase());
   };
 
-  useEffect(() => {
-    console.log(nonce);
-    if (nonce !== null) {
-      const load = async () => {
-        const response = await authlkpp(nonce);
-
-        console.log(response);
-      };
-      load();
-    }
-  }, [nonce]);
-  useEffect(() => {
-    const getProductByCategory = async () => {
-
-      console.log(category);
-      setLoading(true);
-      if (city === "") {
-        const response = await getProduct("", category);
-
-        if (response) {
-          setProduct(response.data);
-        }
-      } else {
-        const response = await getProduct(city, category);
-
-        if (response) {
-          setProduct(response.data);
-        }
-      }
-
-      setLoading(false);
-    };
-    getProductByCategory();
-  }, [city, subCategory]);
+ 
+ 
 
   const { data, error } = useSWR(
     `${process.env.API_V2}/api/categoriestMain`,
     fetcher
   );
-  console.log(data);
 
   // useEffect(() => {
   //   setLoading(true);
@@ -211,24 +186,26 @@ function Product() {
   console.log(subCategory);
   const changeLocation = (val) => {
     if (val.target.checked) {
-      if (city === "") {
-        setCity(`${val.target.name}`);
+      if (province === "") {
+        setProvince(`${val.target.name}`);
       } else {
-        setCity((prev) => `${prev},${val.target.name}`);
+        setProvince((prev) => `${prev},${val.target.name}`);
       }
     }
 
     if (val.target.checked === false) {
-      if (city === val.target.name) {
-        setCity(city.replace(val.target.name, ""));
+      if (province === val.target.name) {
+        setProvince(province.replace(val.target.name, ""));
       } else {
-        setCity(city.replace(`,${val.target.name}`, ""));
+        setProvince(province.replace(`,${val.target.name}`, ""));
       }
     }
 
-    // cityNull.concat(val.target.name);
-    // setCity();
+
+    // provinceNull.concat(val.target.name);
+    // setProvince();
   };
+    console.log(province);
 
   const settings = {
     dots: true,
@@ -276,6 +253,7 @@ function Product() {
                         setSubCategory={setSubCategory}
                         data={data}
                         key={data.id}
+                        category={category}
                         subCategoryFilter={subCategoryFilter}
                       />
                     );
@@ -286,130 +264,50 @@ function Product() {
             <div className="box shadow-md w-full px-2 py-4 mt-2 flex flex-col rounded-md">
               <span>Lokasi</span>
               <div className="mt-2 flex-col">
-                <div className="city ">
-                  <Checkbox
-                    className="py-1 px-1"
-                    style={{
-                      color: "#5996ab",
-                    }}
-                    name="Bandung"
-                    onChange={(val) => changeLocation(val)}
-                  />
-                  <span className="text-sm text-gray-600">Bandung</span>
-                </div>
-                <div className="city ">
-                  <Checkbox
-                    className="py-1 px-1"
-                    style={{
-                      color: "#5996ab",
-                    }}
-                    name="jakarata"
-                    onChange={(val) => changeLocation(val)}
-                  />
-                  <span className="text-sm text-gray-600">Jakarta</span>
-                </div>
-                <div className="city ">
-                  <Checkbox
-                    className="py-1 px-1"
-                    style={{
-                      color: "#5996ab",
-                    }}
-                    name="jawa barat"
-                    onChange={(val) => changeLocation(val)}
-                  />
-                  <span className="text-sm text-gray-600">Jawa barat</span>
-                </div>
+                {ProvinceData && showAllProvince
+                  ? ProvinceData?.data.map((province) => {
+                      return (
+                        <div className="province ">
+                          <Checkbox
+                            className="py-1 px-1"
+                            style={{
+                              color: "#5996ab",
+                            }}
+                            name="Bandung"
+                            onChange={(val) => changeLocation(val)}
+                          />
+                          <span className="text-sm text-gray-600">
+                            {province.province_name}
+                          </span>
+                        </div>
+                      );
+                    })
+                  : ProvinceData?.data.slice(0, 10)?.map((province) => {
+                      return (
+                        <div className="province " key={province.id}>
+                          <Checkbox
+                            className="py-1 px-1"
+                            style={{
+                              color: "#5996ab",
+                            }}
+                            name={province.province_id}
+                            onChange={(val) => changeLocation(val)}
+                          />
+                          <span className="text-sm text-gray-600">
+                            {province.province_name}
+                          </span>
+                        </div>
+                      );
+                    })}
 
-                <div className="city ">
-                  <Checkbox
-                    className="py-1 px-1"
-                    style={{
-                      color: "#5996ab",
-                    }}
-                    name="DKI Jakarta"
-                    onChange={(val) => changeLocation(val)}
-                  />
-                  <span className="text-sm text-gray-600">DKI Jakarta</span>
-                </div>
-                <div className="city ">
-                  <Checkbox
-                    className="py-1 px-1"
-                    style={{
-                      color: "#5996ab",
-                    }}
-                    name="Jawa tengah"
-                    onChange={(val) => changeLocation(val)}
-                  />
-                  <span className="text-sm text-gray-600">Jawa tengah</span>
-                </div>
-                <div className="city ">
-                  <Checkbox
-                    className="py-1 px-1"
-                    style={{
-                      color: "#5996ab",
-                    }}
-                    name="Jawa timur"
-                    onChange={(val) => changeLocation(val)}
-                  />
-                  <span className="text-sm text-gray-600">Jawa Timur</span>
-                </div>
-                <div className="city ">
-                  <Checkbox
-                    className="py-1 px-1"
-                    style={{
-                      color: "#5996ab",
-                    }}
-                    name="Bali"
-                    onChange={(val) => changeLocation(val)}
-                  />
-                  <span className="text-sm text-gray-600">Bali</span>
-                </div>
-                <div className="city ">
-                  <Checkbox
-                    className="py-1 px-1"
-                    style={{
-                      color: "#5996ab",
-                    }}
-                    name="NTB"
-                    onChange={(val) => changeLocation(val)}
-                  />
-                  <span className="text-sm text-gray-600">NTB</span>
-                </div>
-                <div className="city ">
-                  <Checkbox
-                    className="py-1 px-1"
-                    style={{
-                      color: "#5996ab",
-                    }}
-                    name="NTT"
-                    onChange={(val) => changeLocation(val)}
-                  />
-                  <span className="text-sm text-gray-600">NTT</span>
-                </div>
-                <div className="city ">
-                  <Checkbox
-                    className="py-1 px-1"
-                    style={{
-                      color: "#5996ab",
-                    }}
-                    name="Sulawesi Selatan"
-                    onChange={(val) => changeLocation(val)}
-                  />
-                  <span className="text-sm text-gray-600">
-                    Sulawesi selatan
+                {!showAllProvince && (
+                  <span
+                    className="py-1 px-1 text-sm text-blue-100 cursor-pointer"
+                    onClick={() => setShowAllProvince(true)}
+                  >
+                    Lihat selengkapnya{" "}
                   </span>
-                </div>
-                <div className="city ">
-                  <Checkbox
-                    className="py-1 px-1"
-                    style={{
-                      color: "#5996ab",
-                    }}
-                    name="Jambi"
-                    onChange={(val) => changeLocation(val)}
-                  />
-                  <span className="text-sm text-gray-600">Jambi</span>
-                </div>
+                )}
               </div>
             </div>
           </div>
@@ -419,7 +317,7 @@ function Product() {
                 <ProductSearch onSearch={onSearch} />
               </form>
             </SearchContainer> */}
-            {product?.length > 0 ? (
+            {/* {product?.length > 0 ? (
               product?.map((data, index) => (
                 <ProductItems key={index} data={data} loading={loading} />
               ))
@@ -427,8 +325,23 @@ function Product() {
               <div className="text-center mt-10">
                 <h1>Tidak ada produk yang sesuai</h1>
               </div>
+            )} */}
+            {groupByCategory &&
+              Object.keys(groupByCategory).map((categoryName, index) => {
+                return (
+                  <ProductItems
+                    key={index}
+                    categoryName={categoryName}
+                    data={groupByCategory}
+                    loading={loading}
+                  />
+                );
+              })}
+            {productData?.data?.length === 0 && (
+              <div className="text-center mt-10">
+                <h1>Tidak ada produk yang sesuai</h1>
+              </div>
             )}
-            {}
           </div>
         </div>
       </div>
