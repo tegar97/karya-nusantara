@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import React, { FormEvent, useEffect, useState, useRef } from "react";
 import "react-responsive-modal/styles.css";
 import Modal from "react-modal";
