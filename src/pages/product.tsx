@@ -57,8 +57,8 @@ export async function getServerSideProps(context) {
 
       if (user) {
         res.setHeader("set-cookie", [
-          `lkkp_token=${token_lkpp?.token_lkpp}`,
-          `token=${query.nonce}`,
+          `lkkp_token=${token_lkpp?.token_lkpp};SameSite=None; Secure`,
+          `token=${query.nonce};SameSite=None; Secure`,
         ]);
       }
     } catch {}
