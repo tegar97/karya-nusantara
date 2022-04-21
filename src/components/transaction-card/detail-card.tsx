@@ -10,8 +10,6 @@ import NumberFormat from "react-number-format";
 import ReactToPrint from "react-to-print";
 import Invoice from "../invoice/invoice";
 
-
-
 const customStyles = {
   content: {
     top: "50%",
@@ -33,7 +31,7 @@ const customStyles = {
   },
 };
 
-const DetailModal = ({data}) => {
+const DetailModal = ({ data }) => {
   let subtitle;
   const router = useRouter();
   const invoiceRef = useRef();
@@ -52,7 +50,6 @@ const DetailModal = ({data}) => {
     setIsOpen(true);
   }
 
-  
   useEffect(() => {
     if (modalIsOpen) {
       document.body.style.overflow = "hidden";
@@ -152,10 +149,7 @@ const DetailModal = ({data}) => {
               </div>
 
               <div style={{ display: "none" }}>
-                <FunctionalComponentToPrint
-                  data={data}
-                  ref={invoiceRef}
-                />
+                <FunctionalComponentToPrint data={data} ref={invoiceRef} />
               </div>
               <div className="mt-5">
                 {data.transaction_item.map((data) => {

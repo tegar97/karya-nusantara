@@ -220,9 +220,6 @@ function CheckoutPage({ cart, address }) {
 
 export async function getServerSideProps({ req }) {
   const { token } = req.cookies;
-  const bearerToken = `Bearer ${token}`;
-  const cart = await getMyCart(bearerToken);
-
   if (!token) {
     return {
       redirect: {
@@ -231,6 +228,10 @@ export async function getServerSideProps({ req }) {
       },
     };
   }
+  const bearerToken = `Bearer ${token}`;
+  const cart = await getMyCart(bearerToken);
+
+  
   const response = await getProfile(bearerToken);
 
   

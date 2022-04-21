@@ -3,14 +3,17 @@ import "react-responsive-modal/styles.css";
 import Modal from "react-modal";
 import { useRouter } from "next/router";
 
-
+import { refresh } from "../../constant/api/auth";
 import { Button, Checkbox } from "@material-ui/core";
-import { RadioButtonChecked, RadioButtonUncheckedRounded } from "@material-ui/icons";
+import {
+  RadioButtonChecked,
+  RadioButtonUncheckedRounded,
+} from "@material-ui/icons";
 import PaymentGatewayChild from "./payment-gateway-child";
 import useSWR from "swr";
 import NumberFormat from "react-number-format";
 import { order } from "../../constant/api/order";
-import Cookie from 'js-cookie'
+import Cookie from "js-cookie";
 import { toast } from "react-toastify";
 
 const customStyles = {
@@ -53,7 +56,7 @@ const customStylesMobile = {
   },
 };
 
-const PaymentModal = ({isMobile =false, orderList, grandTotal }) => {
+const PaymentModal = ({ isMobile = false, orderList, grandTotal }) => {
   let subtitle;
   const router = useRouter();
 
@@ -61,11 +64,8 @@ const PaymentModal = ({isMobile =false, orderList, grandTotal }) => {
   const fetcher = (
     ...args: [input: RequestInfo, init?: RequestInit | undefined]
   ): any => fetch(...args).then((res) => res.json());
-  const [codeGateway, setCodeGateway] = useState('');
-  const { data, error } = useSWR(
-    `${process.env.API_V2}/api/gateway`,
-    fetcher
-  );
+  const [codeGateway, setCodeGateway] = useState("");
+  const { data, error } = useSWR(`${process.env.API_V2}/api/gateway`, fetcher);
   function openModal() {
     setIsOpen(true);
   }
@@ -82,7 +82,6 @@ const PaymentModal = ({isMobile =false, orderList, grandTotal }) => {
     setIsOpen(false);
   }
 
-
   Modal.setAppElement("#root");
 
   const pay = async () => {
@@ -90,23 +89,42 @@ const PaymentModal = ({isMobile =false, orderList, grandTotal }) => {
       order_list: orderList,
       payment_code: codeGateway,
       amount: grandTotal,
-
     };
-  
-    console.log(data)
-    const token = Cookie.get('token');
-    const bearer = `Bearer ${token} `
+
+    console.log(data);
+    const token = Cookie.get("token");
+    const lkppToken = Cookie.get("lkkp_token");
+    const bearer = `Bearer ${token} `;
 
     const response = await order(data, bearer, codeGateway);
 
-
     if (response.data.status_code == 201) {
       router.push(`/payment/${response.data.transaction_id}`);
+    } else if (response.data.data_lkpp.code == 200) {
+      console.log(response);
+      console.log(response?.data.new_token);
+      const responeRefreshToken = await refresh(bearer);
+      if (
+        responeRefreshToken.data.access_token !== null ||
+        responeRefreshToken.data.access_token !== undefined
+      ) {
+        Cookie.set("token", responeRefreshToken.data.access_token, {
+          sameSite: "false",
+          secure: true,
+        });
+        Cookie.set("lkkp_token", response?.data.data_lkpp.new_token, {
+          sameSite: "false",
+          secure: true,
+        });
+
+        setTimeout(function () {
+          router.push(`/payment/${response.data.data.transaction_id}`);
+        }, 1000);
+      }
     } else {
-      toast.error('gagal melakukan pembayaran')
+      toast.error("gagal melakukan pembayaran");
     }
-    
-  }
+  };
 
   return (
     <div>
@@ -155,7 +173,6 @@ const PaymentModal = ({isMobile =false, orderList, grandTotal }) => {
                       />
                     );
                   })}
-                
                 </ul>
               </div>
             </div>

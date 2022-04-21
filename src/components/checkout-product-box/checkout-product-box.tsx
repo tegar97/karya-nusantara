@@ -1,12 +1,12 @@
-import { Button } from '@material-ui/core';
-import React, { useEffect,useState } from 'react'
-import NumberFormat from 'react-number-format';
-import { toast } from 'react-toastify';
-import useSWR from 'swr';
-import { getOngkirPrice } from '../../constant/api/ongkir';
-import fetcher from '../../util/useSwrFetcher';
-import CheckoutItem from './checkout-item';
-import Cookie from 'js-cookie'
+import { Button } from "@material-ui/core";
+import React, { useEffect, useState } from "react";
+import NumberFormat from "react-number-format";
+import { toast } from "react-toastify";
+import useSWR from "swr";
+import { getOngkirPrice } from "../../constant/api/ongkir";
+import fetcher from "../../util/useSwrFetcher";
+import CheckoutItem from "./checkout-item";
+import Cookie from "js-cookie";
 function CheckoutPageProduct({
   ukmName,
   groupBySeller,
@@ -21,7 +21,7 @@ function CheckoutPageProduct({
 }) {
   const [subTotal, setSubTotal] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [courierLoad,setCourierLoad] = useState(true)
+  const [courierLoad, setCourierLoad] = useState(true);
   const [selectCourier, setSelectCourier] = useState(false);
   const [shipment, setShipment] = useState([]);
   const [AllProductPrice, setAllProductPrice] = useState(0);
@@ -36,12 +36,10 @@ function CheckoutPageProduct({
     const getPrice = groupBySeller[ukmName].reduce((total, num) => {
       return total + num.quantity * num.product.price;
     }, 0);
-    setAllProductPrice(getPrice)
+    setAllProductPrice(getPrice);
     setSubTotal(parseInt(getPrice + myCourier.value));
 
     //GET Ongkir ,logicstic,subtotal and get product
-
-   
   }, [myCourier, subTotal]);
 
   useEffect(() => {
@@ -72,7 +70,6 @@ function CheckoutPageProduct({
           weight: totalWeight,
           key: process.env.KEY_RAJA_ONGKIR,
           courier: getStoreAvaiableShipmment,
-          
         };
         const response = await getOngkirPrice(dataOngkir);
 
@@ -83,7 +80,6 @@ function CheckoutPageProduct({
       };
       if (address !== undefined) {
         loadOngkir();
-        
       }
       setLoading(false);
     }
@@ -91,8 +87,6 @@ function CheckoutPageProduct({
   let tempCourier = [];
 
   const selectMyCourier = (e, detaildata) => {
-    
-
     setMyCourier({
       value: e.cost[0].value,
       estimasi: e.cost[0].etd,
@@ -101,18 +95,36 @@ function CheckoutPageProduct({
     // tempValue[index] = e.cost[0].value
 
     // getTempOngkir.push(e.cost[0].value);
-    
+
     const lkpp_token = Cookie.get("lkkp_token");
 
-      const data = {
-        id: groupBySeller[ukmName][0].id,
-        courier_total: e.cost[0].value,
-        estimasi: e.cost[0].etd,
-        product_id: groupBySeller[ukmName][0].product.id,
-        quantity: groupBySeller[ukmName][0].quantity,
-        courier: e.service,
-        price: parseInt(groupBySeller[ukmName][0].product.price),
-      };
+    const data = {
+      id: groupBySeller[ukmName][0].id,
+      courier_total: e.cost[0].value,
+      estimasi: e.cost[0].etd,
+      product_id: groupBySeller[ukmName][0].product.id,
+      quantity: groupBySeller[ukmName][0].quantity,
+      courier: e.service,
+      price: parseInt(groupBySeller[ukmName][0].product.price),
+    };
+    const orderDesc = [];
+    groupBySeller[ukmName].map((productData) => {
+      return orderDesc.push(productData.product.name);
+    });
+    const categoryId = [];
+    groupBySeller[ukmName].map((productData) => {
+      if (
+        categoryId.indexOf(
+          parseInt(productData.product.category.id_kategori_lkpp)
+        ) === -1
+      ) {
+        return categoryId.push(
+          parseInt(productData.product.category.id_kategori_lkpp)
+        );
+      }
+    });
+
+    console.log();
     const orderListTemp = {
       store_id: groupBySeller[ukmName][0].umkm_id,
       merchent_name: ukmName,
@@ -122,15 +134,14 @@ function CheckoutPageProduct({
       logistic_name: detaildata[0].name,
       logistic_code: detaildata[0].code,
       item_list: groupBySeller[ukmName],
+      orderDesc: orderDesc,
+      categoryId: categoryId,
       token: lkpp_token ? lkpp_token : "",
     };
     if (getOngkirprice[index]?.id !== groupBySeller[ukmName][0].id) {
-     
       setOrderList([...orderList, orderListTemp]);
 
-     
       setOngkirPrice([...getOngkirprice, data]);
-      
     } else {
       const update = [...getOngkirprice];
       update[index] = data;
@@ -138,10 +149,9 @@ function CheckoutPageProduct({
       const update2 = [...orderList];
       update2[index] = orderListTemp;
 
-      setOrderList(update2)
+      setOrderList(update2);
       setOngkirPrice(update);
     }
-
 
     getTempOngkir.push(data);
     setTriggetNotif(getOngkirprice);
@@ -150,11 +160,11 @@ function CheckoutPageProduct({
 
   const showCourierList = () => {
     if (address === undefined) {
-        toast.error('Silahkan tambahkan alamat terlebih dahulu')
+      toast.error("Silahkan tambahkan alamat terlebih dahulu");
     } else {
       setSelectCourier(!selectCourier);
     }
-  }
+  };
 
   if (loading) {
     return <h1>loading....</h1>;
@@ -275,4 +285,4 @@ function CheckoutPageProduct({
   }
 }
 
-export default CheckoutPageProduct
+export default CheckoutPageProduct;
