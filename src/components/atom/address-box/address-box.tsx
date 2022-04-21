@@ -1,4 +1,5 @@
 import { Button } from '@material-ui/core';
+import Link from 'next/link';
 import React from 'react'
 import PopAddressBox  from '../../popup-address-box/popup-address-box';
 function AddressBox({ address }) {
@@ -25,17 +26,17 @@ function AddressBox({ address }) {
           )}
         </div>
         {address !== undefined ? (
-          <a target="_blank" href="/member/alamat" rel="noopener noreferrer">
+          <Link href="/member/alamat">
             <Button className="lg:h-10  bg-gray-100 outline-none rounded-lg">
               Change
             </Button>
-          </a>
+          </Link>
         ) : (
-          <a target="_blank" href="/member/alamat" rel="noopener noreferrer">
+          <Link href="/member/alamat" >
             <Button className="lg:h-10  bg-gray-100 outline-none rounded-lg">
               Tambahkan
             </Button>
-          </a>
+          </Link>
         )}
       </div>
     </div>
