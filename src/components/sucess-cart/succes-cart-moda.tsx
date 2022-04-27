@@ -42,7 +42,7 @@ const customStyles = {
 
 const SuccessCartModal = (props
 ) => {
-  const { item, quantity } = props;
+  const { item, quantity, setIsOpen :parentIsOpen } = props;
 
   let subtitle;
   const { data, error } = useSWR(
@@ -57,7 +57,6 @@ const SuccessCartModal = (props
 
   function openModal() {
         props.addProduct(item);
-
     setIsOpen(true);
   }
 
@@ -65,13 +64,13 @@ const SuccessCartModal = (props
     setIsOpen(false);
   }
   
-  useEffect(() => {
-    if (modalIsOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
-  }, [modalIsOpen]);
+  // useEffect(() => {
+  //   if (modalIsOpen) {
+  //     document.body.style.overflow = "hidden";
+  //   } else {
+  //     document.body.style.overflow = "unset";
+  //   }
+  // }, [modalIsOpen]);
   const submitForm = async (event: FormEvent) => {
     event.preventDefault();
 
@@ -86,9 +85,9 @@ const SuccessCartModal = (props
     const token = Cookie.get('token');
     const bearer = `Bearer ${token}`
     const response = await addToCart(data, bearer);
-
     if (response.error === false) {
       setIsOpen(true)
+
     }
   }
   return (
@@ -128,7 +127,7 @@ const SuccessCartModal = (props
               <div className="grid grid-cols-5 gap-3 mt-5">
                 {!data && <span> Loading ...</span>}
                 {data?.data?.product.map((data) => {
-                  return <OtherProduct data={data} />;
+                  return <OtherProduct  data={data} />;
                 })}
               </div>
             </div>

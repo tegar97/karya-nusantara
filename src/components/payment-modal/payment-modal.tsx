@@ -91,7 +91,8 @@ const PaymentModal = ({ isMobile = false, orderList, grandTotal }) => {
       amount: grandTotal,
     };
 
-    console.log(data);
+    console.log(orderList);
+    
     const token = Cookie.get("token");
     const lkppToken = Cookie.get("lkkp_token");
     const bearer = `Bearer ${token} `;
@@ -121,6 +122,8 @@ const PaymentModal = ({ isMobile = false, orderList, grandTotal }) => {
           router.push(`/payment/${response.data.data.transaction_id}`);
         }, 1000);
       }
+
+      setIsOpen(false)
     } else {
       toast.error("gagal melakukan pembayaran");
     }

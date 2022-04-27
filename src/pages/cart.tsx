@@ -18,7 +18,9 @@ function CartPage({ cart }) {
   useEffect(() => {
     setLoading(true);
     const loadCart = async () => {
-          const groupBySeller = cart.data.item_cart.reduce((acc, curr) => {
+              console.log(cart.data);
+
+      const groupBySeller = cart.data.item_cart.reduce((acc, curr) => {
             (acc[curr.umkm.ukmName] = acc[curr.umkm.ukmName] || []).push(curr);
 
             return acc;

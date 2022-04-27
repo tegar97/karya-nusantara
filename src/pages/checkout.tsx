@@ -39,7 +39,11 @@ function CheckoutPage({ cart, address }) {
     setLoading(true);
     const loadCart = async () => {
       const groupBySeller = cart.data.item_cart.reduce((acc, curr) => {
-        (acc[curr.umkm.ukmName] = acc[curr.umkm.ukmName] || []).push(curr);
+        if (curr.isSelected == 1) {
+                    (acc[curr.umkm.ukmName] =
+                      acc[curr.umkm.ukmName] || []).push(curr);
+
+        }
 
         return acc;
       }, {});
@@ -47,6 +51,7 @@ function CheckoutPage({ cart, address }) {
       setTotal(cart?.data);
     };
     loadCart();
+    
     setLoading(false);
   }, []);
   useEffect(() => {
@@ -199,7 +204,7 @@ function CheckoutPage({ cart, address }) {
                 </span>
               </div>
 
-              {getOngkirprice.length !== Object.keys(groupBySeller).length ? (
+              {orderList?.length < 1 || getOngkirprice.length !== Object.keys(groupBySeller).length ? (
                 <button
                   onClick={alert}
                   className=" lg:block hidden w-full bg-blue-100 mt-5 px-2 py-2 text-white outline-none rounded-md"

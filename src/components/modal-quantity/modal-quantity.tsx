@@ -83,13 +83,13 @@ const ModalQuantityModal = ({
       setQuantity(0);
     }
   }, [quantity]);
-  useEffect(() => {
-    if (modalIsOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
-  }, [modalIsOpen]);
+  // useEffect(() => {
+  //   if (modalIsOpen) {
+  //     document.body.style.overflow = "hidden";
+  //   } else {
+  //     document.body.style.overflow = "unset";
+  //   }
+  // }, [modalIsOpen]);
 
   function closeModal() {
     setIsOpen(false);
@@ -245,7 +245,11 @@ const ModalQuantityModal = ({
               {stock >= quantity ? (
                 <>
                   {user ? (
-                    <SuccessCartModal item={item} quantity={quantity} />
+                    <SuccessCartModal
+                      setIsOpen={setIsOpen}
+                      item={item}
+                      quantity={quantity}
+                    />
                   ) : (
                     <button
                       onClick={errorLogin}

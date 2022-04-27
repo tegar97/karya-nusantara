@@ -1,8 +1,8 @@
 import { Checkbox } from "@material-ui/core";
-import React,{useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { deleteCartItem, updateCart } from "../../../../constant/api/cart";
 import convertToRupiah from "../../../../util/converRupiah";
-import Cookie from 'js-cookie'
+import Cookie from "js-cookie";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 
@@ -16,9 +16,9 @@ function CartProductChild({
   key,
   idx,
 }) {
-  console.log(data)
+  console.log(data);
   const [addNote, setAddNote] = useState(false);
-  (idx);
+  idx;
   const [quantity, setQuantity] = useState(data.quantity);
 
   // useEffect(() => {
@@ -27,33 +27,37 @@ function CartProductChild({
   const [isSelected, setIsSelected] = useState(data.isSelected);
   const [delay, setDelay] = useState(false);
   const token = Cookie.get("token");
+const router = useRouter();
 
   const Bearer = `Bearer ${token}`;
 
   const deleteCart = async () => {
     const response = await deleteCartItem(data.id, Bearer);
-    let getProduct = Object.keys(groupBySeller).map((ukmName) => {
-      return groupBySeller[ukmName].filter((groupProductId) => {
-        return groupProductId.id !== data.id;
-      });
-    });
-    
-    let tempProductCart = [];
-    let productNotNull = getProduct.filter((e) => {
-      return e != null;
-    });
-    productNotNull.map((data) => {
-      data.map((child) => {
-        tempProductCart.push(child);
-      });
-    });
+    if (response.error === false) {
+      router.reload();
 
-    const filterBack = tempProductCart.reduce((acc, curr) => {
+    }
+    // let getProduct = Object.keys(groupBySeller).map((ukmName) => {
+    //   return groupBySeller[ukmName].filter((groupProductId) => {
+    //     return groupProductId.id !== data.id;
+    //   });
+    // });
 
-      (acc[curr.umkm.ukmName] = acc[curr.umkm.ukmName] || []).push(curr);
-      return acc;
-    }, {});
-    setGroupBySeller(filterBack);
+    // let tempProductCart = [];
+    // let productNotNull = getProduct.filter((e) => {
+    //   return e != null;
+    // });
+    // productNotNull.map((data) => {
+    //   data.map((child) => {
+    //     tempProductCart.push(child);
+    //   });
+    // });
+
+    // const filterBack = tempProductCart.reduce((acc, curr) => {
+    //   (acc[curr.umkm.ukmName] = acc[curr.umkm.ukmName] || []).push(curr);
+    //   return acc;
+    // }, {});
+    // setGroupBySeller(filterBack);
 
     const total = parseInt(data.product.price) * parseInt(quantity);
     setTotal({
@@ -78,14 +82,14 @@ function CartProductChild({
     if (type === "add") {
       const Responsedata = {
         itemCart_id: data.id,
-        isSelected: 1,
+        isSelected: isSelected,
         quantity: quantity + 1,
       };
       const response = await updateCart(Responsedata, Bearer);
     } else {
       const Responsedata = {
         itemCart_id: data.id,
-        isSelected: 1,
+        isSelected: isSelected,
         quantity: quantity - 1,
       };
       const response = await updateCart(Responsedata, Bearer);
@@ -102,31 +106,59 @@ function CartProductChild({
     //   setGroupBySeller([...groupBySellerUpdate, groupBySeller]);
     //   setTotal([...getTotal,response.data]);
     //   }
-
-    type == "add"
-      ? setTotal({
-          ...getTotal,
-          total: parseInt(getTotal.total) + parseInt(data.product.price),
-        })
-      : setTotal({
-          ...getTotal,
-          total: parseInt(getTotal.total) - parseInt(data.product.price),
-        });
-    setUpdateNotifier(true);
+    if (isSelected == 1) {
+       type == "add"
+         ? setTotal({
+             ...getTotal,
+             total: parseInt(getTotal.total) + parseInt(data.product.price),
+           })
+         : setTotal({
+             ...getTotal,
+             total: parseInt(getTotal.total) - parseInt(data.product.price),
+           });
+       setUpdateNotifier(true);
+    }
+   
   };
   const addQuantity = () => {
-    const realquantity = (quantity + 1)
+    const realquantity = quantity + 1;
     if (realquantity <= parseInt(data.product.stock)) {
       setQuantity(quantity + 1);
       groupBySeller[data.umkm.ukmName][idx].quantity = quantity + 1;
 
       notifUpdate("add");
     }
-   
   };
   const lessQuantity = () => {
     setQuantity(quantity - 1);
     notifUpdate("less");
+  };
+
+  const updateSelectProduct = async (status) => {
+    const Responsedata = {
+      itemCart_id: data.id,
+      isSelected: status,
+      quantity: quantity ,
+    };
+    const response = await updateCart(Responsedata, Bearer);
+    if (response.error === false) {
+      if (status == 0) {
+        setTotal({
+          ...getTotal,
+          total:
+            parseInt(getTotal.total) -
+            parseInt(data.quantity) * parseInt(data.product.price),
+        });
+      } else {
+        setTotal({
+          ...getTotal,
+          total:
+            parseInt(getTotal.total) +
+            parseInt(data.quantity) * parseInt(data.product.price),
+        });
+      }
+      setIsSelected(status);
+    }
   };
   return (
     <div
@@ -140,14 +172,14 @@ function CartProductChild({
               <Checkbox
                 checked
                 value={1}
-                onChange={() => setIsSelected(0)}
+                onChange={() => updateSelectProduct(0)}
                 style={{
                   color: "#5996ab",
                 }}
               />
             ) : (
               <Checkbox
-                onChange={() => setIsSelected(1)}
+                onChange={() => updateSelectProduct(1)}
                 value={0}
                 style={{
                   color: "#5996ab",
@@ -162,7 +194,7 @@ function CartProductChild({
             />
           </div>
 
-          <div className="flex flex-col ml-5  lg:max-w-md" >
+          <div className="flex flex-col ml-5  lg:max-w-md">
             <div className="flex flex-col">
               <span className="text-md lg:text-lg">{data?.product?.name}</span>
               <span className="text-blue-100 mt-2 lg:text-lg text-sm">

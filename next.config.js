@@ -13,7 +13,7 @@ module.exports = {
     // API_GOLANG: "http://127.0.0.1:5000",
     API_LARAVEL: "https://api.karyanusantara.co.id",
     API_GOLANG: "https://api-go.karyanusantara.co.id",
-    API_V2: "https://api-v2.karyanusantara.co.id",
+    API_V2: "http://karyanusantara.test",
     NO_WA: "081281712428",
     KEY_RAJA_ONGKIR: "6ff13d6f98bc4ca4390a7332bb2e12bb",
     BASE_URL_PROD: "https://www.karyanusantara.co.id",
