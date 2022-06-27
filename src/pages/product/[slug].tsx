@@ -482,7 +482,7 @@ function Slug({ data, user, token, redirect }) {
                         )}
                       </span>
                     </div>
-                    <div className="mt-2 ">
+                    {/* <div className="mt-2 ">
                       {data.data[0].product_variant.map((productVariant) => {
                         return (
                           <div className="mb-2">
@@ -516,7 +516,7 @@ function Slug({ data, user, token, redirect }) {
                           </div>
                         );
                       })}
-                    </div>
+                    </div> */}
                     <div className="mt-2">
                       {/* {
                         variants?.map(variantData => {
