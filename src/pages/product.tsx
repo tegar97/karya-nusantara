@@ -46,11 +46,13 @@ export async function getServerSideProps(context) {
 
 
   let token_lkpp: any = null;
-  let isLkpp  = false
+  let isLkpp = false
+  
   if (query.nonce) {
     try {
       isLkpp = true
       token_lkpp = await jwt_decode(query?.nonce);
+
 
       const bearerToken = `Bearer ${query.nonce}`;
       const response = await getProfile(bearerToken);
