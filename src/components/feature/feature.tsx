@@ -7,7 +7,7 @@ function Feature() {
       style={{ backgroundColor: "#f7f7f7" }}
     >
       <h2 className="text-blue-100 text-3xl font-bold ">
-        Kenapa Belanja di Karya Nusantara
+        Kenapa Belanja di Karya Nusantara ?
       </h2>
 
       <div className="grid   lg:grid-cols-3 mt-20  md:grid-cols-3 gap-5 lg:gap-40">
@@ -51,7 +51,7 @@ function Feature() {
             <h3 className="text-xl text-blue-100 font-semibold">Terpercaya</h3>
             <div className="flex flex-col items-center text-center mt-2">
               <span>#transparan</span>
-              <span>#getikuminaktif</span>
+              <span>#gesitkomunikatif</span>
             </div>
           </div>
         </div>

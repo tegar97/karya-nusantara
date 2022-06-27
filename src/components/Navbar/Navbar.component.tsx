@@ -127,16 +127,16 @@ function Navbar({ menuDrop, setMenuDrop }) {
               <img
                 src="/assets/logo-nav-min.png"
                 alt="Logo Karya Nusantara"
-                width={150}
-                height={50}
+                width={170}
+                height={70}
                 className="z-30 cursor-pointer object-cover "
               />
             ) : (
               <img
                 src="/assets/logo-nav-min.png"
                 alt="Logo Karya Nusantara"
-                width={150}
-                height={50}
+                width={170}
+                height={70}
                 className="z-30 cursor-pointer object-cover"
               />
             )}
@@ -259,20 +259,35 @@ function Navbar({ menuDrop, setMenuDrop }) {
         <div className="hidden lg:block">
           <ul className="flex flex-row">
             <Link href="/about">
-              <li className="ml-4 cursor-pointer hover:text-blue-100 ">
+              <li
+                className="ml-4 cursor-pointer hover:text-blue-100  "
+                style={{ fontSize: 17, fontWeight: 500 }}
+              >
                 Tentang Kami
               </li>
             </Link>
-            <li className="ml-4 cursor-pointer hover:text-blue-100 ">
+            <li
+              className="ml-4 cursor-pointer hover:text-blue-100 text-black"
+              style={{ fontSize: 17, fontWeight: 500 }}
+            >
               <Link href="/product">Katalog Produk</Link>
             </li>
-            <li className="ml-4 cursor-pointer hover:text-blue-100">
+            <li
+              className="ml-4 cursor-pointer hover:text-blue-100"
+              style={{ fontSize: 17, fontWeight: 500 }}
+            >
               <Link href="/request">Request For Quotation</Link>
             </li>
-            <li className="ml-4 cursor-pointer hover:text-blue-100 ">
+            <li
+              className="ml-4 cursor-pointer hover:text-blue-100 "
+              style={{ fontSize: 17, fontWeight: 500 }}
+            >
               <Link href="/klien"> Klien Kami</Link>
             </li>
-            <li className="ml-4 cursor-pointer hover:text-blue-100 ">
+            <li
+              className="ml-4 cursor-pointer hover:text-blue-100 "
+              style={{ fontSize: 17, fontWeight: 500 }}
+            >
               <Link href="/mitra"> Cerita Ukm</Link>
             </li>
           </ul>
@@ -331,7 +346,7 @@ function Navbar({ menuDrop, setMenuDrop }) {
                 <Link href="/register-konsumen">
                   <button
                     onClick={() => setRegisterSelection(false)}
-                    className="w-full p-1 text-sm text-left text-white bg-blue-100 outline-none "
+                    className="w-full p-1 text-sm text-white bg-blue-100 outline-none  text-center"
                   >
                     Daftar Sebagai Pembeli
                   </button>
@@ -339,7 +354,7 @@ function Navbar({ menuDrop, setMenuDrop }) {
                 <Link href="/register-mitra">
                   <button
                     onClick={() => setRegisterSelection(false)}
-                    className="w-full p-1 mt-2 text-sm text-left text-white bg-blue-100 "
+                    className="w-full p-1 mt-2 text-sm  text-white bg-blue-100 text-center "
                   >
                     Daftar Sebagai Mitra
                   </button>

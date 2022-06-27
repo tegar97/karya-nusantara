@@ -28,7 +28,7 @@ function Client() {
           ></div>
         </div>
       </div>
-      <div className="py-5 lg:p-10">
+      <div className="py-5 lg:p-10 group">
         <ClientCard></ClientCard>
       </div>
 

@@ -6,6 +6,10 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
+      height: {
+        100: "21.875rem",
+        104: "23.875rem",
+      },
       width: {
         "12/13": "98.7142857%",
       },
@@ -24,7 +28,7 @@ module.exports = {
         grey: {
           100: "#464646",
           200: "#707070",
-          300: "#404040"
+          300: "#404040",
         },
       },
       spacing: {

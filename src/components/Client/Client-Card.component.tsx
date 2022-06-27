@@ -13,19 +13,20 @@ const ClientCard = () => {
   );
   var settings = {
     dots: false,
-    className: "center",
-
+    className: "client-grid",
+    centerMode: true,
     infinite: true,
     slidesToShow: 7,
     slidesToScroll: 1,
     initialSlide: 0,
     autoplay: true,
+    
     speed: 4000,
     autoplaySpeed: 1000,
     cssEase: "linear",
     // pauseOnHover: true,
     accessibility: true,
-    arrows: true,
+    arrows: false,
 
     responsive: [
       {
@@ -62,30 +63,35 @@ const ClientCard = () => {
     ],
   };
   return (
-    <div>
+    <div className="text-center ">
       <>
         {!data ? (
           <div>Loading ....</div>
         ) : data.data.length >= 8 ? (
           <Slider {...settings} style={{ zIndex: 2 }}>
             {data.data.map((data) => (
-              <div className="px-5">
+              <div className="  text-center border border-gray-200 shadow-lg rounded-md   ">
                 <img
                   src={`${process.env.API_LARAVEL}/storage/${data.icon}`}
                   alt={`${data.name}`}
-                  className="self-center object-cover mb-5 text-center "
+                  className="self-center object-cover mb-5 text-center w-30 h-30 "
                 />
+                <div className="mt-5 text-center">
+                  <span>{data.name}</span>
+                </div>
               </div>
             ))}
           </Slider>
         ) : (
           <div className="grid w-full grid-cols-3 p-0 gap-x-16 gap-y-5 lg:gap-x-10 lg:grid-cols-7 ">
             {data.data.map((data) => (
-              <img
-                src={`${process.env.API_LARAVEL}/storage/${data.icon}`}
-                alt={`${data.name}`}
-                className="self-center object-cover mb-5 text-center "
-              />
+              <div className="px-2 py-2 border border-gray-200 ">
+                <img
+                  src={`${process.env.API_LARAVEL}/storage/${data.icon}`}
+                  alt={`${data.name}`}
+                  className="self-center object-cover mb-5 text-center "
+                />
+              </div>
             ))}
           </div>
         )}

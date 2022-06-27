@@ -13,6 +13,7 @@ import ProductCategoryMobile from "../components/product-category/product-catego
 import BestProduct from "../components/bestProduct/bestProduct";
 import Feature from "../components/feature/feature";
 import RfqMobile from "../components/Request-For-quantity/rfq-mobile.component";
+import { useRouter } from "next/router";
 
 export async function getStaticProps(context) {
   const res = await fetch(`${process.env.API_LARAVEL}/api/settings`);
@@ -28,6 +29,9 @@ export async function getStaticProps(context) {
 }
 
 export default function Home({ data, data2 }) {
+   const router = useRouter();
+  const { nonce } = router.query;
+  console.log(nonce);
   return (
     <div>
       <Head>
@@ -60,8 +64,9 @@ export default function Home({ data, data2 }) {
 
       {/* <Hero />
       <About image={data} /> */}
+   
       <div className="hidden lg:block md:hidden mt-20">
-        <ProductCategory data2={data2} />
+        <ProductCategory  nonce={nonce} data2={data2} />
       </div>
       <div className="block lg:hidden md:block">
         <ProductCategoryMobile />
@@ -80,7 +85,7 @@ export default function Home({ data, data2 }) {
         </ScrollAnimation>
       </div>
 
-      <ScrollAnimation animateIn="fadeIn" >
+      <ScrollAnimation animateIn="fadeIn">
         <Feature />
       </ScrollAnimation>
       <ScrollAnimation animateIn="fadeIn">

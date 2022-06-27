@@ -85,6 +85,14 @@ function Slug({ data, user, token, redirect }) {
   const [showAllShipment, setShowAllShipment] = useState(false);
   const [showMore, setShowMore] = useState(false);
   const [errorOngkir, setErrorOngkir] = useState(false);
+  const [variants, setVariants] = useState([]);
+  const [currentVariants, setCurrentVariants] = useState({
+    productVariantId: '',
+    variantOptionId: '',
+    variationName: '',
+    variationPrice: '',
+  });
+  const [variantName, setVariantName] = useState(null);
   const myAbortController = new AbortController();
 
   useEffect(() => {
@@ -160,6 +168,95 @@ function Slug({ data, user, token, redirect }) {
       myAbortController.abort();
     };
   }, []);
+
+
+  const selectVariant = (productVariant, variantOption) => {
+    
+
+    if (variants.length !== 0) {
+      const filterGate = variants.filter((dataItem) => {
+        if (
+          dataItem.productVariantId == productVariant.id &&
+          dataItem.variantOptionId !== null
+        ) {
+          return true;
+        } else {
+          return false;
+        }
+      });
+
+
+      if (filterGate.length === 0) {
+
+        
+        const data = {
+          productVariantId: productVariant.id,
+          productVariantName: productVariant.variantName,
+
+          variantOptionId: variantOption.id,
+          variationName: variantOption.variantName,
+          variationPrice: variantOption.price,
+        };
+        console.log(data);
+
+        setVariants([...variants, data]);
+
+            if (variantOption?.variantionImg !== "0.png") {
+              setSelectImage(variantOption?.variantionImg);
+            }
+      } else {
+        
+      }
+    } else {
+      const data = {
+        productVariantId: productVariant.id,
+        productVariantName : productVariant.variantName,
+        variantOptionId: variantOption.id,
+        variationName: variantOption.variantName,
+        variationPrice: variantOption.price,
+      };
+      setVariants([...variants, data]);
+
+      if (variantOption?.variantionImg !== '0.png') {
+        setSelectImage(variantOption?.variantionImg);
+        
+      }
+    }
+
+    setCurrentVariants({
+      productVariantId: productVariant.id,
+      variantOptionId: variantOption.id,
+
+      variationName: variantOption.variantName,
+      variationPrice: variantOption.price,
+    });
+
+   
+  };
+  
+
+  // useEffect(() => {
+
+  //   const filterGate = variants.filter((dataItem) => {
+  //     if (
+  //       dataItem.productVariantId !== currentVariants.productVariantId &&
+  //       dataItem.variantOptionId !== currentVariants.variantOptionId
+  //     ) {
+  //       const groupName = variants.reduce((acc, current) => {
+  //         return acc + current.variationName;
+  //       }, "");;
+  //         setVariantName(groupName);
+  //     } else {
+  //       return false;
+  //     }
+  //   })
+ 
+   
+
+
+  
+  // }, [variants]);
+  console.log(variants)
 
   if (loading && token) {
     return (
@@ -268,6 +365,7 @@ function Slug({ data, user, token, redirect }) {
                     minimumBuy={data?.data[0]?.minimumOrder}
                     price={data?.data[0].price}
                     item={data.data[0]}
+                    variants={variants}
                   />
                 )}
               </div>
@@ -348,27 +446,89 @@ function Slug({ data, user, token, redirect }) {
                 <div className="h-full flex-1  ml-3  lg:pl-6  pr-3 pl-3 lg:pr-6  pt-2 lg:pt-6">
                   <div className="flex-col flex">
                     <h1 className="font-bold lg:text-2xl text-left">
+                      {/* {variantName !== ""
+                        ? data.data[0].name + " - " + variantName
+                        : data.data[0].name} */}
                       {data.data[0].name}
                     </h1>
 
                     <div className="mt-1">
                       <span className="text-sm">
                         By{" "}
-                        <a className="text-blue-100 font-bold cursor-pointer">
-                          {data.data[0].umkm.ukmName}
-                        </a>
+                        <Link href={`/mitra/profile/${data.data[0].umkm.slug}`}>
+                          <span className="text-blue-100 font-bold cursor-pointer">
+                            {data.data[0].umkm.ukmName}
+                          </span>
+                        </Link>
                       </span>
                     </div>
                     <div className="mt-1">
                       <span className="text-xl  text-blue-100 font-bold lg:text-xl">
                         {" "}
-                        <NumberFormat
-                          value={data.data[0].price}
-                          prefix="Rp "
-                          displayType={"text"}
-                          thousandSeparator={true}
-                        />
+                        {data.data[0].product_variant.length > 0 ? (
+                          <NumberFormat
+                            value={currentVariants.variationPrice}
+                            prefix="Rp "
+                            displayType={"text"}
+                            thousandSeparator={true}
+                          />
+                        ) : (
+                          <NumberFormat
+                            value={data.data[0].price}
+                            prefix="Rp "
+                            displayType={"text"}
+                            thousandSeparator={true}
+                          />
+                        )}
                       </span>
+                    </div>
+                    <div className="mt-2 ">
+                      {data.data[0].product_variant.map((productVariant) => {
+                        return (
+                          <div className="mb-2">
+                            <span className="text-gray-700">
+                              {productVariant?.variantName}
+                            </span>
+                            <div className="grid grid-cols-3 mt-2 gap-5">
+                              {productVariant?.variant_option?.map(
+                                (variantOption) => {
+                                  return (
+                                    <div
+                                      onClick={() =>
+                                        selectVariant(
+                                          productVariant,
+                                          variantOption
+                                        )
+                                      }
+                                      className={`py-1 px-1 flex justify-center text-gray-700  border ${
+                                        selectImage ==
+                                        variantOption?.variantionImg
+                                          ? "border-blue-100"
+                                          : "border-grey-400"
+                                      }  w-auto cursor-pointer`}
+                                    >
+                                      {variantOption.variantName}
+                                    </div>
+                                  );
+                                }
+                              )}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                    <div className="mt-2">
+                      {/* {
+                        variants?.map(variantData => {
+                          return (
+                            <DetailProductColumn
+                              columnLeft={variantData.productVariantName}
+                              columnRight={variantData.variationName}
+                            />
+                          );
+                        })
+                      } */}
+                      <span></span>
                     </div>
                     {/* <div className="mt-2">
                   <span className="text-sm text-blue-100 font-bold lg:text-xl">
@@ -429,9 +589,9 @@ function Slug({ data, user, token, redirect }) {
                           >
                             {ReactHtmlParser(
                               data.data[0].description
-                                .slice(0, 400)
                                 .replace(/\r\n|\r|\n/g, "<br />")
-                            ) + `......`}{" "}
+                                .slice(0, 400)
+                            )}
                             <span
                               className="text-blue-100 cursor-pointer"
                               onClick={() => setShowMore(true)}
@@ -649,6 +809,15 @@ function Slug({ data, user, token, redirect }) {
                   </div>
                 </div>
               </div>
+            </div>
+            <div className="mt-5">
+              <h2 className="text-2xl text-center ">
+                Produk lain dari toko{" "}
+                <span className="text-blue-100">
+                  {data.data[0].umkm.ukmName}
+                </span>
+              </h2>
+              <div className="grid grid-cols-4"></div>
             </div>
           </div>
         </div>

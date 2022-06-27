@@ -33,7 +33,7 @@ const customStyles = {
   },
 };
 
-const SuccessCartModalMobile = ({ item, quantity }) => {
+const SuccessCartModalMobile = ({ item, quantity, variants }) => {
   let subtitle;
 
   const [modalIsOpen, setIsOpen] = React.useState(false);
@@ -58,22 +58,20 @@ const SuccessCartModalMobile = ({ item, quantity }) => {
       quantity: quantity,
     };
     const token = Cookie.get("token");
-        console.log(token);
+    console.log(token);
 
-      if (!token) {
-        toast.error("Silahkan login terlebih dahulu untuk melanjutkan");
-      }
+    if (!token) {
+      toast.error("Silahkan login terlebih dahulu untuk melanjutkan");
+    }
     const bearer = `Bearer ${token}`;
 
-  
     if (quantity < item.stock) {
       const response = await addToCart(data, bearer);
       if (response.error === false) {
         setIsOpen(true);
       }
     } else {
-            toast.error(`Maximal pembelian ${item.stock}`);
-
+      toast.error(`Maximal pembelian ${item.stock}`);
     }
   };
   Modal.setAppElement("#root");
@@ -107,7 +105,6 @@ const SuccessCartModalMobile = ({ item, quantity }) => {
             <div className="mt-6">
               <CardItem item={item} quantity={quantity} />
             </div>
-          
           </div>
         </div>
       </Modal>

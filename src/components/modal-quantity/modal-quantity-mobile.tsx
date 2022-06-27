@@ -34,14 +34,20 @@ const customStyles = {
   },
 };
 
-const ModalQuantityMobileModal = ({ stock, minimumBuy, price, item }) => {
+const ModalQuantityMobileModal = ({
+  stock,
+  minimumBuy,
+  price,
+  item,
+  variants,
+}) => {
   let subtitle;
 
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [quantity, setQuantity] = useState(1);
   const [isAddNote, setIsAddNote] = useState(false);
   const [subTotal, setSubtotal] = useState(100000);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const router = useRouter();
   const dispatch = useAuthDispatch();
@@ -63,28 +69,28 @@ const ModalQuantityMobileModal = ({ stock, minimumBuy, price, item }) => {
   function closeModal() {
     setIsOpen(false);
   }
-   useEffect(() => {
-     if (quantity > stock) {
-       setError(`Maximal pembelian ${quantity} `);
-     } else {
-       setError("");
-     }
-     if (quantity < minimumBuy) {
-       setError(`minimum pembelian adalah ${minimumBuy} `);
-     } else {
-       setError("");
-     }
-   }, [quantity]);
+  useEffect(() => {
+    if (quantity > stock) {
+      setError(`Maximal pembelian ${quantity} `);
+    } else {
+      setError("");
+    }
+    if (quantity < minimumBuy) {
+      setError(`minimum pembelian adalah ${minimumBuy} `);
+    } else {
+      setError("");
+    }
+  }, [quantity]);
 
-   const addQuantity = () => {
-     if (stock >= stock) {
-       setQuantity(quantity + 1);
-     }
-   };
+  const addQuantity = () => {
+    if (stock >= stock) {
+      setQuantity(quantity + 1);
+    }
+  };
 
-   const lessQuantity = () => {
-     if (minimumBuy < quantity) setQuantity(quantity - 1);
-   };
+  const lessQuantity = () => {
+    if (minimumBuy < quantity) setQuantity(quantity - 1);
+  };
   const submitForm = async (event: FormEvent) => {
     event.preventDefault();
   };
@@ -167,7 +173,7 @@ const ModalQuantityMobileModal = ({ stock, minimumBuy, price, item }) => {
                 )}
               </div>
               <span className="text-xs text-red-500 mt-2">
-                Maximal pembelian { stock}
+                Maximal pembelian {stock}
               </span>
             </div>
 
@@ -189,11 +195,13 @@ const ModalQuantityMobileModal = ({ stock, minimumBuy, price, item }) => {
             </div>
             <div className="mt-5">
               {subTotal > 0 && quantity > 0 ? (
-                <SuccessCartModalMobile item={item} quantity={quantity}/>
+                <SuccessCartModalMobile
+                  variants={variants}
+                  item={item}
+                  quantity={quantity}
+                />
               ) : (
-                <button
-                  className="bg-blue-100 opacity-40  text-white font-bold py-2 px-4 w-full rounded outline-none"
-                >
+                <button className="bg-blue-100 opacity-40  text-white font-bold py-2 px-4 w-full rounded outline-none">
                   Order
                 </button>
               )}

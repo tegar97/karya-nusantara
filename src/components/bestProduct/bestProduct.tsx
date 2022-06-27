@@ -17,11 +17,11 @@ function BestProduct() {
       style={{ backgroundColor: "#f7f7f7" }}
     >
       <h2 className="text-blue-100  text-lg lg:text-2xl font-bold">
-        Product Unggulan Karya Nusantara
+        Produk Unggulan Karya Nusantara
       </h2>
       <Swiper
         className="mt-10"
-        spaceBetween={5}
+        spaceBetween={10}
         slidesPerView={4}
         pagination={{ clickable: true }}
         navigation

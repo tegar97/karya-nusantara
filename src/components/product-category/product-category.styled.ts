@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 
 export const LeftCategory = styled.div`
-    padding: 2rem;
 
 `
 

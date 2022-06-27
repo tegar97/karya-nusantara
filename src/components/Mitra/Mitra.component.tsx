@@ -7,6 +7,7 @@ import { useMediaQuery } from "react-responsive";
 import Slider from "react-slick";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import MitraCardComponent from "./Mitra-card.componen";
+import MitraCardNew from "./Mitra-card.component_new";
 
 const fetcher = (
   ...args: [input: RequestInfo, init?: RequestInit | undefined]
@@ -75,11 +76,11 @@ function OurMitra() {
           </SkeletonTheme>
         ) : (
           <div className="group">
-            <Slider {...settings}>
+            <div className="grid grid-cols-4 gap-10">
               {data.data.map((data) => (
-                <MitraCardComponent data={data} />
+                <MitraCardNew data={ data} />
               ))}
-            </Slider>
+            </div>
           </div>
         )}
       </div>

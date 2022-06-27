@@ -16,7 +16,7 @@ function FooterComponent() {
               className="z-30 cursor-pointer"
             />
           </Link>
-          <div>
+          <div className="flex flex-col p-0">
             <h2 className="font-bold lg:text-md text-white">
               PT. Solusi Karya Nusantara
             </h2>
@@ -27,7 +27,7 @@ function FooterComponent() {
               {" "}
               Jl Tb simatupang no 18 Rt 002/Rw 001
             </span>
-            <span className="text-white mt-2">+62 812-8171-2428</span>
+            <span className="text-white mt-2">0812 1115 9207</span>
           </div>
         </div>
         <div>
@@ -52,11 +52,11 @@ function FooterComponent() {
             </Link>
           </ul>
         </div>
-        <div className="col-span-2 mt-5 text-center lg:col-span-1 lg:text-left lg:mt-5">
+        <div className=" md:5 lg:mt-0 text-center  lg:text-left ">
           <span className="text-xl font-bold text-white">Kontak Kami </span>
           <ul className="mt-3 text-white">
-            <li className="text-lg">Telpon : 0812 8171 2428 (Nisa)</li>
             <li className="text-lg">Email : info@karyanusantara.co.id</li>
+            <li className="text-lg">Telepon : 0812 1115 9207</li>
           </ul>
         </div>
       </div>

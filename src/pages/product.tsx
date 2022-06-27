@@ -45,9 +45,11 @@ export async function getServerSideProps(context) {
   const { query, res } = context;
 
 
-  let token_lkpp: any;
+  let token_lkpp: any = null;
+  let isLkpp  = false
   if (query.nonce) {
     try {
+      isLkpp = true
       token_lkpp = await jwt_decode(query?.nonce);
 
       const bearerToken = `Bearer ${query.nonce}`;
@@ -62,13 +64,19 @@ export async function getServerSideProps(context) {
         ]);
       }
     } catch {}
+  } else {
+    isLkpp = false
   }
 
   // Pass data to the page via props
-  return { props: {} };
+  return {
+    props: {
+      isLkpp,
+    },
+  };
 }
 
-function Product() {
+function Product({isLkpp}) {
   const itemContainerRef = useRef();
   const [fixPosition, setFixPosition] = useState(false);
   const [categoryData, setCategoryData]: any = useState([]);
@@ -77,11 +85,11 @@ function Product() {
   const [product, setProduct] = useState([]);
   const [subCategory, setSubCategory] = useState("");
   const [search2, setSearch2] = useState("");
-  const [groupByCategory, setGroupByCategory] = useState('');
+  const [groupByCategory, setGroupByCategory] = useState("");
   const [province, setProvince] = useState("");
   const [showAllProvince, setShowAllProvince] = useState(false);
   const [listCity, setListCity] = useState([]);
-  const [delayChangeLocation,setDelayChangeLocation] = useState(false)
+  const [delayChangeLocation, setDelayChangeLocation] = useState(false);
   const router = useRouter();
   const { nonce } = router.query;
   const [categoryId, setCategoryId] = useContext(CategoryProductContext);
@@ -89,7 +97,9 @@ function Product() {
   const { data: productData, error: erroProductData } = useSWR(
     `${process.env.API_V2}/api/products?category=${
       category ? category : ""
-    }&province=${province ? province : ""}&subcategory=${subCategory ? subCategory : ""}`,
+    }&province=${province ? province : ""}&subcategory=${
+      subCategory ? subCategory : ""
+    }`,
     fetcher
   );
 
@@ -100,27 +110,23 @@ function Product() {
 
   useEffect(() => {
     console.log(productData);
-      const groupByCategory = productData?.data?.reduce((acc, curr) => {
-        (acc[curr.category.categoryName] =
-          acc[curr.category.categoryName] || []).push(curr);
+    const groupByCategory = productData?.data?.reduce((acc, curr) => {
+      (acc[curr.category.categoryName] =
+        acc[curr.category.categoryName] || []).push(curr);
 
-        return acc;
-      }, {});
+      return acc;
+    }, {});
 
-      console.log(groupByCategory)
-      setGroupByCategory(groupByCategory);
+    console.log(`Token lkpp : ${isLkpp}`);
+    setGroupByCategory(groupByCategory);
 
-      console.log(groupByCategory);
-
+    console.log(groupByCategory);
 
     // console.log(groupByCategory);
-  }, [productData,subCategory,province]);
+  }, [productData, subCategory, province]);
   const onSearch = (e) => {
     setSearch(e.target.value.toLowerCase());
   };
-
- 
- 
 
   const { data, error } = useSWR(
     `${process.env.API_V2}/api/categoriestMain`,
@@ -201,11 +207,10 @@ function Product() {
       }
     }
 
-
     // provinceNull.concat(val.target.name);
     // setProvince();
   };
-    console.log(province);
+  console.log(province);
 
   const settings = {
     dots: true,
@@ -243,24 +248,27 @@ function Product() {
       >
         <div className="lg:grid flex flex-col  mt-20   lg:mt-0 lg:grid-cols-5">
           <div className="flex flex-col mt-0 lg:mt-10">
-            <div className="box shadow-md w-full   px-2 py-4">
-              <span className="text-lg ">Kategori</span>
-              <div className="mt-2 ml-2">
-                <ul>
-                  {data?.data.map((data) => {
-                    return (
-                      <CategoryItem
-                        setSubCategory={setSubCategory}
-                        data={data}
-                        key={data.id}
-                        category={category}
-                        subCategoryFilter={subCategoryFilter}
-                      />
-                    );
-                  })}
-                </ul>
+            {!isLkpp && (
+              <div className="box shadow-md w-full   px-2 py-4">
+                <span className="text-lg ">Kategori</span>
+                <div className="mt-2 ml-2">
+                  <ul>
+                    {data?.data.map((data) => {
+                      return (
+                        <CategoryItem
+                          setSubCategory={setSubCategory}
+                          data={data}
+                          key={data.id}
+                          category={category}
+                          subCategoryFilter={subCategoryFilter}
+                        />
+                      );
+                    })}
+                  </ul>
+                </div>
               </div>
-            </div>
+            )}
+
             <div className="box shadow-md w-full px-2 py-4 mt-2 flex flex-col rounded-md">
               <span>Lokasi</span>
               <div className="mt-2 flex-col">

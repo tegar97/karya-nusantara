@@ -12,7 +12,7 @@ import FadeInAnimation from "../gsap/FadeIn";
 import ScrollAnimation from "react-animate-on-scroll";
 import { CategoryProductContext } from "../../context/productCategory";
 import useSWR from "swr";
-function ProductCategory({ data2 }) {
+function ProductCategory({ data2 ,nonce}) {
   const fetcher = (
     ...args: [input: RequestInfo, init?: RequestInit | undefined]
   ): any => fetch(...args).then((res) => res.json());
@@ -50,19 +50,19 @@ function ProductCategory({ data2 }) {
           <CategoryProductListContainer>
                 <Link href="/product">
                   <span className="text-xl text-white cursor-pointer lg:text-xl text-md font-semibold" >
-                    Katalog Product
+                    Katalog Produk
                   </span>
                 </Link>
             <ScrollAnimation animateIn="fadeIn">
               <ul className="mt-3 ">
-                {data
+                {!nonce && data
                   ? data.data.map((data) => {
-                      return (
+                    return (
+                      <Link href={`/product?category=${data.code}`}>
                         <CategoryProductList
                           ref={categoryListRef}
-                          onClick={(e) => showSubCategory(e, data.id)}
                           className="shadow-lg  z-20"
-                        >
+                        >  
                           {/* <Image
                             src="/assets/icon-mask.png"
                             alt="apd"
@@ -79,14 +79,15 @@ function ProductCategory({ data2 }) {
                             {data.categoryName}
                           </span>
                         </CategoryProductList>
-                      );
+                      </Link>
+                    );
                     })
                   : "Loading ..."}
               </ul>
             </ScrollAnimation>
           </CategoryProductListContainer>
         </LeftCategory>
-        <div className="hidden rounded-sm lg:col-span-3 lg:grid relative">
+        <div className="hidden rounded-sm lg:col-span-3 lg:grid relative ">
           <ScrollAnimation animateIn="fadeIn">
             <Carousel
               autoPlay
@@ -95,16 +96,16 @@ function ProductCategory({ data2 }) {
               showArrows={false}
             >
               {data2.data[0].image1 && (
-                <Link href="/product?category=3&all=true">
-                  <div>
-                    <img
-                      src={`${process.env.API_LARAVEL}/storage/${data2.data[0].image1}`}
-                      alt={`gambar ${data2.data[0].image1}`}
-                      className="w-full h-full cursor-pointer"
-                      style={{ borderRadius: "10px" }}
-                    ></img>
-                  </div>
-                </Link>
+                  <Link href="/product?category=3&all=true">
+                    <div>
+                      <img
+                        src={`${process.env.API_LARAVEL}/storage/${data2.data[0].image1}`}
+                        alt={`gambar ${data2.data[0].image1}`}
+                        className="w-full h-full cursor-pointer"
+                        style={{ borderRadius: "10px" }}
+                      ></img>
+                    </div>
+                  </Link>
               )}
               {data2.data[0].image2 && (
                 <Link href="/product?category=2&all=true">
