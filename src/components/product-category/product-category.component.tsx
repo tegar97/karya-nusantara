@@ -12,7 +12,7 @@ import FadeInAnimation from "../gsap/FadeIn";
 import ScrollAnimation from "react-animate-on-scroll";
 import { CategoryProductContext } from "../../context/productCategory";
 import useSWR from "swr";
-function ProductCategory({ data2 ,nonce}) {
+function ProductCategory({ data2, isLkpp }) {
   const fetcher = (
     ...args: [input: RequestInfo, init?: RequestInit | undefined]
   ): any => fetch(...args).then((res) => res.json());
@@ -20,8 +20,7 @@ function ProductCategory({ data2 ,nonce}) {
   const [categoryId, setCategoryId] = useContext(CategoryProductContext);
   const [showSubCategoryState, setShowSubCategory] = useState("");
   const [categoryName, setCategoryName] = useState("");
-    const categoryListRef :any= useRef();
-
+  const categoryListRef: any = useRef();
 
   const { data, error } = useSWR(
     `${process.env.API_V2}/api/categoriestMain`,
@@ -33,11 +32,10 @@ function ProductCategory({ data2 ,nonce}) {
   );
 
   const showSubCategory = (element, id) => {
-            const { offsetTop } = categoryListRef.current;
+    const { offsetTop } = categoryListRef.current;
 
     console.log(offsetTop);
     setShowSubCategory(id);
-    
   };
   console.log(subCategory);
   return (
@@ -48,46 +46,46 @@ function ProductCategory({ data2 ,nonce}) {
           style={{ borderRadius: "7px" }}
         >
           <CategoryProductListContainer>
-                <Link href="/product">
-                  <span className="text-xl text-white cursor-pointer lg:text-xl text-md font-semibold" >
-                    Katalog Produk
-                  </span>
-                </Link>
+            <Link href="/product">
+              <span className="text-xl text-white cursor-pointer lg:text-xl text-md font-semibold">
+                Katalog Produk
+              </span>
+            </Link>
             <ScrollAnimation animateIn="fadeIn">
               <ul className="mt-3 ">
-                {!nonce && data
+                {!isLkpp && data
                   ? data.data.map((data) => {
-                    return (
-                      <Link href={`/product?category=${data.code}`}>
-                        <CategoryProductList
-                          ref={categoryListRef}
-                          className="shadow-lg  z-20"
-                        >  
-                          {/* <Image
+                      return (
+                        <Link href={`/product?category=${data.code}`}>
+                          <CategoryProductList
+                            ref={categoryListRef}
+                            className="shadow-lg  z-20"
+                          >
+                            {/* <Image
                             src="/assets/icon-mask.png"
                             alt="apd"
                             width={35}
                           height={34}
                             objectFit={'contain'}
                           ></Image> */}
-                          <img
-                            className="lg:w-10 w-10 h-10 lg:h-10 "
-                            alt="product photo"
-                            src={`${process.env.API_V2}/storage/images/categoryIcon/${data.categoryIcon}`}
-                          />
-                          <span className="ml-3 text-sm md:text-md lg:text-lg">
-                            {data.categoryName}
-                          </span>
-                        </CategoryProductList>
-                      </Link>
-                    );
+                            <img
+                              className="lg:w-10 w-10 h-10 lg:h-10 "
+                              alt="product photo"
+                              src={`${process.env.API_V2}/storage/images/categoryIcon/${data.categoryIcon}`}
+                            />
+                            <span className="ml-3 text-sm md:text-md lg:text-lg">
+                              {data.categoryName}
+                            </span>
+                          </CategoryProductList>
+                        </Link>
+                      );
                     })
                   : "Loading ..."}
               </ul>
             </ScrollAnimation>
           </CategoryProductListContainer>
         </LeftCategory>
-        <div className="hidden rounded-sm lg:col-span-3 lg:grid relative ">
+        <div className="hidden rounded-sm lg:col-span-3 lg:grid relative  ">
           <ScrollAnimation animateIn="fadeIn">
             <Carousel
               autoPlay
@@ -96,16 +94,16 @@ function ProductCategory({ data2 ,nonce}) {
               showArrows={false}
             >
               {data2.data[0].image1 && (
-                  <Link href="/product?category=3&all=true">
-                    <div>
-                      <img
-                        src={`${process.env.API_LARAVEL}/storage/${data2.data[0].image1}`}
-                        alt={`gambar ${data2.data[0].image1}`}
-                        className="w-full h-full cursor-pointer"
-                        style={{ borderRadius: "10px" }}
-                      ></img>
-                    </div>
-                  </Link>
+                <Link href="/product?category=3&all=true">
+                  <div>
+                    <img
+                      src={`${process.env.API_LARAVEL}/storage/${data2.data[0].image1}`}
+                      alt={`gambar ${data2.data[0].image1}`}
+                      className="w-full h-full cursor-pointer"
+                      style={{ borderRadius: "10px" }}
+                    ></img>
+                  </div>
+                </Link>
               )}
               {data2.data[0].image2 && (
                 <Link href="/product?category=2&all=true">

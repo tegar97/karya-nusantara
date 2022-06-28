@@ -16,17 +16,16 @@ import RfqMobile from "../components/Request-For-quantity/rfq-mobile.component";
 import { useRouter } from "next/router";
 import jwtDecode from "jwt-decode";
 import { getProfile } from "../constant/api/auth";
-
+import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 
 export async function getStaticProps(context) {
   const res = await fetch(`${process.env.API_LARAVEL}/api/settings`);
   const res2 = await fetch(`${process.env.API_LARAVEL}/api/setting-carousel`);
   const cookies = Cookies.get("token_lkpp") ? Cookies.get("token_lkpp") : false;
-
   const data = await res.json();
   const data2 = await res2.json();
-
+ 
   return {
     props: { data, data2, cookies },
     revalidate: 10, // will be passed to the page component as props
@@ -36,6 +35,14 @@ export async function getStaticProps(context) {
 export default function Home({ data, data2, cookies }) {
   const router = useRouter();
   const { nonce } = router.query;
+    const [isLkpp, setisLkpp] = useState(false);
+useEffect(() => {
+  if (Cookies.get("token_lkpp") !== null) {
+    setisLkpp(true);
+  } else {
+    setisLkpp(false);
+  }
+}, []);
   console.log(cookies);
   return (
     <div>
@@ -71,7 +78,7 @@ export default function Home({ data, data2, cookies }) {
       <About image={data} /> */}
 
       <div className="hidden lg:block md:hidden mt-20">
-        <ProductCategory nonce={cookies} data2={data2} />
+        <ProductCategory isLkpp={isLkpp} data2={data2} />
       </div>
       <div className="block lg:hidden md:block">
         <ProductCategoryMobile />

@@ -78,7 +78,7 @@ export async function getServerSideProps(context) {
   };
 }
 
-function Product({isLkpp}) {
+function Product() {
   const itemContainerRef = useRef();
   const [fixPosition, setFixPosition] = useState(false);
   const [categoryData, setCategoryData]: any = useState([]);
@@ -91,6 +91,7 @@ function Product({isLkpp}) {
   const [province, setProvince] = useState("");
   const [showAllProvince, setShowAllProvince] = useState(false);
   const [listCity, setListCity] = useState([]);
+  const  [isLkpp, setisLkpp] = useState(false);
   const [delayChangeLocation, setDelayChangeLocation] = useState(false);
   const router = useRouter();
   const { nonce } = router.query;
@@ -110,6 +111,14 @@ function Product({isLkpp}) {
     fetcher
   );
 
+
+  useEffect(() => {
+    if (Cookie.get("token_lkpp") === null) {
+      setisLkpp(true)
+    } else {
+      setisLkpp(false)
+    }
+  },[])
   useEffect(() => {
     console.log(productData);
     const groupByCategory = productData?.data?.reduce((acc, curr) => {
@@ -250,7 +259,7 @@ function Product({isLkpp}) {
       >
         <div className="lg:grid flex flex-col  mt-20   lg:mt-0 lg:grid-cols-5">
           <div className="flex flex-col mt-0 lg:mt-10">
-            {!isLkpp && (
+            {isLkpp == false && (
               <div className="box shadow-md w-full   px-2 py-4">
                 <span className="text-lg ">Kategori</span>
                 <div className="mt-2 ml-2">
