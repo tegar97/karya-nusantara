@@ -113,10 +113,10 @@ function Product() {
 
 
   useEffect(() => {
-    if (Cookie.get("token_lkpp") === null) {
-      setisLkpp(true)
+    if (Cookie.get("lkkp_token") === null) {
+      setisLkpp(true);
     } else {
-      setisLkpp(false)
+      setisLkpp(false);
     }
   },[])
   useEffect(() => {

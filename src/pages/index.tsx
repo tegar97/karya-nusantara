@@ -37,7 +37,7 @@ export default function Home({ data, data2, cookies }) {
   const { nonce } = router.query;
     const [isLkpp, setisLkpp] = useState(false);
 useEffect(() => {
-  if (Cookies.get("token_lkpp") !== null) {
+  if (Cookies.get("lkkp_token") !== null) {
     setisLkpp(true);
   } else {
     setisLkpp(false);
